@@ -1,0 +1,7 @@
+.comics-preview {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 65px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 10px;
+}

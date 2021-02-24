@@ -1,0 +1,16 @@
+.comics-preview-item {
+  // margin: 0 20px 65px 0;
+
+  .img-container {
+    padding-bottom: 17px;
+  }
+
+  .img-container img {
+    width: 100%;
+    box-shadow: 0px 9px 19px -7px rgb(0, 0, 0.5);
+  }
+
+  span {
+    font-size: 12px;
+  }
+}
