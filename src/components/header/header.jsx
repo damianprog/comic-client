@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as InIcon } from '../../assets/in-icon.svg';
+import Hamburger from '../hamburger/hamburger';
 import { Search } from '@material-ui/icons';
 
-import './header.css';
+import './header.scss';
 
 const Header = () => (
   <header className="main-header">
@@ -13,13 +14,13 @@ const Header = () => (
       <div className="sign-in-container">
         <InIcon /> <span>Sign In &nbsp;|&nbsp; Join</span>
       </div>
+      <Hamburger />
       <Link to="/">
         <Logo className="logo" />
       </Link>
       <div className="search-container">
         <Link to="/">
           <Search style={{ color: '#fff' }} />
-          <span>Search</span>
         </Link>
       </div>
     </div>

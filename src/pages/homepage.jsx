@@ -34,7 +34,6 @@ class Homepage extends React.Component {
           },
         })
         .then((res) => {
-          // console.log(res.data.data.results);
           const results = res.data.data.results;
           console.log(results);
           this.setState({
@@ -52,7 +51,7 @@ class Homepage extends React.Component {
     return (
       <div className="homepage">
         <Header></Header>
-        <ComicsPreview comics={previewComics} />
+        <ComicsPreview comics={previewComics} title="Latest Thor releases" />
       </div>
     );
   }

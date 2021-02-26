@@ -7,26 +7,24 @@ class ComicsPreviewItem extends React.Component {
     super(props);
 
     this.state = {
-      id: props.id,
-      title: props.title,
-      description: props.description,
-      images: props.images,
-      creators: props.creators.items,
+      comic: props.comic,
     };
   }
 
   render() {
-    const { id, title, description, images, creators } = this.state;
+    const { title, images, creators } = this.state.comic;
 
-    const mainCreators = creators.splice(0, 2);
+    const mainCreators = creators.items.splice(0, 2);
     const mainCreatorsLastNames = mainCreators.map((creator) =>
       creator.name.split(' ').pop()
     );
 
+    const image = `${images[0].path}.${images[0].extension}`;
+
     return (
       <div className="comics-preview-item">
         <div className="img-container">
-          <img alt="comic" src={`${images[0].path}.${images[0].extension}`} />
+          <img alt="comic" src={image} />
         </div>
         <h5>{title}</h5>
         <span>{mainCreatorsLastNames.join(', ')}</span>
