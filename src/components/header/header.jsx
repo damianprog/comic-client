@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as LogoIcon } from '../../assets/logo-icon.svg';
 import { ReactComponent as InIcon } from '../../assets/in-icon.svg';
 import Hamburger from '../hamburger/hamburger';
 import { Search } from '@material-ui/icons';
+import NavList from '../nav-list/nav-list';
 
 import './header.scss';
 
@@ -16,42 +17,17 @@ const Header = () => (
       </div>
       <Hamburger />
       <Link to="/">
-        <Logo className="logo" />
+        <LogoIcon className="logo" />
       </Link>
       <div className="search-container">
         <Link to="/">
-          <Search style={{ color: '#fff' }} />
+          <Search />
         </Link>
       </div>
     </div>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Videos</Link>
-        </li>
-        <li>
-          <Link to="/">Characters</Link>
-        </li>
-        <li>
-          <Link to="/">Comics</Link>
-        </li>
-        <li>
-          <Link to="/">Movies</Link>
-        </li>
-        <li>
-          <Link to="/">TV Shows</Link>
-        </li>
-        <li>
-          <Link to="/">Games</Link>
-        </li>
-        <li>
-          <Link to="/">News</Link>
-        </li>
-        <li>
-          <Link to="/">More</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className="header-nav-bar">
+      <NavList />
+    </div>
   </header>
 );
 

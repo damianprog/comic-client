@@ -44,16 +44,18 @@
   border-right: 1px solid #393939;
 }
 
-.main-header nav li {
-  display: inline-block;
-  font-weight: bold;
-  padding: 12px 18px;
-}
+.main-header {
+  .header-nav-bar li {
+    display: inline-block;
+    font-weight: bold;
+    padding: 12px 18px;
+  }
 
-.main-header nav {
-  border-top: 1px solid #393939;
-  text-transform: uppercase;
-  text-align: center;
+  .header-nav-bar {
+    border-top: 1px solid #393939;
+    text-transform: uppercase;
+    text-align: center;
+  }
 }
 
 @media (max-width: 840px) {
@@ -62,7 +64,7 @@
     border: none;
   }
 
-  .main-header nav,
+  .main-header .header-nav-bar,
   .sign-in-container {
     display: none;
   }
