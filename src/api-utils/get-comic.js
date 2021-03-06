@@ -1,9 +1,9 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
 
-const GetComic = (id) => {
+const GetComic = (comicId) => {
   return MarvelApiBase.get('v1/public/comics', {
     params: {
-      id: id,
+      id: comicId,
       apikey: process.env.REACT_APP_MARVEL_API_KEY,
     },
   })
