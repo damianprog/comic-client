@@ -29,8 +29,9 @@
       color: #d2d2d2;
     }
 
-    .comic-info div {
-      margin: 18px 0;
+    .comic-info h3,
+    .comic-info-description {
+      margin: 18px 0 0 0;
     }
 
     .comic-info-row {
@@ -39,13 +40,27 @@
       max-width: 485px;
     }
 
-    .comic-info-row div {
-      margin: 0;
-    }
-
     .comic-info-description {
       max-width: 430px;
     }
+
+    @media (max-width: 840px) {
+      background-color: #000;
+
+      .wrapper,
+      .comic-info-row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .comic-info h2 {
+        margin-top: 18px;
+      }
+    }
+  }
+
+  .main-img-container {
+    max-width: 350px;
   }
 
   .main-img-container img {

@@ -13,6 +13,7 @@ function App() {
       <Header></Header>
       <Switch>
         <Route exact path="/" component={Homepage} />
+        {/* <Route exact path="/search" component={Homepage} /> */}
         <Route exact path="/comic/:id" component={ComicPage} />
       </Switch>
     </div>
