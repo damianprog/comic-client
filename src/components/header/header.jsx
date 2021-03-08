@@ -20,7 +20,7 @@ const Header = () => (
         <LogoIcon className="logo" />
       </Link>
       <div className="search-container">
-        <Link to="/">
+        <Link to="/search">
           <Search />
         </Link>
       </div>

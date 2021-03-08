@@ -6,6 +6,7 @@ import './App.css';
 
 import Homepage from './components/homepage/homepage';
 import ComicPage from './components/comic-page/comic-page';
+import Search from './components/search/search';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Header></Header>
       <Switch>
         <Route exact path="/" component={Homepage} />
-        {/* <Route exact path="/search" component={Homepage} /> */}
+        <Route exact path="/search" component={Search} />
         <Route exact path="/comic/:id" component={ComicPage} />
       </Switch>
     </div>
