@@ -44,13 +44,17 @@
 }
 
 .sign-in-container,
+.search-container {
+  border-left: 1px solid #393939;
+  border-right: 1px solid #393939;
+}
+
+.sign-in-container,
 .search-container a {
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  border-left: 1px solid #393939;
-  border-right: 1px solid #393939;
 }
 
 .main-header {

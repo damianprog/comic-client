@@ -1,6 +1,6 @@
 import React from 'react';
 import ComicsPreview from '../comics-preview/comics-preview';
-import MarvelApiBase from '../../marvel-api-base/marvel-api-base';
+import GetComicsByTitle from '../../api-utils/get-comics-by-title';
 
 import './homepage.scss';
 
@@ -20,9 +20,9 @@ class Homepage extends React.Component {
   }
 
   async setComicPreviews() {
-    const firstPreviewComics = await this.getPreviewComics('Thor');
-    const secondPreviewComics = await this.getPreviewComics('Spider-Man');
-    const thirdPreviewComics = await this.getPreviewComics('Black Widow');
+    const firstPreviewComics = await GetComicsByTitle('Thor', 10);
+    const secondPreviewComics = await GetComicsByTitle('Spider-Man', 10);
+    const thirdPreviewComics = await GetComicsByTitle('Black Widow', 10);
 
     this.setState({
       firstPreviewComics: firstPreviewComics,
@@ -31,25 +31,25 @@ class Homepage extends React.Component {
     });
   }
 
-  async getPreviewComics(title) {
-    return MarvelApiBase.get('v1/public/comics', {
-      params: {
-        format: 'comic',
-        title: title,
-        limit: 10,
-        noVariants: true,
-        orderBy: 'issueNumber',
-        apikey: process.env.REACT_APP_MARVEL_API_KEY,
-      },
-    })
-      .then((res) => {
-        const results = res.data.data.results;
-        return results.filter((result) => result.images.length > 0);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // async getPreviewComics(title) {
+  //   return MarvelApiBase.get('v1/public/comics', {
+  //     params: {
+  //       format: 'comic',
+  //       title: title,
+  //       limit: 10,
+  //       noVariants: true,
+  //       orderBy: 'issueNumber',
+  //       apikey: process.env.REACT_APP_MARVEL_API_KEY,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       const results = res.data.data.results;
+  //       return results.filter((result) => result.images.length > 0);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   render() {
     const {
@@ -59,7 +59,7 @@ class Homepage extends React.Component {
     } = this.state;
 
     return (
-      <div className="homepage">
+      <div>
         <ComicsPreview
           comics={firstPreviewComics}
           title="Popular Thor releases"

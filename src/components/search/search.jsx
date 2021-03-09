@@ -1,15 +1,19 @@
 import React from 'react';
+import GetComicsByTitle from '../../api-utils/get-comics-by-title';
 
 import { Search } from '@material-ui/icons';
 
 import './search.scss';
+import SearchResults from './search-results';
 
-class SearchComic extends React.Component {
+class SearchComics extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       title: '',
+      comics: [],
+      loading: false,
     };
   }
 
@@ -18,16 +22,29 @@ class SearchComic extends React.Component {
     this.setState({ title: value });
   };
 
+  getComics = async (event) => {
+    event.preventDefault();
+    this.setState({ loading: true });
+    const { title } = this.state;
+    const foundComics = await GetComicsByTitle(title, 100);
+    this.setState({ comics: foundComics, loading: false });
+  };
+
   render() {
+    const { comics, loading } = this.state;
+
     return (
       <div className="search">
         <div className="search-input-container">
           <Search />
-          <input onChange={this.updateTitle} placeholder="search" />
+          <form onSubmit={this.getComics}>
+            <input onChange={this.updateTitle} placeholder="search" />
+          </form>
         </div>
+        <SearchResults comics={comics} loading={loading}></SearchResults>
       </div>
     );
   }
 }
 
-export default SearchComic;
+export default SearchComics;
