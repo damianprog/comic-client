@@ -1,15 +1,9 @@
 import React from 'react';
+import GetComicMainImage from '../../utils/get-comic-main-image';
 
 import './comic-page-details.scss';
 
 const ComicPageDetails = ({ comic, comicSeries }) => {
-  const mainImage = () => {
-    const { images } = comic;
-    return images && images[0]
-      ? `${images[0].path}.${images[0].extension}`
-      : '';
-  };
-
   const publishedDate = () => {
     const { dates } = comic;
     let formattedDate = '';
@@ -50,36 +44,48 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
 
   const { title } = comic;
 
+  const published = publishedDate();
+  const writer = creatorByRole('writer');
+  const penciler = creatorByRole('inker');
+  const coverArtist = creatorByRole('penciler');
+
   return (
     <div className="comic-details">
       <div
-        style={{ backgroundImage: `url(${mainImage()})` }}
+        style={{ backgroundImage: `url(${GetComicMainImage(comic)})` }}
         className="comic-details-bg"
       ></div>
       <div className="wrapper">
         <div className="main-img-container">
-          <img alt="main-img" src={mainImage()} />
+          <img alt="main-img" src={GetComicMainImage(comic)} />
         </div>
         <div className="comic-info">
           <h2>{title}</h2>
           <div>
             <h3>Published:</h3>
-            <span>{publishedDate()}</span>
+            <span>{published}</span>
           </div>
           <div className="comic-info-row">
-            <div>
-              <h3>Writer:</h3>
-              <span>{creatorByRole('writer')}</span>
-            </div>
-            <div>
-              <h3>Penciler:</h3>
-              <span>{creatorByRole('inker')}</span>
-            </div>
+            {writer !== '' && (
+              <div>
+                <h3>Writer:</h3>
+                <span>{writer}</span>
+              </div>
+            )}
+            {penciler !== '' && (
+              <div>
+                <h3>Penciler:</h3>
+                <span>{penciler}</span>
+              </div>
+            )}
           </div>
-          <div>
-            <h3>Cover Artist:</h3>
-            <span>{creatorByRole('penciler')}</span>
-          </div>
+          {coverArtist !== '' && (
+            <div>
+              <h3>Cover Artist:</h3>
+              <span>{coverArtist}</span>
+            </div>
+          )}
+
           <div className="comic-info-description">{description()}</div>
         </div>
       </div>

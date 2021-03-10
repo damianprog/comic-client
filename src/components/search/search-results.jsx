@@ -12,8 +12,6 @@ const SearchResults = ({ comics, loading }) => {
   const indexOfFirstComic = indexOfLastComic - comicsPerPage;
   const currentComics = comics.slice(indexOfFirstComic, indexOfLastComic);
 
-  console.log('comics: ', currentComics);
-
   return (
     <div className="search-results">
       {loading ? (
@@ -21,7 +19,10 @@ const SearchResults = ({ comics, loading }) => {
           <CircularProgress />
         </div>
       ) : (
-        <SearchResultsList comics={currentComics}></SearchResultsList>
+        <SearchResultsList
+          comics={currentComics}
+          allComicsLength={comics.length}
+        ></SearchResultsList>
       )}
     </div>
   );
