@@ -1,5 +1,5 @@
 .search {
-  padding: 50px 30px 0 30px;
+  padding-top: 50px;
 
   input {
     width: 100%;
@@ -13,7 +13,7 @@
 
   .search-input-container {
     border: 2px solid transparent;
-    margin-bottom: 50px;
+    margin: 0 30px 50px 30px;
     svg {
       position: absolute;
       margin-top: 5px;
