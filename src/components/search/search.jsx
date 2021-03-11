@@ -14,6 +14,7 @@ class SearchComics extends React.Component {
       title: '',
       comics: [],
       loading: false,
+      noMatches: false,
     };
   }
 
@@ -24,14 +25,18 @@ class SearchComics extends React.Component {
 
   getComics = async (event) => {
     event.preventDefault();
-    this.setState({ loading: true });
+    this.setState({ loading: true, noMatches: false });
     const { title } = this.state;
     const foundComics = await GetComicsByTitle(title, 100);
-    this.setState({ comics: foundComics, loading: false });
+    this.setState({
+      comics: foundComics,
+      loading: false,
+      noMatches: foundComics.length === 0,
+    });
   };
 
   render() {
-    const { comics, loading } = this.state;
+    const { comics, loading, noMatches } = this.state;
 
     return (
       <div className="search">
@@ -41,6 +46,7 @@ class SearchComics extends React.Component {
             <input onChange={this.updateTitle} placeholder="search" />
           </form>
         </div>
+        {noMatches && <p className="no-matches-info">No matches found!</p>}
         <SearchResults comics={comics} loading={loading}></SearchResults>
       </div>
     );

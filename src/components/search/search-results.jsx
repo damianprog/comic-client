@@ -16,27 +16,27 @@ const SearchResults = ({ comics, loading }) => {
   const paginate = (_, pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="wrapper">
-      <div className="search-results">
-        {loading ? (
-          <div className="loading">
-            <CircularProgress />
-          </div>
-        ) : (
+    <div className="search-results wrapper">
+      {loading ? (
+        <div className="loading">
+          <CircularProgress />
+        </div>
+      ) : (
+        <div className="list-pagination">
           <SearchResultsList
             comics={currentComics}
             allComicsLength={comics.length}
           ></SearchResultsList>
-        )}
-        {comics.length > 0 && (
-          <Pagination
-            className="pagination"
-            count={Math.ceil(comics.length / 10)}
-            shape="rounded"
-            onChange={paginate}
-          />
-        )}
-      </div>
+          {comics.length > 0 && (
+            <Pagination
+              className="pagination"
+              count={Math.ceil(comics.length / 10)}
+              shape="rounded"
+              onChange={paginate}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

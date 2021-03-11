@@ -29,4 +29,11 @@
   input::placeholder {
     color: #f2f2f2;
   }
+
+  .no-matches-info {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 30px;
+  }
 }
