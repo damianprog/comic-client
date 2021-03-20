@@ -21,8 +21,8 @@ class Homepage extends React.Component {
 
   async setComicPreviews() {
     const firstPreviewComics = await GetComicsByTitle('Thor', 10);
-    const secondPreviewComics = await GetComicsByTitle('Spider-Man', 10);
-    const thirdPreviewComics = await GetComicsByTitle('Black Widow', 10);
+    const secondPreviewComics = await GetComicsByTitle('Black Widow', 10);
+    const thirdPreviewComics = await GetComicsByTitle('Moon Knight', 10);
 
     this.setState({
       firstPreviewComics: firstPreviewComics,
@@ -30,26 +30,6 @@ class Homepage extends React.Component {
       thirdPreviewComics: thirdPreviewComics,
     });
   }
-
-  // async getPreviewComics(title) {
-  //   return MarvelApiBase.get('v1/public/comics', {
-  //     params: {
-  //       format: 'comic',
-  //       title: title,
-  //       limit: 10,
-  //       noVariants: true,
-  //       orderBy: 'issueNumber',
-  //       apikey: process.env.REACT_APP_MARVEL_API_KEY,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       const results = res.data.data.results;
-  //       return results.filter((result) => result.images.length > 0);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
 
   render() {
     const {
@@ -59,18 +39,15 @@ class Homepage extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <ComicsPreview
-          comics={firstPreviewComics}
-          title="Popular Thor releases"
-        />
+      <div className="homepage">
+        <ComicsPreview comics={firstPreviewComics} title="New Thor releases" />
         <ComicsPreview
           comics={secondPreviewComics}
-          title="Popular Spider-Man releases"
+          title="New Black Widow releases"
         />
         <ComicsPreview
           comics={thirdPreviewComics}
-          title="Popular Black Widow releases"
+          title="New Moon Knight releases"
         />
       </div>
     );

@@ -14,7 +14,7 @@ class ComicsPreviewItem extends React.Component {
 
   mainCreatorsLastNames() {
     const { creators } = this.state.comic;
-    const mainCreators = creators.items.splice(0, 2);
+    const mainCreators = creators.items.slice(0, 2);
     return mainCreators.map((creator) => creator.name.split(' ').pop());
   }
 
@@ -25,6 +25,7 @@ class ComicsPreviewItem extends React.Component {
 
   render() {
     const { id, title } = this.state.comic;
+    const creators = this.mainCreatorsLastNames().join(', ');
 
     return (
       <div className="comics-preview-item">
@@ -34,7 +35,7 @@ class ComicsPreviewItem extends React.Component {
           </div>
           <h5>{title}</h5>
         </Link>
-        <span>{this.mainCreatorsLastNames().join(', ')}</span>
+        <span>{creators}</span>
       </div>
     );
   }

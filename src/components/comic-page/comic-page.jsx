@@ -7,6 +7,8 @@ import GetComic from '../../api-utils/get-comic';
 import GetSeries from '../../api-utils/get-series';
 import GetComicsFromSeries from '../../api-utils/get-comics-from-series';
 
+import './comic-page.scss';
+
 class ComicPage extends React.Component {
   constructor(props) {
     super(props);
