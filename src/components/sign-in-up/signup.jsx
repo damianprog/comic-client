@@ -1,29 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SignupForm from './signup-form';
 import './sign-in-up.scss';
-import { DialogContent, Button } from '@material-ui/core';
+import { DialogContent } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
 
 const Signup = ({ open, closeSignup }) => {
-  const getDays = () => {
-    const days = [];
-    for (let i = 1; i <= 31; i++) {
-      days.push(i);
-    }
+  const [values, setValues] = useState({
+    nickname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    birthDay: '',
+    birthMonth: '',
+    birthYear: '',
+    birthDate: '',
+  });
 
-    return days;
+  const onChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const getYears = () => {
-    const years = [];
-    const maxYear = new Date().getFullYear();
-    const minYear = maxYear - 120;
+  const [addUser, { loading }] = useMutation(REGISTER_USER, {
+    update(proxy, result) {
+      console.log(result);
+    },
+    variables: {
+      nickname: values.nickname,
+      email: values.email,
+      password: values.password,
+      birthDate: values.birthDate,
+    },
+  });
 
-    for (let i = maxYear; i >= minYear; i--) {
-      years.push(i);
-    }
+  const getFullBirthDate = () => {
+    return `${values.birthDay.padStart(2, '0')}-${values.birthMonth.padStart(
+      2,
+      '0'
+    )}-${values.birthYear}`;
+  };
 
-    return years;
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await setValues({
+      ...values,
+      birthDate: getFullBirthDate(),
+    });
+
+    addUser();
   };
 
   return (
@@ -38,46 +64,34 @@ const Signup = ({ open, closeSignup }) => {
         Create your account
       </DialogTitle>
       <DialogContent className="content">
-        <form>
-          <input placeholder="Nickname"></input>
-          <input placeholder="Email"></input>
-          <input type="password" placeholder="Password"></input>
-          <input type="password" placeholder="Confirm Password"></input>
-          <div className="select-birth-date">
-            <select className="select-day" name="day">
-              {getDays().map((dayNum) => (
-                <option key={`dayNum${dayNum}`} value={dayNum}>
-                  {dayNum}
-                </option>
-              ))}
-            </select>
-            <select className="select-month">
-              <option>Jan</option>
-              <option>Feb</option>
-              <option>Mar</option>
-              <option>Apr</option>
-              <option>May</option>
-              <option>Jun</option>
-              <option>Jul</option>
-              <option>Aug</option>
-              <option>Sep</option>
-              <option>Oct</option>
-              <option>Nov</option>
-              <option>Dec</option>
-            </select>
-            <select className="select-years">
-              {getYears().map((year) => (
-                <option key={`year${year}`}>{year}</option>
-              ))}
-            </select>
-          </div>
-          <Button type="submit" variant="contained" className="create-button">
-            Create Account
-          </Button>
-        </form>
+        <SignupForm onChange={onChange} onSubmit={onSubmit} />
       </DialogContent>
     </Dialog>
   );
 };
+
+const REGISTER_USER = gql`
+  mutation signUp(
+    $nickname: String!
+    $email: String!
+    $password: String!
+    $birthDate: String!
+  ) {
+    signUp(
+      signUpInput: {
+        nickname: $nickname
+        email: $email
+        password: $password
+        birthDate: $birthDate
+      }
+    ) {
+      id
+      nickname
+      email
+      createdAt
+      token
+    }
+  }
+`;
 
 export default Signup;
