@@ -1,0 +1,22 @@
+.sign form {
+  p {
+    margin-bottom: 5px;
+  }
+
+  .select-birth-date {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .select-day {
+    width: 90px;
+  }
+
+  .select-month {
+    width: 120px;
+  }
+
+  .select-year {
+    width: 100px;
+  }
+}

@@ -1,7 +1,10 @@
-.signup {
+.sign {
   font-size: 14px;
   h2 {
     text-align: center;
+  }
+  .title {
+    padding: 0 0 14px 0;
   }
   .title h2 {
     color: #e62429;
@@ -20,34 +23,30 @@
     &:focus {
       border: 1px solid #999;
     }
+
+    &.error {
+      border: 1px solid #e62429;
+    }
   }
 
-  .content {
-    width: 410px;
-    padding-top: 0;
+  .close-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 15px 0 0;
+  }
+
+  .close-container svg {
+    cursor: pointer;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    padding: 0 16px;
   }
 
-  .select-birth-date {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .select-day {
-    width: 90px;
-  }
-
-  .select-month {
-    width: 120px;
-  }
-
-  .select-year {
-    width: 100px;
+  .content {
+    width: 410px;
+    padding: 0 42px;
   }
 
   .actions {
@@ -58,7 +57,14 @@
   .create-button {
     background-color: #e62429;
     color: #fff;
-    margin: 20px 0 22px 0;
+    margin: 12px 0 22px 0;
+    width: 100%;
+    height: 42px;
+
+    &.Mui-disabled {
+      background-color: #ee686c;
+      color: #fff;
+    }
   }
 
   .create-button:hover {

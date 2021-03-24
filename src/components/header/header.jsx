@@ -6,16 +6,23 @@ import { ReactComponent as InIcon } from '../../assets/in-icon.svg';
 import Hamburger from '../hamburger/hamburger';
 import { Search } from '@material-ui/icons';
 import NavList from '../nav-list/nav-list';
-import Signup from '../sign-in-up/signup';
+import Signup from '../sign/signup';
+import Signin from '../sign/signin';
 
 import './header.scss';
 
 const Header = () => {
   const [openSignup, setOpenSignup] = React.useState(false);
+  const [openSignin, setOpenSignin] = React.useState(false);
 
   const toggleSignup = () => {
     setOpenSignup(!openSignup);
     setHtmlScroll(openSignup);
+  };
+
+  const toggleSignin = () => {
+    setOpenSignin(!openSignin);
+    setHtmlScroll(openSignin);
   };
 
   const setHtmlScroll = (show) => {
@@ -26,7 +33,7 @@ const Header = () => {
     <header className="main-header">
       <div className="main-header-top">
         <div className="sign-in-container">
-          <InIcon /> <span>Sign In</span>|
+          <InIcon /> <span onClick={toggleSignin}>Sign In</span>|
           <span onClick={toggleSignup}>Join</span>
         </div>
         <Hamburger />
@@ -42,6 +49,7 @@ const Header = () => {
       <div className="header-nav-bar">
         <NavList />
       </div>
+      <Signin open={openSignin} closeSignin={toggleSignin}></Signin>
       <Signup open={openSignup} closeSignup={toggleSignup}></Signup>
     </header>
   );

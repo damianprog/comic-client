@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import './signup-form.scss';
 
-const SignupForm = ({ onChange, onSubmit }) => {
+const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
   const getDays = () => {
     const days = [];
     for (let i = 1; i <= 31; i++) {
@@ -25,39 +25,55 @@ const SignupForm = ({ onChange, onSubmit }) => {
 
   return (
     <form onSubmit={onSubmit}>
+      {errors.nickname && <p>{errors.nickname}</p>}
       <input
         placeholder="Nickname"
         name="nickname"
         type="text"
+        className={errors.nickname && 'error'}
         onChange={onChange}
       ></input>
+      {errors.email && <p>{errors.email}</p>}
       <input
         placeholder="Email"
         name="email"
         type="email"
+        className={errors.email && 'error'}
         onChange={onChange}
       ></input>
+      {errors.password && <p>{errors.password}</p>}
       <input
         type="password"
         placeholder="Password"
         name="password"
+        className={errors.password && 'error'}
         onChange={onChange}
       ></input>
       <input
         type="password"
         placeholder="Confirm Password"
         name="confirmPassword"
+        className={errors.password && 'error'}
         onChange={onChange}
       ></input>
+      {errors.birthDate && <p>{errors.birthDate}</p>}
       <div className="select-birth-date">
-        <select className="select-day" name="birthDay" onChange={onChange}>
+        <select
+          className={`${errors.birthDate && 'error'} 'select-day'`}
+          name="birthDay"
+          onChange={onChange}
+        >
           {getDays().map((dayNum) => (
             <option key={`dayNum${dayNum}`} value={dayNum}>
               {dayNum}
             </option>
           ))}
         </select>
-        <select className="select-month" name="birthMonth" onChange={onChange}>
+        <select
+          className={`${errors.birthDate && 'error'} 'select-month'`}
+          name="birthMonth"
+          onChange={onChange}
+        >
           <option value="1">Jan</option>
           <option value="2">Feb</option>
           <option value="3">Mar</option>
@@ -71,15 +87,16 @@ const SignupForm = ({ onChange, onSubmit }) => {
           <option value="11">Nov</option>
           <option value="12">Dec</option>
         </select>
-        <select className="select-years" name="birthYear" onChange={onChange}>
+        <select
+          className={`${errors.birthDate && 'error'} 'select-years'`}
+          name="birthYear"
+          onChange={onChange}
+        >
           {getYears().map((year) => (
             <option key={`year${year}`}>{year}</option>
           ))}
         </select>
       </div>
-      <Button type="submit" variant="contained" className="create-button">
-        Create Account
-      </Button>
     </form>
   );
 };
