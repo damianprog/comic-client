@@ -1,46 +1,37 @@
-import React, { useState } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import SignupForm from './signup-form';
+import React, { Fragment } from 'react';
 import './sign.scss';
-import { DialogContent } from '@material-ui/core';
+import './signin.scss';
 import { useMutation } from '@apollo/client';
-import { Button, CircularProgress } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import { Button, CircularProgress, Divider } from '@material-ui/core';
 import gql from 'graphql-tag';
 
-const Signin = ({ open, closeSignin }) => {
+const Signin = ({ switchForm }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={closeSignin}
-      aria-labelledby="form-dialog-title"
-      className="sign"
-      scroll="body"
-      disableBackdropClick
-    >
-      <div className="close-container">
-        <Close onClick={closeSignin} />
-      </div>
-      <DialogContent className="content">
-        <form>
-          <input placeholder="Email" name="email" type="email"></input>
-          <input placeholder="Password" name="password" type="password"></input>
-        </form>
-        <Button
-          type="submit"
-          variant="contained"
-          className="create-button"
-          form="signup-form"
-        >
-          {/* {loading ? (
+    <div className="signin">
+      <h2 className="title">Sign in to your account</h2>
+      <form>
+        <input placeholder="Email" name="email" type="email"></input>
+        <input placeholder="Password" name="password" type="password"></input>
+      </form>
+      <Button
+        type="submit"
+        variant="contained"
+        className="sign-button"
+        form="signup-form"
+      >
+        {/* {loading ? (
             <CircularProgress color="inherit" size={30} />
           ) : ( */}
-          <span>Sign In</span>
-          {/* )} */}
+        <span>Sign In</span>
+        {/* )} */}
+      </Button>
+      <Divider />
+      <div className="create-button-container">
+        <Button onClick={switchForm} variant="outlined">
+          Create an account
         </Button>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 };
 

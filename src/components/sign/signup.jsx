@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React, { useState, Fragment } from 'react';
 import SignupForm from './signup-form';
 import './sign.scss';
-import { DialogContent } from '@material-ui/core';
+import './signup.scss';
 import { useMutation } from '@apollo/client';
 import { Button, CircularProgress } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
 import gql from 'graphql-tag';
 
-const Signup = ({ open, closeSignup }) => {
+const Signup = ({ switchForm }) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     nickname: '',
@@ -33,7 +30,6 @@ const Signup = ({ open, closeSignup }) => {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
       console.log(result);
-      closeSignup();
     },
     onError(err) {
       console.log(err.graphQLErrors[0].extensions.exception.errors);
@@ -87,37 +83,26 @@ const Signup = ({ open, closeSignup }) => {
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={closeSignup}
-      aria-labelledby="form-dialog-title"
-      className="sign"
-      scroll="body"
-      disableBackdropClick
-    >
-      <div className="close-container">
-        <Close onClick={closeSignup} />
-      </div>
-      <DialogTitle className="title" id="form-dialog-title">
-        Create your account
-      </DialogTitle>
-      <DialogContent className="content">
-        <SignupForm onChange={onChange} onSubmit={onSubmit} errors={errors} />
-        <Button
-          disabled={loading}
-          type="submit"
-          variant="contained"
-          className="create-button"
-          form="signup-form"
-        >
-          {loading ? (
-            <CircularProgress color="inherit" size={30} />
-          ) : (
-            <span>Create Account</span>
-          )}
-        </Button>
-      </DialogContent>
-    </Dialog>
+    <div className="signup">
+      <h2 className="title">Create your account</h2>
+      <SignupForm onChange={onChange} onSubmit={onSubmit} errors={errors} />
+      <Button
+        disabled={loading}
+        type="submit"
+        variant="contained"
+        className="sign-button"
+        form="signup-form"
+      >
+        {loading ? (
+          <CircularProgress color="inherit" size={30} />
+        ) : (
+          <span>Create Account</span>
+        )}
+      </Button>
+      <p className="signin-info">
+        Already have an account? <b onClick={switchForm}>Sign In</b>
+      </p>
+    </div>
   );
 };
 

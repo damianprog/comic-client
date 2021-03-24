@@ -8,15 +8,23 @@
     justify-content: space-between;
   }
 
+  select:invalid {
+    color: #757575;
+  }
+
+  select option {
+    color: black;
+  }
+
   .select-day {
     width: 90px;
   }
 
   .select-month {
-    width: 120px;
+    width: 118px;
   }
 
   .select-year {
-    width: 100px;
+    width: 98px;
   }
 }

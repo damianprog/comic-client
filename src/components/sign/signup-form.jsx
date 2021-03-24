@@ -24,45 +24,54 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form id="signup-form" onSubmit={onSubmit}>
       {errors.nickname && <p>{errors.nickname}</p>}
       <input
         placeholder="Nickname"
         name="nickname"
         type="text"
-        className={errors.nickname && 'error'}
+        className={errors.nickname ? 'error' : ''}
         onChange={onChange}
+        required
       ></input>
       {errors.email && <p>{errors.email}</p>}
       <input
         placeholder="Email"
         name="email"
         type="email"
-        className={errors.email && 'error'}
+        className={errors.email ? 'error' : ''}
         onChange={onChange}
+        required
       ></input>
       {errors.password && <p>{errors.password}</p>}
       <input
         type="password"
         placeholder="Password"
         name="password"
-        className={errors.password && 'error'}
+        className={errors.password ? 'error' : ''}
         onChange={onChange}
+        required
       ></input>
       <input
         type="password"
         placeholder="Confirm Password"
         name="confirmPassword"
-        className={errors.password && 'error'}
+        className={errors.password ? 'error' : ''}
         onChange={onChange}
+        required
       ></input>
       {errors.birthDate && <p>{errors.birthDate}</p>}
       <div className="select-birth-date">
         <select
-          className={`${errors.birthDate && 'error'} 'select-day'`}
+          className={`${errors.birthDate ? 'error' : ''} select-day`}
           name="birthDay"
           onChange={onChange}
+          defaultValue={''}
+          required
         >
+          <option value="" disabled hidden>
+            Day
+          </option>
           {getDays().map((dayNum) => (
             <option key={`dayNum${dayNum}`} value={dayNum}>
               {dayNum}
@@ -70,10 +79,15 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
           ))}
         </select>
         <select
-          className={`${errors.birthDate && 'error'} 'select-month'`}
+          className={`${errors.birthDate ? 'error' : ''} select-month`}
           name="birthMonth"
           onChange={onChange}
+          defaultValue={''}
+          required
         >
+          <option value="" disabled hidden>
+            Month
+          </option>
           <option value="1">Jan</option>
           <option value="2">Feb</option>
           <option value="3">Mar</option>
@@ -88,10 +102,15 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
           <option value="12">Dec</option>
         </select>
         <select
-          className={`${errors.birthDate && 'error'} 'select-years'`}
+          className={`${errors.birthDate ? 'error' : ''} select-year`}
           name="birthYear"
           onChange={onChange}
+          defaultValue={''}
+          required
         >
+          <option value="" disabled hidden>
+            Year
+          </option>
           {getYears().map((year) => (
             <option key={`year${year}`}>{year}</option>
           ))}
