@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import SignupForm from './signup-form';
 import './sign.scss';
 import './signup.scss';

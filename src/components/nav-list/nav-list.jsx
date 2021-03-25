@@ -7,28 +7,10 @@ const NavList = () => (
   <nav>
     <ul>
       <li>
-        <Link to="/">Videos</Link>
+        <Link to="/sign/signin">Sign In</Link>
       </li>
       <li>
-        <Link to="/">Characters</Link>
-      </li>
-      <li>
-        <Link to="/">Comics</Link>
-      </li>
-      <li>
-        <Link to="/">Movies</Link>
-      </li>
-      <li>
-        <Link to="/">TV Shows</Link>
-      </li>
-      <li>
-        <Link to="/">Games</Link>
-      </li>
-      <li>
-        <Link to="/">News</Link>
-      </li>
-      <li>
-        <Link to="/">More</Link>
+        <Link to="/sign/signup">Join</Link>
       </li>
     </ul>
   </nav>

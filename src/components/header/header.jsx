@@ -5,7 +5,6 @@ import { ReactComponent as LogoIcon } from '../../assets/logo-icon.svg';
 import { ReactComponent as InIcon } from '../../assets/in-icon.svg';
 import Hamburger from '../hamburger/hamburger';
 import { Search } from '@material-ui/icons';
-import NavList from '../nav-list/nav-list';
 import SignDialog from '../sign/sign-dialog';
 
 import './header.scss';
@@ -14,18 +13,9 @@ const Header = () => {
   const [openSignDialog, setOpenSignDialog] = useState(false);
   const [signDialogForm, setSignDialogForm] = useState('signin');
 
-  const toggleDialog = () => {
-    setOpenSignDialog(!openSignDialog);
-    setHtmlScroll(openSignDialog);
-  };
-
   const openForm = (form) => {
     setSignDialogForm(form);
-    toggleDialog();
-  };
-
-  const setHtmlScroll = (show) => {
-    document.documentElement.style.overflow = show ? 'auto' : 'hidden';
+    setOpenSignDialog(!openSignDialog);
   };
 
   const switchSignDialogForm = () => {
@@ -37,7 +27,8 @@ const Header = () => {
     <header className="main-header">
       <div className="main-header-top">
         <div className="sign-in-container">
-          <InIcon /> <span onClick={() => openForm('signin')}>Sign In</span>|
+          <InIcon />
+          <span onClick={() => openForm('signin')}>Sign In</span>|
           <span onClick={() => openForm('signup')}>Join</span>
         </div>
         <Hamburger />
@@ -50,12 +41,9 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <div className="header-nav-bar">
-        <NavList />
-      </div>
       <SignDialog
         open={openSignDialog}
-        closeDialog={toggleDialog}
+        closeDialog={() => setOpenSignDialog(!openSignDialog)}
         form={signDialogForm}
         switchForm={switchSignDialogForm}
       ></SignDialog>

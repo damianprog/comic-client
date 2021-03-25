@@ -45,6 +45,7 @@
   .content {
     width: 410px;
     padding: 0 42px;
+    margin: auto;
   }
 
   .actions {
@@ -67,5 +68,13 @@
 
   .sign-button:hover {
     background-color: #d9181d;
+  }
+
+  &.sign-page {
+    .content {
+      width: 100%;
+      max-width: 326px;
+      padding: 25px 0 0 0;
+    }
   }
 }

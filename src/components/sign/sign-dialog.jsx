@@ -7,6 +7,12 @@ import Signup from './signup';
 import { Close } from '@material-ui/icons';
 
 const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
+  const toggleHtmlScroll = () => {
+    document.documentElement.style.overflow = open ? 'hidden' : 'auto';
+  };
+
+  toggleHtmlScroll();
+
   return (
     <Dialog
       open={open}
