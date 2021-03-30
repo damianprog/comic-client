@@ -27,7 +27,7 @@ const Signup = ({ switchForm }) => {
     setErrors({ ...errors, [valueName]: null });
   };
 
-  const [addUser, { loading }] = useMutation(REGISTER_USER, {
+  const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
     update(_, result) {
       console.log(result);
     },
@@ -78,7 +78,7 @@ const Signup = ({ switchForm }) => {
         birthDate: getFullBirthDate(),
       });
 
-      addUser();
+      registerUser();
     }
   };
 
@@ -106,7 +106,7 @@ const Signup = ({ switchForm }) => {
   );
 };
 
-const REGISTER_USER = gql`
+const SIGNUP_USER = gql`
   mutation signUp(
     $nickname: String!
     $email: String!

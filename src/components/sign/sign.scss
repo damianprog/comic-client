@@ -9,11 +9,25 @@
     text-transform: uppercase;
     font-size: 16px;
   }
+
+  .errors-info {
+    color: #e62429;
+    background-color: #f7f7f7;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  input,
+  select,
+  .errors-info {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
   input,
   select {
     height: 42px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
     outline: 0;
     padding: 0 16px;
     margin-bottom: 10px;

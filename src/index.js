@@ -4,12 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ApolloProvider from './components/apollo/apollo-provider';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ApolloProvider />
-    </BrowserRouter>
+    <Provider>
+      <BrowserRouter>
+        <ApolloProvider />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
