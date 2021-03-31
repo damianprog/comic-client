@@ -27,9 +27,9 @@ const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
       </div>
       <DialogContent className="content">
         {form === 'signin' ? (
-          <Signin switchForm={switchForm} />
+          <Signin switchForm={switchForm} onSign={closeDialog} />
         ) : (
-          <Signup switchForm={switchForm} />
+          <Signup switchForm={switchForm} onSign={closeDialog} />
         )}
       </DialogContent>
     </Dialog>

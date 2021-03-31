@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as LogoIcon } from '../../assets/logo-icon.svg';
@@ -9,7 +10,7 @@ import SignDialog from '../sign/sign-dialog';
 
 import './header.scss';
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   const [openSignDialog, setOpenSignDialog] = useState(false);
   const [signDialogForm, setSignDialogForm] = useState('signin');
 
@@ -27,9 +28,15 @@ const Header = () => {
     <header className="main-header">
       <div className="main-header-top">
         <div className="sign-in-container">
-          <InIcon />
-          <span onClick={() => openForm('signin')}>Sign In</span>|
-          <span onClick={() => openForm('signup')}>Join</span>
+          {currentUser ? (
+            <span>{currentUser.nickname}</span>
+          ) : (
+            <Fragment>
+              <InIcon />
+              <span onClick={() => openForm('signin')}>Sign In</span> |
+              <span onClick={() => openForm('signup')}>Join</span>
+            </Fragment>
+          )}
         </div>
         <Hamburger />
         <Link to="/">
@@ -51,4 +58,8 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);

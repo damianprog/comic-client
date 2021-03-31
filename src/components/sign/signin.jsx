@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import './sign.scss';
-import './signin.scss';
 import { useMutation } from '@apollo/client';
 import { Button, CircularProgress, Divider } from '@material-ui/core';
 import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../redux/user/user-actions';
 
-const Signin = ({ switchForm }) => {
+import './sign.scss';
+import './signin.scss';
+
+const Signin = ({ switchForm, setCurrentUser, onSign }) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     email: '',
@@ -19,7 +22,9 @@ const Signin = ({ switchForm }) => {
 
   const [loginUser, { loading }] = useMutation(SIGNIN_USER, {
     update(_, result) {
-      console.log(result);
+      console.log(result.data.signIn);
+      setCurrentUser(result.data.signIn);
+      onSign();
     },
     onError(err) {
       console.log(err.graphQLErrors[0].extensions.exception.errors);
@@ -95,4 +100,8 @@ const SIGNIN_USER = gql`
   }
 `;
 
-export default Signin;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Signin);

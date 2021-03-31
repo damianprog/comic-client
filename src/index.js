@@ -6,14 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import ApolloProvider from './components/apollo/apollo-provider';
 import { Provider } from 'react-redux';
 
+import store from './components/redux/store';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider>
-      <BrowserRouter>
-        <ApolloProvider />
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <ApolloProvider />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
