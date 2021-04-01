@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import Header from './components/header/header';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setSignedUser } from '../src/components/redux/user/user-actions';
 // import {
 //   unstable_createMuiStrictModeTheme as createMuiTheme,
 //   ThemeProvider,
@@ -15,18 +17,17 @@ import ComicPage from './components/comic-page/comic-page';
 import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
 
-function App() {
+function App({ setSignedUser }) {
   // const theme = createMuiTheme();
-
-  const { loading, error, data } = useQuery(CURRENT_USER);
-
+  const { error, data } = useQuery(CURRENT_USER);
   if (error) {
     console.log(error);
   }
-
-  if (data) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (data) {
+      setSignedUser(data.currentUser);
+    }
+  });
 
   return (
     <div>
@@ -54,4 +55,8 @@ const CURRENT_USER = gql`
   }
 `;
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setSignedUser: (user) => dispatch(setSignedUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);

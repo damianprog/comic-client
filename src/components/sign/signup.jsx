@@ -4,12 +4,12 @@ import { useMutation } from '@apollo/client';
 import { Button, CircularProgress } from '@material-ui/core';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
-import { setCurrentUser } from '../redux/user/user-actions';
+import { setSignedUser } from '../redux/user/user-actions';
 
 import './sign.scss';
 import './signup.scss';
 
-const Signup = ({ switchForm, setCurrentUser, onSign }) => {
+const Signup = ({ switchForm, setSignedUser, onSign }) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     nickname: '',
@@ -33,7 +33,7 @@ const Signup = ({ switchForm, setCurrentUser, onSign }) => {
   const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
     update(_, result) {
       console.log(result);
-      setCurrentUser(result.data.signUp.user);
+      setSignedUser(result.data.signup.user);
       onSign();
     },
     onError(err) {
@@ -112,14 +112,14 @@ const Signup = ({ switchForm, setCurrentUser, onSign }) => {
 };
 
 const SIGNUP_USER = gql`
-  mutation signUp(
+  mutation signup(
     $nickname: String!
     $email: String!
     $password: String!
     $birthDate: String!
   ) {
-    signUp(
-      signUpInput: {
+    signup(
+      signupInput: {
         nickname: $nickname
         email: $email
         password: $password
@@ -138,7 +138,7 @@ const SIGNUP_USER = gql`
 `;
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setSignedUser: (user) => dispatch(setSignedUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(Signup);

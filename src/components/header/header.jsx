@@ -7,10 +7,11 @@ import { ReactComponent as InIcon } from '../../assets/in-icon.svg';
 import Hamburger from '../hamburger/hamburger';
 import { Search } from '@material-ui/icons';
 import SignDialog from '../sign/sign-dialog';
+import UserDropdown from '../user-dropdown/user-dropdown';
 
 import './header.scss';
 
-const Header = ({ currentUser }) => {
+const Header = ({ signedUser }) => {
   const [openSignDialog, setOpenSignDialog] = useState(false);
   const [signDialogForm, setSignDialogForm] = useState('signin');
 
@@ -28,8 +29,8 @@ const Header = ({ currentUser }) => {
     <header className="main-header">
       <div className="main-header-top">
         <div className="sign-in-container">
-          {currentUser ? (
-            <span>{currentUser.nickname}</span>
+          {signedUser ? (
+            <UserDropdown />
           ) : (
             <Fragment>
               <InIcon />
@@ -59,7 +60,7 @@ const Header = ({ currentUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+  signedUser: state.user.signedUser,
 });
 
 export default connect(mapStateToProps)(Header);

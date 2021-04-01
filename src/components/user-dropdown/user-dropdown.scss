@@ -1,0 +1,23 @@
+.user-dropdown {
+  span,
+  li {
+    user-select: none;
+  }
+  position: relative;
+  ul {
+    z-index: 99;
+    background-color: #151515;
+    position: absolute;
+    list-style-type: none;
+    top: 33px;
+    left: -16px;
+    font-size: 14px;
+    font-weight: bold;
+
+    li {
+      margin: 30px 100px 30px 30px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+  }
+}
