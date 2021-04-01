@@ -23,7 +23,7 @@ const Signin = ({ switchForm, setCurrentUser, onSign }) => {
   const [loginUser, { loading }] = useMutation(SIGNIN_USER, {
     update(_, result) {
       console.log(result.data.signIn);
-      setCurrentUser(result.data.signIn);
+      setCurrentUser(result.data.signIn.user);
       onSign();
     },
     onError(err) {
@@ -91,10 +91,12 @@ const Signin = ({ switchForm, setCurrentUser, onSign }) => {
 const SIGNIN_USER = gql`
   mutation signIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
-      id
-      nickname
-      email
-      createdAt
+      user {
+        id
+        nickname
+        email
+        createdAt
+      }
       token
     }
   }

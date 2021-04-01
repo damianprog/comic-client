@@ -33,7 +33,7 @@ const Signup = ({ switchForm, setCurrentUser, onSign }) => {
   const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
     update(_, result) {
       console.log(result);
-      setCurrentUser(result.data.signUp);
+      setCurrentUser(result.data.signUp.user);
       onSign();
     },
     onError(err) {
@@ -126,10 +126,12 @@ const SIGNUP_USER = gql`
         birthDate: $birthDate
       }
     ) {
-      id
-      nickname
-      email
-      createdAt
+      user {
+        id
+        nickname
+        email
+        createdAt
+      }
       token
     }
   }

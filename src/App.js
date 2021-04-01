@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 import Header from './components/header/header';
 import { Switch, Route } from 'react-router-dom';
 // import {
@@ -16,6 +18,16 @@ import SignPage from './components/sign/sign-page';
 function App() {
   // const theme = createMuiTheme();
 
+  const { loading, error, data } = useQuery(CURRENT_USER);
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+
   return (
     <div>
       {/* <ThemeProvider theme={theme}> */}
@@ -30,5 +42,16 @@ function App() {
     </div>
   );
 }
+
+const CURRENT_USER = gql`
+  {
+    currentUser {
+      id
+      nickname
+      email
+      createdAt
+    }
+  }
+`;
 
 export default App;
