@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SIGNOUT } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { setSignedUser } from '../redux/user/user-actions';
+import { Link } from 'react-router-dom';
 
 import './user-dropdown.scss';
 import { useMutation } from '@apollo/client';
@@ -41,7 +42,9 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
       <span onClick={toggleList}>{signedUser.nickname}</span>
       {openList ? (
         <ul>
-          <li>My Profile</li>
+          <Link to={`/profile/${signedUser.nickname}`}>
+            <li>My Profile</li>
+          </Link>
           <li onClick={logout}>Log Out</li>
         </ul>
       ) : null}

@@ -1,0 +1,39 @@
+.profile {
+  .wrapper {
+    max-width: 1040px;
+  }
+
+  header {
+    min-height: 500px;
+  }
+
+  .background-image {
+    position: relative;
+    background: url('https://wallpapercave.com/wp/wp3787493.jpg') center/cover;
+    padding-bottom: 27%;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .avatar-container {
+    width: 152px;
+    height: 152px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    position: absolute;
+    bottom: -30px;
+    left: 25px;
+  }
+
+  .avatar {
+    width: 145px;
+    height: 145px;
+  }
+
+  .header-details {
+    padding: 30px 0 0 25px;
+  }
+}

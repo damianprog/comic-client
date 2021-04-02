@@ -12,10 +12,11 @@ import { setSignedUser } from '../src/components/redux/user/user-actions';
 
 import './App.css';
 
-import Homepage from './components/homepage/homepage';
+import Homepage from './components/home-page/homepage';
 import ComicPage from './components/comic-page/comic-page';
 import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
+import Profile from './components/profile-page/profile';
 
 function App({ setSignedUser }) {
   // const theme = createMuiTheme();
@@ -38,6 +39,7 @@ function App({ setSignedUser }) {
         <Route exact path="/search" component={Search} />
         <Route exact path="/comic/:id" component={ComicPage} />
         <Route exact path="/sign/:form" component={SignPage} />
+        <Route exact path="/profile/:nickname" component={Profile} />
       </Switch>
       {/* </ThemeProvider> */}
     </div>
