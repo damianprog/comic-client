@@ -21,7 +21,7 @@
     position: fixed;
     z-index: 1;
     top: 0;
-    left: -360px;
+    left: -100%;
     background-color: #151515;
     transition: all 0.2s;
     padding: 6px 15px 30px 30px;
@@ -39,11 +39,15 @@
       padding: 15px 0;
     }
   }
-}
 
-@media (max-width: 840px) {
-  .hamburger {
+  @media (max-width: 840px) {
     display: flex;
     align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .menu {
+      width: 100%;
+    }
   }
 }

@@ -32,12 +32,12 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
 
   const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
     update(_, result) {
-      console.log(result);
-      setSignedUser(result.data.signup.user);
+      console.log('result.data.signup: ', result.data.signup);
+      setSignedUser(result.data.signup);
       onSign();
     },
     onError(err) {
-      console.log(err.graphQLErrors[0].extensions.exception.errors);
+      console.log(err);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {
@@ -126,13 +126,10 @@ const SIGNUP_USER = gql`
         birthDate: $birthDate
       }
     ) {
-      user {
-        id
-        nickname
-        email
-        createdAt
-      }
-      token
+      id
+      nickname
+      email
+      createdAt
     }
   }
 `;

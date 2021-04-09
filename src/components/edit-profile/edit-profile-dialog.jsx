@@ -1,13 +1,12 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import './sign.scss';
-import { DialogContent } from '@material-ui/core';
-import Signin from './signin';
-import Signup from './signup';
+import './edit-profile-dialog.scss';
+import { Button, DialogContent } from '@material-ui/core';
 import ToggleHtmlScroll from '../../utils/toggle-html-scroll';
 import { Close } from '@material-ui/icons';
+import EditProfile from './edit-profile';
 
-const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
+const EditProfileDialog = ({ open, closeDialog }) => {
   ToggleHtmlScroll(open);
 
   return (
@@ -15,7 +14,7 @@ const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
       open={open}
       onClose={closeDialog}
       aria-labelledby="form-dialog-title"
-      className="sign"
+      className="edit-profile-dialog"
       scroll="body"
       disableBackdropClick
     >
@@ -23,14 +22,10 @@ const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
         <Close onClick={closeDialog} />
       </div>
       <DialogContent className="content">
-        {form === 'signin' ? (
-          <Signin switchForm={switchForm} onSign={closeDialog} />
-        ) : (
-          <Signup switchForm={switchForm} onSign={closeDialog} />
-        )}
+        <EditProfile />
       </DialogContent>
     </Dialog>
   );
 };
 
-export default SignDialog;
+export default EditProfileDialog;

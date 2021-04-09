@@ -1,0 +1,22 @@
+.edit-profile {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 15px 15px;
+
+    h2 {
+      font-size: 22px;
+    }
+
+    button {
+      background-color: #5c5c5c;
+      color: #fff;
+      padding: 4px 23px;
+      border-radius: 20px;
+    }
+
+    button:hover {
+      background-color: #4a4a4a;
+    }
+  }
+}

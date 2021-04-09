@@ -28,7 +28,7 @@ class Hamburger extends React.Component {
           <span className="close-icon" onClick={this.toggleMenu}>
             &times;
           </span>
-          <NavList />
+          <NavList onItemClick={this.toggleMenu} />
         </div>
       </div>
     );

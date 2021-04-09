@@ -1,6 +1,8 @@
 import React from 'react';
 import GetComicMainImage from '../../utils/get-comic-main-image';
 
+import he from 'he';
+
 import './comic-page-details.scss';
 
 const ComicPageDetails = ({ comic, comicSeries }) => {
@@ -30,6 +32,12 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
     return creatorName;
   };
 
+  const stripHtmlTags = (string) => {
+    const stripedHtml = string.replace(/(<([^>]+)>)/gi, '');
+    const decodedStripedHtml = he.decode(stripedHtml);
+    return decodedStripedHtml;
+  };
+
   const description = () => {
     let description = '';
 
@@ -38,6 +46,8 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
     } else if (comicSeries.description && comicSeries.description !== '') {
       description = comicSeries.description;
     }
+
+    description = stripHtmlTags(description);
 
     return description;
   };

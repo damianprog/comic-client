@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SIGNOUT } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { setSignedUser } from '../redux/user/user-actions';
@@ -14,6 +14,24 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
     setOpenList(!openList);
   };
 
+  useEffect(() => {
+    const handleClick = (event) => {
+      const dropdown = document.querySelector('.user-dropdown');
+      if (
+        dropdown &&
+        event.target !== dropdown &&
+        !dropdown.contains(event.target) &&
+        openList
+      ) {
+        toggleList();
+      }
+    };
+    window.addEventListener('click', handleClick);
+    return () => {
+      window.removeEventListener('click', handleClick);
+    };
+  }, [openList]);
+
   const [signoutUser] = useMutation(SIGNOUT, {
     onError(err) {
       console.log(err);
@@ -24,18 +42,6 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
     setSignedUser(null);
     signoutUser();
   };
-
-  window.addEventListener('click', (event) => {
-    const dropdown = document.querySelector('.user-dropdown');
-    if (
-      dropdown &&
-      event.target !== dropdown &&
-      !dropdown.contains(event.target) &&
-      openList
-    ) {
-      toggleList();
-    }
-  });
 
   return (
     <div className="user-dropdown">

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import './nav-list.scss';
 
-const NavList = () => (
+const NavList = ({ onItemClick }) => (
   <nav>
     <ul>
-      <li>
+      <li onClick={onItemClick}>
         <Link to="/sign/signin">Sign In</Link>
       </li>
-      <li>
+      <li onClick={onItemClick}>
         <Link to="/sign/signup">Join</Link>
       </li>
     </ul>

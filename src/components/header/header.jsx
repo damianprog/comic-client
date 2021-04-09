@@ -13,16 +13,20 @@ import './header.scss';
 
 const Header = ({ signedUser }) => {
   const [openSignDialog, setOpenSignDialog] = useState(false);
-  const [signDialogForm, setSignDialogForm] = useState('signin');
+  const [signDialogForm, setSignDialogFormType] = useState('signin');
+
+  const toggleSignDialog = () => {
+    setOpenSignDialog(!openSignDialog);
+  };
 
   const openForm = (form) => {
-    setSignDialogForm(form);
-    setOpenSignDialog(!openSignDialog);
+    setSignDialogFormType(form);
+    toggleSignDialog();
   };
 
   const switchSignDialogForm = () => {
     const nextForm = signDialogForm === 'signin' ? 'signup' : 'signin';
-    setSignDialogForm(nextForm);
+    setSignDialogFormType(nextForm);
   };
 
   return (
@@ -51,7 +55,7 @@ const Header = ({ signedUser }) => {
       </div>
       <SignDialog
         open={openSignDialog}
-        closeDialog={() => setOpenSignDialog(!openSignDialog)}
+        closeDialog={toggleSignDialog}
         form={signDialogForm}
         switchForm={switchSignDialogForm}
       ></SignDialog>

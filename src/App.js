@@ -5,10 +5,6 @@ import Header from './components/header/header';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setSignedUser } from '../src/components/redux/user/user-actions';
-// import {
-//   unstable_createMuiStrictModeTheme as createMuiTheme,
-//   ThemeProvider,
-// } from '@material-ui/core';
 
 import './App.css';
 
@@ -19,20 +15,15 @@ import SignPage from './components/sign/sign-page';
 import Profile from './components/profile-page/profile';
 
 function App({ setSignedUser }) {
-  // const theme = createMuiTheme();
-  const { error, data } = useQuery(CURRENT_USER);
-  if (error) {
-    console.log(error);
-  }
+  const { data: { currentUser } = {} } = useQuery(CURRENT_USER);
   useEffect(() => {
-    if (data) {
-      setSignedUser(data.currentUser);
+    if (currentUser) {
+      setSignedUser(currentUser);
     }
-  });
+  }, [currentUser, setSignedUser]);
 
   return (
     <div>
-      {/* <ThemeProvider theme={theme}> */}
       <Header></Header>
       <Switch>
         <Route exact path="/" component={Homepage} />
@@ -41,7 +32,6 @@ function App({ setSignedUser }) {
         <Route exact path="/sign/:form" component={SignPage} />
         <Route exact path="/profile/:nickname" component={Profile} />
       </Switch>
-      {/* </ThemeProvider> */}
     </div>
   );
 }

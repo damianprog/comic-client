@@ -1,4 +1,10 @@
 .profile {
+  .loading {
+    margin-top: 30px;
+    text-align: center;
+    height: 50px;
+  }
+
   .wrapper {
     max-width: 1040px;
   }
@@ -34,6 +40,71 @@
   }
 
   .header-details {
-    padding: 30px 0 0 25px;
+    position: relative;
+    padding: 40px 28px 0 28px;
+
+    h2 {
+      font-size: 22px;
+    }
+  }
+
+  .joined {
+    margin-top: 13px;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-left: -3px;
+    }
+
+    span {
+      margin-left: 3px;
+    }
+  }
+
+  .statistics {
+    margin-top: 13px;
+
+    span {
+      margin-right: 15px;
+    }
+  }
+
+  .MuiDivider-root {
+    margin: 19px 0;
+  }
+
+  .about {
+    max-width: 550px;
+
+    p {
+      margin-bottom: 15px;
+    }
+  }
+
+  .edit-profile-btn {
+    position: absolute;
+    right: 28px;
+    top: 12px;
+    border: 1px solid #5c5c5c;
+    border-radius: 20px;
+    height: 38px;
+  }
+
+  .edit-profile-btn:hover {
+    background-color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .avatar-container {
+      width: 102px;
+      height: 102px;
+      bottom: -40px;
+    }
+
+    .avatar {
+      width: 95px;
+      height: 95px;
+    }
   }
 }

@@ -91,4 +91,19 @@
       padding: 40px 0 0 0;
     }
   }
+
+  @media (max-width: 600px) {
+    .content {
+      width: 100%;
+    }
+
+    .MuiDialog-paper {
+      margin: 0;
+    }
+
+    .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 }
