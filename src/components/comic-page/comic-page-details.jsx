@@ -76,25 +76,25 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
             <span>{published}</span>
           </div>
           <div className="comic-info-row">
-            {writer !== '' && (
+            {writer !== '' ? (
               <div>
                 <h3>Writer:</h3>
                 <span>{writer}</span>
               </div>
-            )}
-            {penciler !== '' && (
+            ) : null}
+            {penciler !== '' ? (
               <div>
                 <h3>Penciler:</h3>
                 <span>{penciler}</span>
               </div>
-            )}
+            ) : null}
           </div>
-          {coverArtist !== '' && (
+          {coverArtist !== '' ? (
             <div>
               <h3>Cover Artist:</h3>
               <span>{coverArtist}</span>
             </div>
-          )}
+          ) : null}
 
           <div className="comic-info-description">{description()}</div>
         </div>

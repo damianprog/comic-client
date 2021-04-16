@@ -13,35 +13,9 @@
     min-height: 500px;
   }
 
-  .background-image {
-    position: relative;
-    background: url('https://wallpapercave.com/wp/wp3787493.jpg') center/cover;
-    padding-bottom: 27%;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-  }
-
-  .avatar-container {
-    width: 152px;
-    height: 152px;
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    position: absolute;
-    bottom: -30px;
-    left: 25px;
-  }
-
-  .avatar {
-    width: 145px;
-    height: 145px;
-  }
-
   .header-details {
     position: relative;
-    padding: 40px 28px 0 28px;
+    padding: 12px 28px 0 28px;
 
     h2 {
       font-size: 22px;
@@ -85,7 +59,7 @@
   .edit-profile-btn {
     position: absolute;
     right: 28px;
-    top: 12px;
+    top: -53px;
     border: 1px solid #5c5c5c;
     border-radius: 20px;
     height: 38px;

@@ -9,6 +9,7 @@ import { DateRange } from '@material-ui/icons';
 import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 
 import './profile.scss';
+import ProfileAvatarBackground from './profile-avatar-background';
 
 const Profile = ({ signedUser, match: { params } }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -41,15 +42,10 @@ const Profile = ({ signedUser, match: { params } }) => {
       <section className="profile">
         <div className="wrapper">
           <header>
-            <div className="background-image">
-              <div className="avatar-container">
-                <Avatar
-                  alt="profile picture"
-                  src="http://i.annihil.us/u/prod/marvel/i/mg/8/b0/5e00da382a27d.jpg"
-                  className="avatar"
-                />
-              </div>
-            </div>
+            <ProfileAvatarBackground
+              profileImage="http://i.annihil.us/u/prod/marvel/i/mg/8/b0/5e00da382a27d.jpg"
+              backgroundImage="https://wallpapercave.com/wp/wp3787493.jpg"
+            />
             <div className="header-details">
               {signedUser && signedUser.id === profileUser.id ? (
                 <Button

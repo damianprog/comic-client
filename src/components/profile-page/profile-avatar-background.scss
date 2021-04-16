@@ -1,0 +1,47 @@
+.profile-avatar-background {
+  .background-image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 27%;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .control-icons {
+    position: absolute;
+    color: #fff;
+    left: 50%;
+    top: 38%;
+    transform: translate(-50%, 0);
+    width: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      padding: 8px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.116);
+      }
+    }
+  }
+
+  .avatar {
+    width: 145px;
+    height: 145px;
+    border: 4px solid #fff;
+    border-radius: 100px;
+    background-position: center;
+    background-size: cover;
+    margin-top: -73px;
+    margin-left: 24px;
+    position: relative;
+
+    .control-icons {
+      width: auto;
+      top: 31%;
+    }
+  }
+}

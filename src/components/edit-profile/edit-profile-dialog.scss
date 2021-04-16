@@ -1,10 +1,14 @@
 .edit-profile-dialog {
+  .MuiDialog-paperWidthSm {
+    max-width: 100%;
+  }
+
   .close-container {
     padding: 15px 0 8px 12px;
   }
 
   .content {
-    width: 600px;
+    width: 650px;
     padding: 0;
   }
 }
