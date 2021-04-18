@@ -1,26 +1,14 @@
 import React from 'react';
+import DateSelector from '../date-selector/date-selector';
 import './signup-form.scss';
 
 const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
-  const getDays = () => {
-    const days = [];
-    for (let i = 1; i <= 31; i++) {
-      days.push(i);
-    }
+  const onBirthDateChange = (event) => {
+    event.target.name = `birth${event.target.name[0].toUpperCase()}${event.target.name.slice(
+      1
+    )}`;
 
-    return days;
-  };
-
-  const getYears = () => {
-    const years = [];
-    const maxYear = new Date().getFullYear();
-    const minYear = maxYear - 120;
-
-    for (let i = maxYear; i >= minYear; i--) {
-      years.push(i);
-    }
-
-    return years;
+    onChange(event);
   };
 
   return (
@@ -61,61 +49,11 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
         required
       ></input>
       {errors.birthDate && <p>{errors.birthDate}</p>}
-      <div className="select-birth-date">
-        <select
-          className={`${errors.birthDate ? 'error' : ''} select-day`}
-          name="birthDay"
-          onChange={onChange}
-          defaultValue={''}
-          required
-        >
-          <option value="" disabled hidden>
-            Day
-          </option>
-          {getDays().map((dayNum) => (
-            <option key={`dayNum${dayNum}`} value={dayNum}>
-              {dayNum}
-            </option>
-          ))}
-        </select>
-        <select
-          className={`${errors.birthDate ? 'error' : ''} select-month`}
-          name="birthMonth"
-          onChange={onChange}
-          defaultValue={''}
-          required
-        >
-          <option value="" disabled hidden>
-            Month
-          </option>
-          <option value="1">Jan</option>
-          <option value="2">Feb</option>
-          <option value="3">Mar</option>
-          <option value="4">Apr</option>
-          <option value="5">May</option>
-          <option value="6">Jun</option>
-          <option value="7">Jul</option>
-          <option value="8">Aug</option>
-          <option value="9">Sep</option>
-          <option value="10">Oct</option>
-          <option value="11">Nov</option>
-          <option value="12">Dec</option>
-        </select>
-        <select
-          className={`${errors.birthDate ? 'error' : ''} select-year`}
-          name="birthYear"
-          onChange={onChange}
-          defaultValue={''}
-          required
-        >
-          <option value="" disabled hidden>
-            Year
-          </option>
-          {getYears().map((year) => (
-            <option key={`year${year}`}>{year}</option>
-          ))}
-        </select>
-      </div>
+      <p className="outer-label">Birth Date</p>
+      <DateSelector
+        onChange={onBirthDateChange}
+        error={errors.birthDate}
+      ></DateSelector>
     </form>
   );
 };

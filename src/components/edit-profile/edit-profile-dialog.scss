@@ -1,4 +1,9 @@
 .edit-profile-dialog {
+  .MuiDialogContent-root:first-child {
+    padding-top: 10px;
+    overflow: hidden;
+  }
+
   .MuiDialog-paperWidthSm {
     max-width: 100%;
   }
@@ -7,7 +12,7 @@
     padding: 15px 0 8px 12px;
   }
 
-  .content {
+  .dialog-content {
     width: 650px;
     padding: 0;
   }

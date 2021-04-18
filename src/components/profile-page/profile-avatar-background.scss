@@ -8,6 +8,10 @@
     border-bottom-right-radius: 6px;
   }
 
+  .photo-input {
+    display: none;
+  }
+
   .control-icons {
     position: absolute;
     color: #fff;
@@ -42,6 +46,12 @@
     .control-icons {
       width: auto;
       top: 31%;
+    }
+
+    @media (max-width: 600px) {
+      width: 105px;
+      height: 105px;
+      margin-top: -52px;
     }
   }
 }

@@ -63,22 +63,13 @@
     border: 1px solid #5c5c5c;
     border-radius: 20px;
     height: 38px;
+
+    @media (max-width: 600px) {
+      top: -33px;
+    }
   }
 
   .edit-profile-btn:hover {
     background-color: #fff;
-  }
-
-  @media (max-width: 600px) {
-    .avatar-container {
-      width: 102px;
-      height: 102px;
-      bottom: -40px;
-    }
-
-    .avatar {
-      width: 95px;
-      height: 95px;
-    }
   }
 }

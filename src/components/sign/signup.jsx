@@ -56,10 +56,10 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
       values.birthMonth !== '' &&
       values.birthYear !== ''
     ) {
-      fullBirthDate = `${values.birthDay.padStart(
+      fullBirthDate = `${values.birthMonth.padStart(
         2,
         '0'
-      )}-${values.birthMonth.padStart(2, '0')}-${values.birthYear}`;
+      )}-${values.birthDay.padStart(2, '0')}-${values.birthYear}`;
     }
 
     return fullBirthDate;
@@ -82,6 +82,8 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
         ...values,
         birthDate: getFullBirthDate(),
       });
+
+      console.log('Values: ', values);
 
       registerUser();
     }
