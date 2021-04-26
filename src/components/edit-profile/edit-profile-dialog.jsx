@@ -5,7 +5,7 @@ import { DialogContent } from '@material-ui/core';
 import ToggleHtmlScroll from '../../utils/toggle-html-scroll';
 import EditProfile from './edit-profile';
 
-const EditProfileDialog = ({ open, closeDialog }) => {
+const EditProfileDialog = ({ profileUser, open, closeDialog }) => {
   ToggleHtmlScroll(open);
 
   return (
@@ -17,7 +17,7 @@ const EditProfileDialog = ({ open, closeDialog }) => {
       disableBackdropClick
     >
       <DialogContent className="dialog-content">
-        <EditProfile showClose close={closeDialog} />
+        <EditProfile profileUser={profileUser} showClose close={closeDialog} />
       </DialogContent>
     </Dialog>
   );

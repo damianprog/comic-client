@@ -32,7 +32,6 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
 
   const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
     update(_, result) {
-      console.log('result.data.signup: ', result.data.signup);
       setSignedUser(result.data.signup);
       onSign();
     },
@@ -82,8 +81,6 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
         ...values,
         birthDate: getFullBirthDate(),
       });
-
-      console.log('Values: ', values);
 
       registerUser();
     }

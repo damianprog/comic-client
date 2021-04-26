@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^12.1.10",
     "apollo-client": "^2.6.10",
     "axios": "^0.21.1",
+    "cloudinary": "^1.25.1",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "he": "^1.2.0",
     "material-design-icons": "^3.0.1",

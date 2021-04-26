@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { Divider } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
 import { DateRange } from '@material-ui/icons';
 import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 
@@ -35,7 +34,7 @@ const Profile = ({ signedUser, match: { params } }) => {
   if (profileUser) {
     const {
       nickname,
-      userDetails: { about, interests },
+      userDetails: { about, interests, profileImage, backgroundImage },
     } = profileUser;
 
     profileMarkup = (
@@ -43,8 +42,8 @@ const Profile = ({ signedUser, match: { params } }) => {
         <div className="wrapper">
           <header>
             <ProfileAvatarBackground
-              profileImage="http://i.annihil.us/u/prod/marvel/i/mg/8/b0/5e00da382a27d.jpg"
-              backgroundImage="https://wallpapercave.com/wp/wp3787493.jpg"
+              profileImage={profileImage}
+              backgroundImage={backgroundImage}
             />
             <div className="header-details">
               {signedUser && signedUser.id === profileUser.id ? (
@@ -89,6 +88,7 @@ const Profile = ({ signedUser, match: { params } }) => {
         <EditProfileDialog
           open={openEditDialog}
           closeDialog={toggleEditDialog}
+          profileUser={profileUser}
         ></EditProfileDialog>
       </section>
     );
@@ -116,6 +116,8 @@ const USER = gql`
         id
         about
         interests
+        profileImage
+        backgroundImage
       }
     }
   }

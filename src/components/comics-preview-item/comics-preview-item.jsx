@@ -1,44 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './comics-preview-item.scss';
 
-class ComicsPreviewItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      comic: props.comic,
-    };
-  }
-
-  mainCreatorsLastNames() {
-    const { creators } = this.state.comic;
+const ComicsPreviewItem = (props) => {
+  const mainCreatorsLastNames = () => {
+    const { creators } = props.comic;
     const mainCreators = creators.items.slice(0, 2);
     return mainCreators.map((creator) => creator.name.split(' ').pop());
-  }
+  };
 
-  mainImage() {
-    const { images } = this.state.comic;
+  const mainImage = () => {
+    const { images } = props.comic;
     return `${images[0].path}.${images[0].extension}`;
-  }
+  };
 
-  render() {
-    const { id, title } = this.state.comic;
-    const creators = this.mainCreatorsLastNames().join(', ');
+  const redirectToComicPage = () => {
+    props.history.push(`/comic/${props.comic.id}`);
+    document.body.scrollTo(0, 0);
+  };
 
-    return (
-      <div className="comics-preview-item">
-        <Link to={`/comic/${id}`}>
-          <div className="img-container">
-            <img alt="comic" src={this.mainImage()} />
-          </div>
-          <h5>{title}</h5>
-        </Link>
-        <span>{creators}</span>
+  const { title } = props.comic;
+  const creators = mainCreatorsLastNames().join(', ');
+
+  return (
+    <div onClick={redirectToComicPage} className="comics-preview-item">
+      <div className="img-container">
+        <img alt="comic" src={mainImage()} />
       </div>
-    );
-  }
-}
+      <h5>{title}</h5>
+      <span>{creators}</span>
+    </div>
+  );
+};
 
-export default ComicsPreviewItem;
+export default withRouter(ComicsPreviewItem);

@@ -1,31 +1,37 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Close } from '@material-ui/icons';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import './profile-avatar-background.scss';
-import { IconButton } from '@material-ui/core';
+import backgroundPlaceholder from '../../assets/placeholders/background-placeholder.png';
+import profilePlaceholder from '../../assets/placeholders/profile-placeholder.png';
 
 const ProfileAvatarBackground = ({
+  onChange,
   profileImage,
   backgroundImage,
   showControlIcons = false,
 }) => {
-  const [currentBackgroundImage, setCurrentBackgroundImage] = useState(
-    backgroundImage
-  );
+  const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
+  const [currentProfileImage, setCurrentProfileImage] = useState('');
 
-  const bgImageInput = useRef(null);
+  useEffect(() => {
+    setCurrentBackgroundImage(
+      backgroundImage ? backgroundImage : backgroundPlaceholder
+    );
+    setCurrentProfileImage(profileImage ? profileImage : profilePlaceholder);
+  }, [profileImage, backgroundImage]);
 
-  const handleBgImageInputClick = () => {
-    bgImageInput.current.click();
-  };
-
-  const handleBgImageInputChange = (e) => {
-    const file = e.target.files[0];
+  const onImageInputChange = (event) => {
+    const file = event.target.files[0];
+    const inputName = event.target.name;
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setCurrentBackgroundImage(reader.result);
+        inputName === 'backgroundImage'
+          ? setCurrentBackgroundImage(reader.result)
+          : setCurrentProfileImage(reader.result);
+        onChange({ [event.target.name]: reader.result });
       };
     }
   };
@@ -45,18 +51,19 @@ const ProfileAvatarBackground = ({
       >
         {showControlIcons ? (
           <div className="control-icons">
-            <IconButton onClick={handleBgImageInputClick} color="inherit">
+            <label>
               <AddAPhotoOutlinedIcon />
-            </IconButton>
-            <input
-              className="photo-input"
-              type="file"
-              onChange={handleBgImageInputChange}
-              ref={bgImageInput}
-            />
-            <IconButton color="inherit">
+              <input
+                className="image-input"
+                type="file"
+                name="backgroundImage"
+                onChange={onImageInputChange}
+              />
+            </label>
+
+            <label>
               <Close />
-            </IconButton>
+            </label>
           </div>
         ) : null}
       </div>
@@ -68,15 +75,21 @@ const ProfileAvatarBackground = ({
               ? 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),'
               : ''
           }
-          url('${profileImage}')`,
+          url('${currentProfileImage}')`,
         }}
         className="avatar"
       >
         {showControlIcons ? (
           <div className="control-icons">
-            <IconButton color="inherit">
+            <label>
               <AddAPhotoOutlinedIcon />
-            </IconButton>
+              <input
+                className="image-input"
+                type="file"
+                name="profileImage"
+                onChange={onImageInputChange}
+              />
+            </label>
           </div>
         ) : null}
       </div>

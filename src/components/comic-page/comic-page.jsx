@@ -27,7 +27,6 @@ class ComicPage extends React.Component {
   async componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       await this.updateState();
-      window.scrollTo(0, 0);
     }
   }
 
