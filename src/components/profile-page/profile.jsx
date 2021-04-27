@@ -110,6 +110,7 @@ const USER = gql`
     user(nickname: $nickname) {
       id
       nickname
+      birthDate
       email
       createdAt
       userDetails {

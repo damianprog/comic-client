@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './date-selector.scss';
 
-const DateSelector = ({ onChange, error }) => {
+const DateSelector = ({ onChange, error, defaultDate }) => {
   const [dateValues, setDateValues] = useState({
-    day: '',
-    month: '',
-    year: '',
+    day: defaultDate ? defaultDate.getDate() : '',
+    month: defaultDate ? defaultDate.getMonth() : '',
+    year: defaultDate ? defaultDate.getFullYear() : '',
   });
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const DateSelector = ({ onChange, error }) => {
         className={`${error ? 'error' : ''} select-day`}
         name="day"
         onChange={onDateInputChange}
-        defaultValue={''}
+        defaultValue={dateValues.day}
         required
       >
         <option value="" disabled hidden>
@@ -67,7 +67,7 @@ const DateSelector = ({ onChange, error }) => {
         className={`${error ? 'error' : ''} select-month`}
         name="month"
         onChange={onDateInputChange}
-        defaultValue={''}
+        defaultValue={dateValues.month}
         required
       >
         <option value="" disabled hidden>
@@ -90,7 +90,7 @@ const DateSelector = ({ onChange, error }) => {
         className={`${error ? 'error' : ''} select-year`}
         name="year"
         onChange={onDateInputChange}
-        defaultValue={''}
+        defaultValue={dateValues.year}
         required
       >
         <option value="" disabled hidden>

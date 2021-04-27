@@ -3,18 +3,18 @@ import DateSelector from '../date-selector/date-selector';
 import './signup-form.scss';
 
 const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
-  const onBirthDateChange = (date) => {
-    const keyValue = { birthDate: date.toString() };
-    onChange(keyValue);
-  };
-
   const onInputChange = (event) => {
     const keyValue = { [event.target.name]: event.target.value };
     onChange(keyValue);
   };
 
+  const onBirthDateChange = (date) => {
+    const keyValue = { birthDate: date.toString() };
+    onChange(keyValue);
+  };
+
   return (
-    <form id="signup-form" onSubmit={onSubmit}>
+    <form className="signup-form" id="signup-form" onSubmit={onSubmit}>
       {errors.nickname && <p>{errors.nickname}</p>}
       <input
         placeholder="Nickname"

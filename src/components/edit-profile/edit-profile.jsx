@@ -3,27 +3,24 @@ import { Button, IconButton } from '@material-ui/core';
 import './edit-profile.scss';
 import { Close } from '@material-ui/icons';
 import ProfileAvatarBackground from '../profile-page/profile-avatar-background';
-import DateSelector from '../date-selector/date-selector';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import EditProfileForm from './edit-profile-form';
 
 const EditProfile = ({
-  profileUser: { nickname, userDetails },
+  profileUser: { nickname, birthDate, userDetails },
   showClose,
   close,
 }) => {
   const [values, setValues] = useState({
-    nickname: nickname,
+    nickname,
+    birthDate,
     interests: userDetails.interests,
     about: userDetails.about,
   });
 
-  const onChange = (object) => {
-    setValues({ ...values, ...object });
-  };
-
-  const formInputHandler = (event) => {
-    onChange({ [event.target.name]: event.target.value });
+  const onChange = (keyValue) => {
+    setValues({ ...values, ...keyValue });
   };
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
@@ -35,6 +32,7 @@ const EditProfile = ({
     },
     variables: {
       nickname: values.nickname,
+      birthDate: values.birthDate,
       about: values.about,
       interests: values.interests,
       profileImageBase64: values.profileImage,
@@ -73,29 +71,7 @@ const EditProfile = ({
           backgroundImage={userDetails.backgroundImage}
           showControlIcons
         />
-        <form>
-          <input
-            value={values.nickname}
-            onInput={formInputHandler}
-            name="nickname"
-            placeholder="Nickname"
-          ></input>
-          <input
-            value={values.interests}
-            onInput={formInputHandler}
-            name="interests"
-            placeholder="Interests"
-          ></input>
-          <textarea
-            value={values.about}
-            onInput={formInputHandler}
-            name="about"
-            placeholder="About Me"
-            className="about"
-          ></textarea>
-          <p className="outer-label">Birth Date</p>
-          <DateSelector></DateSelector>
-        </form>
+        <EditProfileForm onChange={onChange} values={values} />
       </div>
     </div>
   );
@@ -104,6 +80,7 @@ const EditProfile = ({
 const UPDATE_USER = gql`
   mutation updateUser(
     $nickname: String
+    $birthDate: String
     $about: String
     $interests: String
     $profileImageBase64: String
@@ -112,6 +89,7 @@ const UPDATE_USER = gql`
     updateUser(
       input: {
         nickname: $nickname
+        birthDate: $birthDate
         about: $about
         interests: $interests
         profileImageBase64: $profileImageBase64
@@ -120,6 +98,7 @@ const UPDATE_USER = gql`
     ) {
       id
       nickname
+      birthDate
       userDetails {
         id
         about
