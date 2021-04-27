@@ -7,6 +7,7 @@ import { setSignedUser } from '../redux/user/user-actions';
 
 import './sign.scss';
 import './signin.scss';
+import SigninForm from './signin-form';
 
 const Signin = ({ switchForm, setSignedUser, onSign }) => {
   const [errors, setErrors] = useState({});
@@ -15,9 +16,10 @@ const Signin = ({ switchForm, setSignedUser, onSign }) => {
     password: '',
   });
 
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-    setErrors({ ...errors, [event.target.name]: null });
+  const onChange = (keyValue) => {
+    setValues({ ...values, ...keyValue });
+    const key = Object.keys(keyValue)[0];
+    setErrors({ ...errors, [key]: null });
   };
 
   const [loginUser, { loading }] = useMutation(SIGNIN_USER, {
@@ -50,33 +52,20 @@ const Signin = ({ switchForm, setSignedUser, onSign }) => {
           {errors.general && <p>{errors.general}</p>}
         </div>
       )}
-      <form onSubmit={onSubmit}>
-        {errors.email && <p>{errors.email}</p>}
-        <input
-          placeholder="Email"
-          name="email"
-          type="email"
-          className={errors.email ? 'error' : ''}
-          onChange={onChange}
-          required
-        ></input>
-        {errors.password && <p>{errors.password}</p>}
-        <input
-          placeholder="Password"
-          name="password"
-          type="password"
-          className={errors.password ? 'error' : ''}
-          onChange={onChange}
-          required
-        ></input>
-        <Button type="submit" variant="contained" className="sign-button">
-          {loading ? (
-            <CircularProgress color="inherit" size={30} />
-          ) : (
-            <span>Sign In</span>
-          )}
-        </Button>
-      </form>
+      <SigninForm onChange={onChange} onSubmit={onSubmit} errors={errors} />
+      <Button
+        disabled={loading}
+        type="submit"
+        variant="contained"
+        className="sign-button"
+        form="signin-form"
+      >
+        {loading ? (
+          <CircularProgress color="inherit" size={30} />
+        ) : (
+          <span>Sign In</span>
+        )}
+      </Button>
       <Divider />
       <div className="create-button-container">
         <Button onClick={switchForm} variant="outlined">

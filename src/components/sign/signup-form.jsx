@@ -3,12 +3,14 @@ import DateSelector from '../date-selector/date-selector';
 import './signup-form.scss';
 
 const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
-  const onBirthDateChange = (event) => {
-    event.target.name = `birth${event.target.name[0].toUpperCase()}${event.target.name.slice(
-      1
-    )}`;
+  const onBirthDateChange = (date) => {
+    const keyValue = { birthDate: date.toString() };
+    onChange(keyValue);
+  };
 
-    onChange(event);
+  const onInputChange = (event) => {
+    const keyValue = { [event.target.name]: event.target.value };
+    onChange(keyValue);
   };
 
   return (
@@ -19,7 +21,7 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
         name="nickname"
         type="text"
         className={errors.nickname ? 'error' : ''}
-        onChange={onChange}
+        onChange={onInputChange}
         required
       ></input>
       {errors.email && <p>{errors.email}</p>}
@@ -28,7 +30,7 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
         name="email"
         type="email"
         className={errors.email ? 'error' : ''}
-        onChange={onChange}
+        onChange={onInputChange}
         required
       ></input>
       {errors.password && <p>{errors.password}</p>}
@@ -37,7 +39,7 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
         placeholder="Password"
         name="password"
         className={errors.password ? 'error' : ''}
-        onChange={onChange}
+        onChange={onInputChange}
         required
       ></input>
       <input
@@ -45,7 +47,7 @@ const SignupForm = ({ onChange, onSubmit, errors = {} }) => {
         placeholder="Confirm Password"
         name="confirmPassword"
         className={errors.password ? 'error' : ''}
-        onChange={onChange}
+        onChange={onInputChange}
         required
       ></input>
       {errors.birthDate && <p>{errors.birthDate}</p>}

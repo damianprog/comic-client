@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './date-selector.scss';
 
 const DateSelector = ({ onChange, error }) => {
+  const [dateValues, setDateValues] = useState({
+    day: '',
+    month: '',
+    year: '',
+  });
+
+  useEffect(() => {
+    const { day, month, year } = dateValues;
+
+    if (day && month && year) {
+      const selectedDate = new Date(year, month, day);
+      onChange(selectedDate);
+    }
+  }, [dateValues]);
+
   const getDays = () => {
     const days = [];
     for (let i = 1; i <= 31; i++) {
@@ -23,12 +38,19 @@ const DateSelector = ({ onChange, error }) => {
     return years;
   };
 
+  const onDateInputChange = async (event) => {
+    setDateValues({
+      ...dateValues,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <div className="date-selector">
       <select
         className={`${error ? 'error' : ''} select-day`}
         name="day"
-        onChange={onChange}
+        onChange={onDateInputChange}
         defaultValue={''}
         required
       >
@@ -44,30 +66,30 @@ const DateSelector = ({ onChange, error }) => {
       <select
         className={`${error ? 'error' : ''} select-month`}
         name="month"
-        onChange={onChange}
+        onChange={onDateInputChange}
         defaultValue={''}
         required
       >
         <option value="" disabled hidden>
           Month
         </option>
-        <option value="1">Jan</option>
-        <option value="2">Feb</option>
-        <option value="3">Mar</option>
-        <option value="4">Apr</option>
-        <option value="5">May</option>
-        <option value="6">Jun</option>
-        <option value="7">Jul</option>
-        <option value="8">Aug</option>
-        <option value="9">Sep</option>
-        <option value="10">Oct</option>
-        <option value="11">Nov</option>
-        <option value="12">Dec</option>
+        <option value="0">Jan</option>
+        <option value="1">Feb</option>
+        <option value="2">Mar</option>
+        <option value="3">Apr</option>
+        <option value="4">May</option>
+        <option value="5">Jun</option>
+        <option value="6">Jul</option>
+        <option value="7">Aug</option>
+        <option value="8">Sep</option>
+        <option value="9">Oct</option>
+        <option value="10">Nov</option>
+        <option value="11">Dec</option>
       </select>
       <select
         className={`${error ? 'error' : ''} select-year`}
         name="year"
-        onChange={onChange}
+        onChange={onDateInputChange}
         defaultValue={''}
         required
       >

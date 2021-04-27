@@ -16,18 +16,13 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
     email: '',
     password: '',
     confirmPassword: '',
-    birthDay: '',
-    birthMonth: '',
-    birthYear: '',
     birthDate: '',
   });
 
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-    const valueName = event.target.name.includes('birth')
-      ? 'birthDate'
-      : event.target.name;
-    setErrors({ ...errors, [valueName]: null });
+  const onChange = (keyValue) => {
+    setValues({ ...values, ...keyValue });
+    const key = Object.keys(keyValue)[0];
+    setErrors({ ...errors, [key]: null });
   };
 
   const [registerUser, { loading }] = useMutation(SIGNUP_USER, {
@@ -47,23 +42,6 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
     },
   });
 
-  const getFullBirthDate = () => {
-    let fullBirthDate = '';
-
-    if (
-      values.birthDay !== '' &&
-      values.birthMonth !== '' &&
-      values.birthYear !== ''
-    ) {
-      fullBirthDate = `${values.birthMonth.padStart(
-        2,
-        '0'
-      )}-${values.birthDay.padStart(2, '0')}-${values.birthYear}`;
-    }
-
-    return fullBirthDate;
-  };
-
   const passwordsMatch = () => {
     const match = values.password === values.confirmPassword;
     if (!match) {
@@ -76,14 +54,7 @@ const Signup = ({ switchForm, setSignedUser, onSign }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if (passwordsMatch()) {
-      await setValues({
-        ...values,
-        birthDate: getFullBirthDate(),
-      });
-
-      registerUser();
-    }
+    if (passwordsMatch()) registerUser();
   };
 
   return (

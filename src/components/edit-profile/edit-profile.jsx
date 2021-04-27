@@ -28,7 +28,6 @@ const EditProfile = ({
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
     update(_, result) {
-      console.log('result.data.updateUser: ', result.data.updateUser);
       close();
     },
     onError(err) {
