@@ -13,7 +13,22 @@
   }
 
   .dialog-content {
-    width: 650px;
+    max-width: 650px;
     padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    .dialog-content {
+      width: 100%;
+    }
+
+    .MuiDialog-paper {
+      margin: 0;
+    }
+
+    .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 }

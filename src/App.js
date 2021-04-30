@@ -13,6 +13,7 @@ import ComicPage from './components/comic-page/comic-page';
 import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
 import Profile from './components/profile-page/profile';
+import editProfilePage from './components/edit-profile/edit-profile-page';
 
 function App({ setSignedUser }) {
   const { data: { currentUser } = {} } = useQuery(CURRENT_USER);
@@ -31,6 +32,8 @@ function App({ setSignedUser }) {
         <Route exact path="/comic/:id" component={ComicPage} />
         <Route exact path="/sign/:form" component={SignPage} />
         <Route exact path="/profile/:nickname" component={Profile} />
+        <Route exact path="/profile/:nickname" component={Profile} />
+        <Route exact path="/edit-profile" component={editProfilePage} />
       </Switch>
     </div>
   );

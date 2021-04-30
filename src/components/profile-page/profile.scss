@@ -50,22 +50,41 @@
 
   .about {
     max-width: 550px;
-
+    padding: 19px 0 4px 0;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     p {
       margin-bottom: 15px;
     }
   }
 
-  .edit-profile-btn {
-    position: absolute;
-    right: 28px;
-    top: -53px;
-    border: 1px solid #5c5c5c;
-    border-radius: 20px;
-    height: 38px;
+  .edit-profile-buttons {
+    button {
+      position: absolute;
+      right: 28px;
+      top: -53px;
+      border: 1px solid #5c5c5c;
+      border-radius: 20px;
+      height: 38px;
+
+      @media (max-width: 600px) {
+        top: -33px;
+      }
+    }
+
+    .edit-profile-link {
+      display: none;
+    }
 
     @media (max-width: 600px) {
-      top: -33px;
+      .dialog-btn {
+        display: none;
+      }
+      .edit-profile-link {
+        display: block;
+      }
     }
   }
 

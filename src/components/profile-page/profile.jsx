@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
+import { USER } from '../../graphql/graphql';
 import { connect } from 'react-redux';
-import { Divider } from '@material-ui/core';
 import { DateRange } from '@material-ui/icons';
 import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 
 import './profile.scss';
 import ProfileAvatarBackground from './profile-avatar-background';
+import { Link } from 'react-router-dom';
 
 const Profile = ({ signedUser, match: { params } }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -47,13 +47,18 @@ const Profile = ({ signedUser, match: { params } }) => {
             />
             <div className="header-details">
               {signedUser && signedUser.id === profileUser.id ? (
-                <Button
-                  className="edit-profile-btn"
-                  variant="outlined"
-                  onClick={toggleEditDialog}
-                >
-                  Edit Profile
-                </Button>
+                <div className="edit-profile-buttons">
+                  <Button
+                    className="dialog-btn"
+                    variant="outlined"
+                    onClick={toggleEditDialog}
+                  >
+                    Edit Profile
+                  </Button>
+                  <Link className="edit-profile-link" to="/edit-profile">
+                    <Button variant="outlined">Edit Profile</Button>
+                  </Link>
+                </div>
               ) : null}
               <h2>{nickname}</h2>
               <p className="joined">
@@ -70,7 +75,6 @@ const Profile = ({ signedUser, match: { params } }) => {
                   <b>32</b> Read
                 </span>
               </p>
-              <Divider />
               <div className="about">
                 <p>
                   <b>Interests: </b>
@@ -81,7 +85,6 @@ const Profile = ({ signedUser, match: { params } }) => {
                   {about}
                 </p>
               </div>
-              <Divider />
             </div>
           </header>
         </div>
@@ -104,25 +107,6 @@ const Profile = ({ signedUser, match: { params } }) => {
 
   return profileMarkup;
 };
-
-const USER = gql`
-  query($nickname: String) {
-    user(nickname: $nickname) {
-      id
-      nickname
-      birthDate
-      email
-      createdAt
-      userDetails {
-        id
-        about
-        interests
-        profileImage
-        backgroundImage
-      }
-    }
-  }
-`;
 
 const mapStateToProps = (state) => ({
   signedUser: state.user.signedUser,

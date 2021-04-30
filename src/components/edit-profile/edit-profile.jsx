@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Button, IconButton } from '@material-ui/core';
+import { Button, CircularProgress, IconButton } from '@material-ui/core';
 import './edit-profile.scss';
 import { Close } from '@material-ui/icons';
 import ProfileAvatarBackground from '../profile-page/profile-avatar-background';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import EditProfileForm from './edit-profile-form';
+import { withRouter } from 'react-router-dom';
 
 const EditProfile = ({
   profileUser: { nickname, birthDate, userDetails },
   showClose,
   close,
+  history,
 }) => {
   const [values, setValues] = useState({
     nickname,
@@ -25,7 +27,8 @@ const EditProfile = ({
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
     update(_, result) {
-      close();
+      if (showClose) close();
+      history.push(`/profile/${nickname}`);
     },
     onError(err) {
       console.log(err);
@@ -57,11 +60,16 @@ const EditProfile = ({
         </div>
         <Button
           onClick={onSave}
+          disabled={loading}
           disableElevation
           variant="contained"
           className="save"
         >
-          Save
+          {loading ? (
+            <CircularProgress color="inherit" size={23} />
+          ) : (
+            <span>Save</span>
+          )}
         </Button>
       </div>
       <div className="content">
@@ -110,4 +118,4 @@ const UPDATE_USER = gql`
   }
 `;
 
-export default EditProfile;
+export default withRouter(EditProfile);

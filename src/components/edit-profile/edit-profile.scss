@@ -24,7 +24,8 @@
     .save {
       background-color: #5c5c5c;
       color: #fff;
-      padding: 4px 23px;
+      width: 82px;
+      height: 32px;
       border-radius: 20px;
 
       &:hover {
@@ -43,6 +44,20 @@
       margin: -61px 0 0 11px;
       width: 122px;
       height: 122px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .profile-avatar-background {
+      .avatar {
+        width: 90px;
+        height: 90px;
+        margin-top: -45px;
+
+        .control-icons {
+          top: 25%;
+        }
+      }
     }
   }
 }
