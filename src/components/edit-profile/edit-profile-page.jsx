@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EditProfile from './edit-profile';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { USER } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './edit-profile-page.scss';
 
 const EditProfilePage = ({ signedUser }) => {
-  const { data: { user: profileUser } = {} } = useQuery(USER, {
+  const [getUser, { data: { user: profileUser } = {} }] = useLazyQuery(USER, {
     variables: {
-      nickname: signedUser.nickname,
+      nickname: signedUser ? signedUser.nickname : '',
     },
   });
+
+  useEffect(() => {
+    if (signedUser) {
+      getUser();
+    }
+  }, [signedUser]);
 
   return (
     <div className="edit-profile-page">

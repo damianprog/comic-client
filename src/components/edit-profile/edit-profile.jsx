@@ -28,7 +28,7 @@ const EditProfile = ({
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
     update(_, result) {
       if (showClose) close();
-      history.push(`/profile/${nickname}`);
+      history.push(`/profile/${result.data.updateUser.nickname}`);
     },
     onError(err) {
       console.log(err);

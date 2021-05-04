@@ -11,14 +11,14 @@ const ProfileAvatarBackground = ({
   backgroundImage,
   showControlIcons = false,
 }) => {
-  const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
-  const [currentProfileImage, setCurrentProfileImage] = useState('');
+  const [currentBackgroundImage, setCurrentBackgroundImage] = useState(
+    backgroundImage
+  );
+  const [currentProfileImage, setCurrentProfileImage] = useState(profileImage);
 
   useEffect(() => {
-    setCurrentBackgroundImage(
-      backgroundImage ? backgroundImage : backgroundPlaceholder
-    );
-    setCurrentProfileImage(profileImage ? profileImage : profilePlaceholder);
+    setCurrentBackgroundImage(backgroundImage);
+    setCurrentProfileImage(profileImage);
   }, [profileImage, backgroundImage]);
 
   const onImageInputChange = (event) => {
@@ -32,8 +32,14 @@ const ProfileAvatarBackground = ({
           ? setCurrentBackgroundImage(reader.result)
           : setCurrentProfileImage(reader.result);
         onChange({ [event.target.name]: reader.result });
+        event.target.value = '';
       };
     }
+  };
+
+  const deleteBackgroundImage = () => {
+    setCurrentBackgroundImage('');
+    onChange({ backgroundImage: '' });
   };
 
   return (
@@ -45,7 +51,11 @@ const ProfileAvatarBackground = ({
               ? 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),'
               : ''
           }
-          url('${currentBackgroundImage}')`,
+          url('${
+            currentBackgroundImage
+              ? currentBackgroundImage
+              : backgroundPlaceholder
+          }')`,
         }}
         className="background-image"
       >
@@ -61,9 +71,11 @@ const ProfileAvatarBackground = ({
               />
             </label>
 
-            <label>
-              <Close />
-            </label>
+            {currentBackgroundImage ? (
+              <label className="delete-bg" onClick={deleteBackgroundImage}>
+                <Close />
+              </label>
+            ) : null}
           </div>
         ) : null}
       </div>
@@ -75,7 +87,9 @@ const ProfileAvatarBackground = ({
               ? 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),'
               : ''
           }
-          url('${currentProfileImage}')`,
+          url('${
+            currentProfileImage ? currentProfileImage : profilePlaceholder
+          }')`,
         }}
         className="avatar"
       >
