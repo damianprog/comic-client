@@ -20,8 +20,8 @@ class Homepage extends React.Component {
   }
 
   async setComicPreviews() {
-    const firstPreviewComics = await GetComicsByTitle('Hawkeye', 10);
-    const secondPreviewComics = await GetComicsByTitle('Black Widow', 10);
+    const firstPreviewComics = await GetComicsByTitle('Black Widow', 10);
+    const secondPreviewComics = await GetComicsByTitle('Hawkeye', 10);
     const thirdPreviewComics = await GetComicsByTitle('Moon Knight', 10);
 
     this.setState({
@@ -41,11 +41,11 @@ class Homepage extends React.Component {
     return (
       <div className="homepage">
         <ComicsPreview
-          comics={secondPreviewComics}
+          comics={firstPreviewComics}
           title="New Black Widow releases"
         />
         <ComicsPreview
-          comics={firstPreviewComics}
+          comics={secondPreviewComics}
           title="New Hawkeye releases"
         />
         <ComicsPreview

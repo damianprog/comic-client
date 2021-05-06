@@ -1,5 +1,4 @@
 import React from 'react';
-import GetComicMainImage from '../../utils/get-comic-main-image';
 
 import he from 'he';
 
@@ -7,29 +6,15 @@ import './comic-page-details.scss';
 
 const ComicPageDetails = ({ comic, comicSeries }) => {
   const publishedDate = () => {
-    const { dates } = comic;
+    const { onsaleDate } = comic;
     let formattedDate = '';
-    if (dates) {
-      const onsaleDate = dates.find((date) => date.type === 'onsaleDate');
-      const parsedDate = new Date(Date.parse(onsaleDate.date));
+    if (onsaleDate) {
+      const parsedDate = new Date(Date.parse(onsaleDate));
       const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
       formattedDate = parsedDate.toLocaleDateString('en-US', dateOptions);
     }
 
     return formattedDate;
-  };
-
-  const creatorByRole = (role) => {
-    const { creators } = comic;
-    let creatorName = '';
-    if (creators) {
-      const creator = creators.items.find((creator) =>
-        creator.role.includes(role)
-      );
-      creatorName = creator ? creator.name : '';
-    }
-
-    return creatorName;
   };
 
   const stripHtmlTags = (string) => {
@@ -52,22 +37,19 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
     return description;
   };
 
-  const { title } = comic;
+  const { title, coverImage, writer, inker, penciler } = comic;
 
   const published = publishedDate();
-  const writer = creatorByRole('writer');
-  const penciler = creatorByRole('inker');
-  const coverArtist = creatorByRole('penciler');
 
   return (
     <div className="comic-details">
       <div
-        style={{ backgroundImage: `url(${GetComicMainImage(comic)})` }}
+        style={{ backgroundImage: `url(${coverImage})` }}
         className="comic-details-bg"
       ></div>
       <div className="wrapper">
         <div className="main-img-container">
-          <img alt="main-img" src={GetComicMainImage(comic)} />
+          <img alt="main-img" src={coverImage} />
         </div>
         <div className="comic-info">
           <h2>{title}</h2>
@@ -82,17 +64,17 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
                 <span>{writer}</span>
               </div>
             ) : null}
-            {penciler !== '' ? (
+            {inker !== '' ? (
               <div>
                 <h3>Penciler:</h3>
-                <span>{penciler}</span>
+                <span>{inker}</span>
               </div>
             ) : null}
           </div>
-          {coverArtist !== '' ? (
+          {penciler !== '' ? (
             <div>
               <h3>Cover Artist:</h3>
-              <span>{coverArtist}</span>
+              <span>{penciler}</span>
             </div>
           ) : null}
 

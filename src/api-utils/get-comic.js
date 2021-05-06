@@ -1,4 +1,5 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
+import restructureApiComic from './restructure-api-comic';
 
 const GetComic = (id) => {
   const url = `https://gateway.marvel.com/v1/public/comics?id=${id}&apikey=2e000938355ab5a08959af26a65ae33f`;
@@ -14,8 +15,9 @@ const GetComic = (id) => {
     })
       .then((res) => {
         const result = res.data.data.results[0];
-        window.localStorage.setItem(url, JSON.stringify(result));
-        return result;
+        const restructuredComic = restructureApiComic(result);
+        window.localStorage.setItem(url, JSON.stringify(restructuredComic));
+        return restructuredComic;
       })
       .catch((rejectedValue) => {
         console.log('Fetching comic data failed... ', rejectedValue);

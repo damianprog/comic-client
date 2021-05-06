@@ -3,30 +3,26 @@ import { withRouter } from 'react-router-dom';
 
 import './comics-preview-item.scss';
 
-const ComicsPreviewItem = (props) => {
+const ComicsPreviewItem = ({ comic, history }) => {
   const mainCreatorsLastNames = () => {
-    const { creators } = props.comic;
-    const mainCreators = creators.items.slice(0, 2);
-    return mainCreators.map((creator) => creator.name.split(' ').pop());
-  };
-
-  const mainImage = () => {
-    const { images } = props.comic;
-    return `${images[0].path}.${images[0].extension}`;
+    const mainCreatorsNames = [];
+    if (comic.writer) mainCreatorsNames.push(comic.writer);
+    if (comic.inker) mainCreatorsNames.push(comic.inker);
+    return mainCreatorsNames.map((creatorName) => creatorName.split(' ').pop());
   };
 
   const redirectToComicPage = () => {
-    props.history.push(`/comic/${props.comic.id}`);
+    history.push(`/comic/${comic.marvelApiId}`);
     document.body.scrollTo(0, 0);
   };
 
-  const { title } = props.comic;
+  const { title, coverImage } = comic;
   const creators = mainCreatorsLastNames().join(', ');
 
   return (
     <div onClick={redirectToComicPage} className="comics-preview-item">
       <div className="img-container">
-        <img alt="comic" src={mainImage()} />
+        <img alt="comic" src={coverImage} />
       </div>
       <h5>{title}</h5>
       <span>{creators}</span>

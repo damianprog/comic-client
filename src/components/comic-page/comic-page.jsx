@@ -33,7 +33,7 @@ class ComicPage extends React.Component {
   async updateState() {
     await this.setComic();
     await this.setComicSeries(this.state.comic);
-    await this.setComicsFromSeries(this.state.comicSeries);
+    await this.setComicsFromSeries(this.state.comic.seriesId);
   }
 
   async setComic() {
@@ -42,21 +42,16 @@ class ComicPage extends React.Component {
   }
 
   async setComicSeries(comic) {
-    if (comic.series) {
-      const seriesId = this.getSeriesIdFromComic(comic);
-      const seriesDetails = await GetSeries(seriesId);
+    if (comic.seriesId) {
+      const seriesDetails = await GetSeries(comic.seriesId);
       if (seriesDetails) {
         this.setState({ comicSeries: seriesDetails });
       }
     }
   }
 
-  getSeriesIdFromComic(comic) {
-    return comic.series ? comic.series.resourceURI.split('/').pop() : '';
-  }
-
-  async setComicsFromSeries(comicSeries) {
-    const comicsFromSeries = await GetComicsFromSeries(comicSeries.id);
+  async setComicsFromSeries(seriesId) {
+    const comicsFromSeries = await GetComicsFromSeries(seriesId);
     this.setState({ comicsFromSeries });
   }
 

@@ -1,4 +1,5 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
+import restructureApiComic from './restructure-api-comic';
 
 const GetComicsFromSeries = (seriesId) => {
   const url = `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?limit=10&noVariants=true&orderBy=issueNumber&apikey=2e000938355ab5a08959af26a65ae33f`;
@@ -19,8 +20,12 @@ const GetComicsFromSeries = (seriesId) => {
         const resultsWithImages = results.filter(
           (result) => result.images.length > 0
         );
-        window.localStorage.setItem(url, JSON.stringify(resultsWithImages));
-        return resultsWithImages;
+        const restructuredComics = resultsWithImages.map((comic) =>
+          restructureApiComic(comic)
+        );
+        console.log('restructuredComics: ', restructuredComics);
+        window.localStorage.setItem(url, JSON.stringify(restructuredComics));
+        return restructuredComics;
       })
       .catch((rejectedValue) => {
         console.log('Fetching comic data failed... ', rejectedValue);
