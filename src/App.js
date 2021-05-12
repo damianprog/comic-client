@@ -14,6 +14,8 @@ import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
 import Profile from './components/profile-page/profile';
 import editProfilePage from './components/edit-profile/edit-profile-page';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+// import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
   const { data: { currentUser } = {} } = useQuery(CURRENT_USER);
@@ -23,18 +25,31 @@ function App({ setSignedUser }) {
     }
   }, [currentUser, setSignedUser]);
 
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#202020',
+      },
+      secondary: {
+        main: '#e23636',
+      },
+    },
+  });
+
   return (
     <div>
-      <Header></Header>
-      <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/comic/:id" component={ComicPage} />
-        <Route exact path="/sign/:form" component={SignPage} />
-        <Route exact path="/profile/:nickname" component={Profile} />
-        <Route exact path="/profile/:nickname" component={Profile} />
-        <Route exact path="/edit-profile" component={editProfilePage} />
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Header></Header>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/comic/:id" component={ComicPage} />
+          <Route exact path="/sign/:form" component={SignPage} />
+          <Route exact path="/profile/:nickname" component={Profile} />
+          <Route exact path="/profile/:nickname" component={Profile} />
+          <Route exact path="/edit-profile" component={editProfilePage} />
+        </Switch>
+      </ThemeProvider>
     </div>
   );
 }

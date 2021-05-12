@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
+import { LibraryAdd } from '@material-ui/icons';
+import SaveComicDialog from '../save-comic/save-comic-dialog';
 
 import he from 'he';
 
 import './comic-page-details.scss';
 
 const ComicPageDetails = ({ comic, comicSeries }) => {
+  const [openSaveComicDialog, setOpenSaveComicDialog] = useState(false);
+
+  const toggleSaveDialog = () => {
+    setOpenSaveComicDialog(!openSaveComicDialog);
+  };
+
   const publishedDate = () => {
     const { onsaleDate } = comic;
     let formattedDate = '';
@@ -50,6 +59,14 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
       <div className="wrapper">
         <div className="main-img-container">
           <img alt="main-img" src={coverImage} />
+          <Button
+            className="save-dialog-btn"
+            disableRipple
+            onClick={toggleSaveDialog}
+          >
+            <LibraryAdd />
+            Save Comic
+          </Button>
         </div>
         <div className="comic-info">
           <h2>{title}</h2>
@@ -81,6 +98,11 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
           <div className="comic-info-description">{description()}</div>
         </div>
       </div>
+      <SaveComicDialog
+        open={openSaveComicDialog}
+        closeDialog={toggleSaveDialog}
+        comic={comic}
+      ></SaveComicDialog>
     </div>
   );
 };

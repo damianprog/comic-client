@@ -49,7 +49,7 @@ const Profile = ({ signedUser, match: { params } }) => {
               {signedUser && signedUser.id === profileUser.id ? (
                 <div className="edit-profile-buttons">
                   <Button
-                    className="dialog-btn"
+                    className="edit-dialog-btn"
                     variant="outlined"
                     onClick={toggleEditDialog}
                   >

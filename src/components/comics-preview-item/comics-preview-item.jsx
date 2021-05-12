@@ -12,7 +12,7 @@ const ComicsPreviewItem = ({ comic, history }) => {
   };
 
   const redirectToComicPage = () => {
-    history.push(`/comic/${comic.marvelApiId}`);
+    history.push(`/comic/${comic.id}`);
     document.body.scrollTo(0, 0);
   };
 

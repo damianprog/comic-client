@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import GetComicMainImage from '../../utils/get-comic-main-image';
 
 import './search-results-list-item.scss';
 
 const SearchResultsListItem = ({
   comic,
-  comic: { marvelApiId, coverImage, title, onsaleDate },
+  comic: { id, coverImage, title, onsaleDate },
 }) => {
   const publishedYear = () => {
     let year = '';
@@ -21,7 +20,7 @@ const SearchResultsListItem = ({
 
   return (
     <div className="search-item">
-      <Link to={`/comic/${marvelApiId}`}>
+      <Link to={`/comic/${id}`}>
         <div
           style={{ backgroundImage: `url(${coverImage})` }}
           className="search-item-image"
@@ -30,7 +29,7 @@ const SearchResultsListItem = ({
       <div className="search-item-details-wrapper">
         <div className="search-item-details">
           <b className="item-type">Comic Issue</b>
-          <Link to={`/comic/${marvelApiId}`}>
+          <Link to={`/comic/${id}`}>
             <h2>{title}</h2>
           </Link>
           <b>{publishedYear()}</b>

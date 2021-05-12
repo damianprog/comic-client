@@ -14,6 +14,19 @@
       padding-bottom: 200px;
     }
 
+    .save-dialog-btn {
+      color: #fff;
+      margin-top: 8px;
+
+      &:hover {
+        background: none;
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+
     h2 {
       font-size: 29px;
       font-family: 'Roboto Condensed', sans-serif;
@@ -61,6 +74,9 @@
 
   .main-img-container {
     max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .main-img-container img {

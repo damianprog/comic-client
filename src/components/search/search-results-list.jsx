@@ -13,7 +13,7 @@ const SearchResultsList = ({ comics, allComicsLength }) => {
       )}
       {comics.map((comic) => (
         <SearchResultsListItem
-          key={comic.marvelApiId}
+          key={comic.id}
           comic={comic}
         ></SearchResultsListItem>
       ))}

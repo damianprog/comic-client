@@ -1,0 +1,28 @@
+.save-comic-create-category {
+  .create-btn {
+    padding: 0;
+
+    &:hover {
+      background: none;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3px;
+
+    button {
+      align-self: flex-end;
+      justify-content: flex-end;
+      color: #e23636;
+      margin-top: 16px;
+    }
+
+    .name-input {
+      .MuiInput-underline:after {
+        border-bottom: #202020;
+      }
+    }
+  }
+}

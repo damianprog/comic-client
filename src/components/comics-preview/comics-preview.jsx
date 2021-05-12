@@ -10,7 +10,7 @@ const ComicsPreview = ({ comics, title }) => (
       <h2>{title}</h2>
       <div className="items-container">
         {comics.map((comic) => (
-          <ComicsPreviewItem key={comic.marvelApiId} comic={comic} />
+          <ComicsPreviewItem key={comic.id} comic={comic} />
         ))}
       </div>
     </div>

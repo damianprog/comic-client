@@ -7,8 +7,8 @@ export const SIGNOUT = gql`
 `;
 
 export const USER = gql`
-  query($id: Int, $nickname: String) {
-    user(id: $id, nickname: $nickname) {
+  query ($id: Int, $nickname: String) {
+    user(where: { id: $id, nickname: $nickname }) {
       id
       nickname
       birthDate
@@ -21,6 +21,51 @@ export const USER = gql`
         profileImage
         backgroundImage
       }
+    }
+  }
+`;
+
+export const CREATE_USER_COMIC = gql`
+  mutation createUserComic(
+    $id: ID!
+    $title: String!
+    $description: String
+    $coverImage: String
+    $onsaleDate: String
+    $writer: String
+    $inker: String
+    $penciler: String
+    $seriesId: ID
+    $category: String!
+  ) {
+    createUserComic(
+      input: {
+        id: $id
+        title: $title
+        description: $description
+        coverImage: $coverImage
+        onsaleDate: $onsaleDate
+        writer: $writer
+        inker: $inker
+        penciler: $penciler
+        seriesId: $seriesId
+      }
+      category: $category
+    ) {
+      id
+      userId
+      comic {
+        id
+        title
+        coverImage
+        onsaleDate
+        writer
+        inker
+        penciler
+        description
+        seriesId
+      }
+      category
     }
   }
 `;
