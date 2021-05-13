@@ -22,19 +22,25 @@ const SaveComicCategoriesList = ({ comic, signedUser }) => {
     }
   );
 
+  const sortedUserComicsCategories = () => {
+    const sortedArray = userComicsCategories
+      ? [...userComicsCategories].sort()
+      : [];
+
+    return sortedArray;
+  };
+
   return (
     <div className="save-comic">
       <List className="categories-list">
-        {userComicsCategories
-          ? userComicsCategories.map((category) => (
-              <SaveComicCategoriesListItem
-                key={category}
-                category={category}
-                comic={comic}
-                userComics={userComics}
-              />
-            ))
-          : null}
+        {sortedUserComicsCategories().map((category) => (
+          <SaveComicCategoriesListItem
+            key={category}
+            category={category}
+            comic={comic}
+            userComics={userComics}
+          />
+        ))}
       </List>
     </div>
   );

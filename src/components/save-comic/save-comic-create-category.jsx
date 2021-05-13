@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './save-comic-create-category.scss';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER_COMIC } from '../../graphql/graphql';
 import { Button, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Add } from '@material-ui/icons';
+import { addUserComicToCachedUserComics } from '../../graphql/utils';
 
-const SaveComicCreateCategory = ({ comic, signedUser }) => {
+const SaveComicCreateCategory = ({ comic, close }) => {
   const [showForm, setShowForm] = useState(false);
-  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -15,11 +17,35 @@ const SaveComicCreateCategory = ({ comic, signedUser }) => {
 
   const createCategory = (e) => {
     e.preventDefault();
+    createUserComic({
+      variables: {
+        ...comic,
+        category,
+      },
+    });
   };
 
-  const onChangeName = (event) => {
-    setName(event.target.value);
+  const onChangeCategory = (event) => {
+    setCategory(event.target.value);
   };
+
+  const [createUserComic] = useMutation(CREATE_USER_COMIC, {
+    update(cache, { data: { createUserComic } }) {
+      addUserComicToCachedUserComics(cache, createUserComic);
+      cache.modify({
+        fields: {
+          userComicsCategories(cachedCategories = []) {
+            return [...cachedCategories, createUserComic.category];
+          },
+        },
+      });
+
+      close();
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
   return (
     <div className="save-comic-create-category">
@@ -28,10 +54,10 @@ const SaveComicCreateCategory = ({ comic, signedUser }) => {
           <TextField
             focused
             placeholder="Enter category name..."
-            onChange={onChangeName}
+            onChange={onChangeCategory}
             label="Name"
           />
-          <Button onClick={toggleForm} className="create-btn" disableRipple>
+          <Button type="submit" className="create-btn" disableRipple>
             Create
           </Button>
         </form>

@@ -8,14 +8,15 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { CREATE_USER_COMIC } from '../../graphql/graphql';
+import { addUserComicToCachedUserComics } from '../../graphql/utils';
 
 const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
   const [deleteUserComic] = useMutation(DELETE_USER_COMIC, {
     update(cache, { data: { deleteUserComic } }) {
       cache.modify({
         fields: {
-          userComics(existingUserComics = [], { readField }) {
-            const updatedUserComicsRefs = existingUserComics.filter(
+          userComics(cachedUserComicsRefs = [], { readField }) {
+            const updatedUserComicsRefs = cachedUserComicsRefs.filter(
               (userComicRef) =>
                 deleteUserComic.id !== readField('id', userComicRef)
             );
@@ -32,29 +33,7 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
 
   const [createUserComic] = useMutation(CREATE_USER_COMIC, {
     update(cache, { data: { createUserComic } }) {
-      cache.modify({
-        fields: {
-          userComics(existingUserComics = []) {
-            const newUserComicRef = cache.writeFragment({
-              data: createUserComic,
-              fragment: gql`
-                fragment NewUserComic on UserComic {
-                  id
-                  userId
-                  comic {
-                    id
-                    title
-                    coverImage
-                    onsaleDate
-                  }
-                  category
-                }
-              `,
-            });
-            return [...existingUserComics, newUserComicRef];
-          },
-        },
-      });
+      addUserComicToCachedUserComics(cache, createUserComic);
     },
     onError(err) {
       console.log(err);
@@ -71,15 +50,7 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
     } else {
       createUserComic({
         variables: {
-          id: comic.id,
-          title: comic.title,
-          description: comic.description,
-          coverImage: comic.coverImage,
-          onsaleDate: comic.onsaleDate,
-          writer: comic.writer,
-          inker: comic.inker,
-          penciler: comic.penciler,
-          seriesId: comic.seriesId,
+          ...comic,
           category,
         },
       });
