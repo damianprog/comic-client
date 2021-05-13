@@ -1,5 +1,5 @@
 import React from 'react';
-import './save-comic-categories.scss';
+import './save-comic-categories-list.scss';
 import { gql, useMutation } from '@apollo/client';
 import {
   Checkbox,

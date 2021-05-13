@@ -4,10 +4,6 @@
     overflow: hidden;
   }
 
-  .MuiDialog-paperWidthSm {
-    max-width: 100%;
-  }
-
   .close-container {
     padding: 15px 0 8px 12px;
   }
@@ -26,9 +22,8 @@
       margin: 0;
     }
 
-    .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+    .MuiDialog-paperWidthSm {
       width: 100%;
-      max-width: 100%;
     }
   }
 }

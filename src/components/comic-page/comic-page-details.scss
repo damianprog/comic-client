@@ -60,6 +60,10 @@
     @media (max-width: 840px) {
       background-color: #000;
 
+      .save-dialog-btn {
+        margin-top: 23px;
+      }
+
       .wrapper,
       .comic-info-row {
         display: flex;

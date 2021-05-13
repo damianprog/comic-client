@@ -30,7 +30,7 @@ const SaveComicDialog = ({ comic, open, closeDialog }) => {
         <SaveComicCategoriesList comic={comic} />
       </DialogContent>
       <DialogActions className="dialog-actions">
-        <SaveComicCreateCategory comic={comic} close={closeDialog} />
+        <SaveComicCreateCategory comic={comic} onCreate={closeDialog} />
       </DialogActions>
     </Dialog>
   );

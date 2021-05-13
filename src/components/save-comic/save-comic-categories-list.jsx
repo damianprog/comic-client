@@ -1,5 +1,5 @@
 import React from 'react';
-import './save-comic-categories.scss';
+import './save-comic-categories-list.scss';
 import { gql, useQuery } from '@apollo/client';
 import { List } from '@material-ui/core';
 import { connect } from 'react-redux';

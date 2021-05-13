@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { Add } from '@material-ui/icons';
 import { addUserComicToCachedUserComics } from '../../graphql/utils';
 
-const SaveComicCreateCategory = ({ comic, close }) => {
+const SaveComicCreateCategory = ({ comic, onCreate }) => {
   const [showForm, setShowForm] = useState(false);
   const [category, setCategory] = useState('');
 
@@ -35,15 +35,22 @@ const SaveComicCreateCategory = ({ comic, close }) => {
       cache.modify({
         fields: {
           userComicsCategories(cachedCategories = []) {
-            return [...cachedCategories, createUserComic.category];
+            const updatedCachedCategories = [...cachedCategories];
+            const isCategoryInCategories =
+              cachedCategories.indexOf(createUserComic.category) !== -1;
+            if (!isCategoryInCategories) {
+              updatedCachedCategories.push(createUserComic.category);
+            }
+
+            return updatedCachedCategories;
           },
         },
       });
 
-      close();
+      onCreate();
     },
     onError(err) {
-      console.log(err);
+      onCreate();
     },
   });
 
