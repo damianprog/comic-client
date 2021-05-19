@@ -3,6 +3,7 @@ import './save-comic-categories-list.scss';
 import { gql, useQuery } from '@apollo/client';
 import { List } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import SaveComicCategoriesListItem from './save-comic-categories-list-item';
 
 const SaveComicCategoriesList = ({ comic, signedUser }) => {
@@ -52,12 +53,6 @@ export const USER_COMICS = gql`
       id
       category
     }
-  }
-`;
-
-export const USER_COMICS_CATEGORIES = gql`
-  query ($userId: ID) {
-    userComicsCategories(userId: $userId)
   }
 `;
 

@@ -69,3 +69,9 @@ export const CREATE_USER_COMIC = gql`
     }
   }
 `;
+
+export const USER_COMICS_CATEGORIES = gql`
+  query ($userId: ID) {
+    userComicsCategories(userId: $userId)
+  }
+`;

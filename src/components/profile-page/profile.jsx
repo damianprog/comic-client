@@ -85,6 +85,12 @@ const Profile = ({ signedUser, match: { params } }) => {
                   {about}
                 </p>
               </div>
+              <Link
+                to={`/profile/${signedUser.nickname}/library`}
+                className="library"
+              >
+                <b>{nickname}'s</b> Library
+              </Link>
             </div>
           </header>
         </div>
