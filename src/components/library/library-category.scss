@@ -1,0 +1,22 @@
+.library-category {
+  padding-left: 50px;
+
+  .items-container {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 65px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 840px) {
+    .items-container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .items-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

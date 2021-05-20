@@ -1,9 +1,23 @@
-import React from 'react';
+import { Card, CardContent } from '@material-ui/core';
+import { MoreVert } from '@material-ui/icons';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './comics-preview-item.scss';
 
-const ComicsPreviewItem = ({ comic, history }) => {
+const ComicsPreviewItem = ({
+  comic,
+  history,
+  showControls,
+  controlDropdownContent,
+  disableAnimation,
+}) => {
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown);
+  };
+
   const mainCreatorsLastNames = () => {
     const mainCreatorsNames = [];
     if (comic.writer) mainCreatorsNames.push(comic.writer);
@@ -20,12 +34,30 @@ const ComicsPreviewItem = ({ comic, history }) => {
   const creators = mainCreatorsLastNames().join(', ');
 
   return (
-    <div onClick={redirectToComicPage} className="comics-preview-item">
-      <div className="img-container">
-        <img alt="comic" src={coverImage} />
+    <div>
+      <div className={`comics-preview-item ${disableAnimation ? '' : 'move'}`}>
+        <div onClick={redirectToComicPage} className="img-container">
+          <img alt="comic" src={coverImage} />
+        </div>
+        <div className="info-actions">
+          <div>
+            <h5 onClick={redirectToComicPage}>{title}</h5>
+            <span>{creators}</span>
+          </div>
+          {showControls ? (
+            <div className="controls">
+              <MoreVert onClick={toggleDropdown} />
+              {openDropdown ? (
+                <Card className="dropdown">
+                  <CardContent className="content">
+                    {controlDropdownContent}
+                  </CardContent>
+                </Card>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
       </div>
-      <h5>{title}</h5>
-      <span>{creators}</span>
     </div>
   );
 };

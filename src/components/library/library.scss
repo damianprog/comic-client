@@ -1,5 +1,9 @@
-.library-page {
+.library {
   .page-header {
     margin: 20px 0;
+  }
+
+  .content {
+    display: flex;
   }
 }

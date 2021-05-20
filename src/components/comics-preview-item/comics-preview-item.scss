@@ -15,14 +15,40 @@
   span {
     font-size: 12px;
   }
-}
 
-.comics-preview-item:hover {
-  .img-container {
-    top: -10px;
+  .controls {
+    position: relative;
+    .dropdown {
+      position: absolute;
+      left: -125px;
+      width: 150px;
+    }
+
+    .content {
+      padding: 10px 0;
+    }
+
+    ul {
+      width: 100%;
+    }
   }
 
-  h5 {
-    color: #e62429;
+  &:hover {
+    h5 {
+      color: #e62429;
+    }
+  }
+
+  &.move {
+    &:hover {
+      .img-container {
+        top: -10px;
+      }
+    }
+  }
+
+  .info-actions {
+    display: flex;
+    justify-content: space-between;
   }
 }

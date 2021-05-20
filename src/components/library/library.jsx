@@ -4,8 +4,10 @@ import { USER, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './library.scss';
 import LibraryCategoriesList from './library-categories-list';
+import LibraryCategory from './library-category';
 
 const Library = ({ signedUser }) => {
+  const [selectedCategory, setSelectedCategory] = useState();
   const [userComicsFromCategory, setUserComicsFromCategory] = useState([]);
 
   const [getUserComics, { data: { userComics } = {} }] = useLazyQuery(
@@ -32,6 +34,7 @@ const Library = ({ signedUser }) => {
   }, [signedUser]);
 
   const filterUserComicsByCategory = (category) => {
+    setSelectedCategory(category);
     const filteredUserComics = userComics.filter(
       (userComic) => userComic.category === category
     );
@@ -43,12 +46,18 @@ const Library = ({ signedUser }) => {
       {signedUser ? (
         <h2 className="page-header">{signedUser.nickname}'s Library</h2>
       ) : null}
-      {userComicsCategories ? (
-        <LibraryCategoriesList
-          categories={userComicsCategories}
-          onClickCategory={filterUserComicsByCategory}
+      <div className="content">
+        {userComicsCategories ? (
+          <LibraryCategoriesList
+            categories={userComicsCategories}
+            onClickCategory={filterUserComicsByCategory}
+          />
+        ) : null}
+        <LibraryCategory
+          category={selectedCategory}
+          userComics={userComicsFromCategory}
         />
-      ) : null}
+      </div>
     </div>
   );
 };

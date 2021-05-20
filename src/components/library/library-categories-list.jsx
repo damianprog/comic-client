@@ -11,7 +11,11 @@ const LibraryCategoriesList = ({ categories, onClickCategory }) => {
       <h3 className="header">Categories</h3>
       <List>
         {categories.map((category) => (
-          <ListItem onClick={onClickCategory} key={category} button>
+          <ListItem
+            onClick={() => onClickCategory(category)}
+            key={category}
+            button
+          >
             <ListItemText primary={category} />
           </ListItem>
         ))}

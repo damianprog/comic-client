@@ -8,10 +8,10 @@ import './user-dropdown.scss';
 import { useMutation } from '@apollo/client';
 
 const UserDropdown = ({ signedUser, setSignedUser }) => {
-  const [openList, setOpenList] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
-  const toggleList = () => {
-    setOpenList(!openList);
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown);
   };
 
   useEffect(() => {
@@ -21,16 +21,16 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
         dropdown &&
         event.target !== dropdown &&
         !dropdown.contains(event.target) &&
-        openList
+        openDropdown
       ) {
-        toggleList();
+        toggleDropdown();
       }
     };
     window.addEventListener('click', handleClick);
     return () => {
       window.removeEventListener('click', handleClick);
     };
-  }, [openList]);
+  }, [openDropdown]);
 
   const [signoutUser] = useMutation(SIGNOUT, {
     onError(err) {
@@ -45,8 +45,8 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
 
   return (
     <div className="user-dropdown">
-      <span onClick={toggleList}>{signedUser.nickname}</span>
-      {openList ? (
+      <span onClick={toggleDropdown}>{signedUser.nickname}</span>
+      {openDropdown ? (
         <ul>
           <Link to={`/profile/${signedUser.nickname}`}>
             <li>My Profile</li>
