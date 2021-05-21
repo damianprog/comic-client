@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
-import { USER, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
+import { gql, useLazyQuery } from '@apollo/client';
+import { USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './library.scss';
 import LibraryCategoriesList from './library-categories-list';

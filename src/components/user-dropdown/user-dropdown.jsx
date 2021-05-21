@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SIGNOUT } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { setSignedUser } from '../redux/user/user-actions';
@@ -6,32 +6,9 @@ import { Link } from 'react-router-dom';
 
 import './user-dropdown.scss';
 import { useMutation } from '@apollo/client';
+import Dropdown from '../dropdown/dropdown';
 
 const UserDropdown = ({ signedUser, setSignedUser }) => {
-  const [openDropdown, setOpenDropdown] = useState(false);
-
-  const toggleDropdown = () => {
-    setOpenDropdown(!openDropdown);
-  };
-
-  useEffect(() => {
-    const handleClick = (event) => {
-      const dropdown = document.querySelector('.user-dropdown');
-      if (
-        dropdown &&
-        event.target !== dropdown &&
-        !dropdown.contains(event.target) &&
-        openDropdown
-      ) {
-        toggleDropdown();
-      }
-    };
-    window.addEventListener('click', handleClick);
-    return () => {
-      window.removeEventListener('click', handleClick);
-    };
-  }, [openDropdown]);
-
   const [signoutUser] = useMutation(SIGNOUT, {
     onError(err) {
       console.log(err);
@@ -45,15 +22,14 @@ const UserDropdown = ({ signedUser, setSignedUser }) => {
 
   return (
     <div className="user-dropdown">
-      <span onClick={toggleDropdown}>{signedUser.nickname}</span>
-      {openDropdown ? (
+      <Dropdown activator={<span>{signedUser.nickname}</span>}>
         <ul>
           <Link to={`/profile/${signedUser.nickname}`}>
             <li>My Profile</li>
           </Link>
           <li onClick={logout}>Log Out</li>
         </ul>
-      ) : null}
+      </Dropdown>
     </div>
   );
 };

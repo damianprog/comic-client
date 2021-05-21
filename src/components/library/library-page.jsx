@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
-import { USER, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
-import { connect } from 'react-redux';
+import React from 'react';
 import './library-page.scss';
 import Library from './library';
 

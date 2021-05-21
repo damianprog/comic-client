@@ -2,6 +2,7 @@ import { Card, CardContent } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import Dropdown from '../dropdown/dropdown';
 
 import './comics-preview-item.scss';
 
@@ -12,12 +13,6 @@ const ComicsPreviewItem = ({
   controlDropdownContent,
   disableAnimation,
 }) => {
-  const [openDropdown, setOpenDropdown] = useState(false);
-
-  const toggleDropdown = () => {
-    setOpenDropdown(!openDropdown);
-  };
-
   const mainCreatorsLastNames = () => {
     const mainCreatorsNames = [];
     if (comic.writer) mainCreatorsNames.push(comic.writer);
@@ -46,14 +41,13 @@ const ComicsPreviewItem = ({
           </div>
           {showControls ? (
             <div className="controls">
-              <MoreVert onClick={toggleDropdown} />
-              {openDropdown ? (
-                <Card className="dropdown">
+              <Dropdown activator={<MoreVert />}>
+                <Card className="card">
                   <CardContent className="content">
                     {controlDropdownContent}
                   </CardContent>
                 </Card>
-              ) : null}
+              </Dropdown>
             </div>
           ) : null}
         </div>
