@@ -1,27 +1,17 @@
-import { gql } from '@apollo/client';
+import { USER_COMICS } from './graphql';
 
 export const addUserComicToCachedUserComics = (cache, userComic) => {
-  cache.modify({
-    fields: {
-      userComics(cachedUserComicsRefs = []) {
-        const newUserComicRef = cache.writeFragment({
-          data: userComic,
-          fragment: gql`
-            fragment NewUserComic on UserComic {
-              id
-              userId
-              comic {
-                id
-                title
-                coverImage
-                onsaleDate
-              }
-              category
-            }
-          `,
-        });
-        return [...cachedUserComicsRefs, newUserComicRef];
-      },
+  const data = cache.readQuery({
+    query: USER_COMICS,
+    variables: {
+      comicId: userComic.comic.id,
+      userId: userComic.userId,
     },
+  });
+
+  cache.writeQuery({
+    query: USER_COMICS,
+    variables: { comicId: userComic.comic.id, userId: userComic.userId },
+    data: { userComics: [...data.userComics, userComic] },
   });
 };

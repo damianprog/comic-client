@@ -28,7 +28,7 @@ const getSeriesId = (comic) => {
 
 const restructureApiComic = (comic) => {
   const restructuredComic = {
-    id: comic.id,
+    id: String(comic.id),
     title: comic.title,
     description: comic.description ? comic.description : '',
   };

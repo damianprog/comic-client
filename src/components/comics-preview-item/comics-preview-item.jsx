@@ -42,11 +42,7 @@ const ComicsPreviewItem = ({
           {showControls ? (
             <div className="controls">
               <Dropdown activator={<MoreVert />}>
-                <Card className="card">
-                  <CardContent className="content">
-                    {controlDropdownContent}
-                  </CardContent>
-                </Card>
+                {controlDropdownContent}
               </Dropdown>
             </div>
           ) : null}

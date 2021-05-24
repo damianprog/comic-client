@@ -18,19 +18,6 @@
 
   .controls {
     position: relative;
-    .card {
-      position: absolute;
-      left: -125px;
-      width: 150px;
-    }
-
-    .content {
-      padding: 10px 0;
-    }
-
-    ul {
-      width: 100%;
-    }
   }
 
   &:hover {

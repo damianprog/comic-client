@@ -7,7 +7,7 @@ export const SIGNOUT = gql`
 `;
 
 export const USER = gql`
-  query ($id: Int, $nickname: String) {
+  query ($id: ID, $nickname: String) {
     user(where: { id: $id, nickname: $nickname }) {
       id
       nickname
@@ -56,14 +56,32 @@ export const CREATE_USER_COMIC = gql`
       userId
       comic {
         id
-        title
-        coverImage
-        onsaleDate
-        writer
-        inker
-        penciler
-        description
-        seriesId
+      }
+      category
+    }
+  }
+`;
+
+export const USER_COMICS = gql`
+  query ($userId: ID, $comicId: ID) {
+    userComics(userId: $userId, comicId: $comicId) {
+      id
+      userId
+      category
+      comic {
+        id
+      }
+    }
+  }
+`;
+
+export const DELETE_USER_COMIC = gql`
+  mutation deleteUserComic($id: ID) {
+    deleteUserComic(id: $id) {
+      id
+      userId
+      comic {
+        id
       }
       category
     }

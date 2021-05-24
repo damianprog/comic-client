@@ -1,9 +1,9 @@
 import React from 'react';
 import './save-comic-categories-list.scss';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { List } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { USER_COMICS_CATEGORIES } from '../../graphql/graphql';
+import { USER_COMICS, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import SaveComicCategoriesListItem from './save-comic-categories-list-item';
 
 const SaveComicCategoriesList = ({ comic, signedUser }) => {
@@ -46,15 +46,6 @@ const SaveComicCategoriesList = ({ comic, signedUser }) => {
     </div>
   );
 };
-
-export const USER_COMICS = gql`
-  query ($userId: ID, $comicId: ID) {
-    userComics(userId: $userId, comicId: $comicId) {
-      id
-      category
-    }
-  }
-`;
 
 const mapStateToProps = (state) => ({
   signedUser: state.user.signedUser,

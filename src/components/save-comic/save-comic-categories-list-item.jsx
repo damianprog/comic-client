@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { CREATE_USER_COMIC } from '../../graphql/graphql';
+import { CREATE_USER_COMIC, DELETE_USER_COMIC } from '../../graphql/graphql';
 import { addUserComicToCachedUserComics } from '../../graphql/utils';
 
 const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
@@ -33,6 +33,7 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
 
   const [createUserComic] = useMutation(CREATE_USER_COMIC, {
     update(cache, { data: { createUserComic } }) {
+      console.log('userComics cache: ', cache);
       addUserComicToCachedUserComics(cache, createUserComic);
     },
     onError(err) {
@@ -81,26 +82,5 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
     </ListItem>
   );
 };
-
-const DELETE_USER_COMIC = gql`
-  mutation deleteUserComic($id: ID) {
-    deleteUserComic(id: $id) {
-      id
-      userId
-      comic {
-        id
-        title
-        coverImage
-        onsaleDate
-        writer
-        inker
-        penciler
-        description
-        seriesId
-      }
-      category
-    }
-  }
-`;
 
 export default SaveComicCategoriesListItem;

@@ -1,11 +1,33 @@
 .library-category {
   padding-left: 50px;
 
+  .library-category-header {
+    margin-bottom: 26px;
+  }
+
   .items-container {
     display: grid;
     column-gap: 20px;
     row-gap: 65px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .dropdown-card {
+    position: absolute;
+    left: -125px;
+    width: 150px;
+  }
+
+  .dropdown-card-content {
+    padding: 10px 0;
+
+    &:last-child {
+      padding: 0;
+    }
+  }
+
+  ul {
+    width: 100%;
   }
 
   @media (max-width: 840px) {
