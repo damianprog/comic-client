@@ -1,6 +1,6 @@
 import React from 'react';
 import './save-comic-categories-list.scss';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {
   Checkbox,
   ListItem,
@@ -8,7 +8,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { CREATE_USER_COMIC, DELETE_USER_COMIC } from '../../graphql/graphql';
-import { addUserComicToCachedUserComics } from '../../graphql/utils';
+import { addUserComicToCache } from '../../graphql/utils';
 
 const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
   const [deleteUserComic] = useMutation(DELETE_USER_COMIC, {
@@ -33,8 +33,7 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
 
   const [createUserComic] = useMutation(CREATE_USER_COMIC, {
     update(cache, { data: { createUserComic } }) {
-      console.log('userComics cache: ', cache);
-      addUserComicToCachedUserComics(cache, createUserComic);
+      addUserComicToCache(cache, createUserComic);
     },
     onError(err) {
       console.log(err);

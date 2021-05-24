@@ -3,11 +3,18 @@ import './library-categories-list.scss';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 
 const LibraryCategoriesList = ({ categories, onClickCategory }) => {
+  const sortedCategories = () => {
+    // if (categories) {
+    return [...categories].sort();
+    // }
+    // return [];
+  };
+
   return (
     <div className="library-page-categories">
       <h3 className="header">Categories</h3>
       <List>
-        {categories.map((category) => (
+        {sortedCategories().map((category) => (
           <ListItem
             onClick={() => onClickCategory(category)}
             key={category}

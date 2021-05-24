@@ -33,6 +33,12 @@ const Library = ({ signedUser }) => {
     }
   }, [signedUser]);
 
+  useEffect(() => {
+    if (userComics) {
+      filterUserComicsByCategory(selectedCategory);
+    }
+  }, [userComics]);
+
   const filterUserComicsByCategory = (category) => {
     setSelectedCategory(category);
     const filteredUserComics = userComics.filter(

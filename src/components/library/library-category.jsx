@@ -8,9 +8,19 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
+import { deleteUserComicFromCache } from '../../graphql/utils';
+import { useMutation } from '@apollo/client';
+import { DELETE_USER_COMIC } from '../../graphql/graphql';
 
 const LibraryCategory = ({ category, userComics }) => {
-  const libraryCategoryFunction = (clickedUserComicId) => {};
+  const [deleteUserComic] = useMutation(DELETE_USER_COMIC, {
+    update(cache, { data: { deleteUserComic } }) {
+      deleteUserComicFromCache(cache, deleteUserComic);
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
   return (
     <div className="library-category">
@@ -27,7 +37,9 @@ const LibraryCategory = ({ category, userComics }) => {
                 <CardContent className="dropdown-card-content">
                   <List>
                     <ListItem
-                      onClick={() => libraryCategoryFunction(userComic.id)}
+                      onClick={() =>
+                        deleteUserComic({ variables: { id: userComic.id } })
+                      }
                       button
                     >
                       <ListItemText primary="Delete" />

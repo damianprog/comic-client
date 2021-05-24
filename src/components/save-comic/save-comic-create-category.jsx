@@ -5,7 +5,7 @@ import { CREATE_USER_COMIC } from '../../graphql/graphql';
 import { Button, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Add } from '@material-ui/icons';
-import { addUserComicToCachedUserComics } from '../../graphql/utils';
+import { addUserComicToCache } from '../../graphql/utils';
 
 const SaveComicCreateCategory = ({ comic, onCreate }) => {
   const [showForm, setShowForm] = useState(false);
@@ -31,7 +31,7 @@ const SaveComicCreateCategory = ({ comic, onCreate }) => {
 
   const [createUserComic] = useMutation(CREATE_USER_COMIC, {
     update(cache, { data: { createUserComic } }) {
-      addUserComicToCachedUserComics(cache, createUserComic);
+      addUserComicToCache(cache, createUserComic);
       cache.modify({
         fields: {
           userComicsCategories(cachedCategories = []) {
