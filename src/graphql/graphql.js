@@ -54,10 +54,16 @@ export const CREATE_USER_COMIC = gql`
     ) {
       id
       userId
+      category
       comic {
         id
+        title
+        coverImage
+        writer
+        inker
+        penciler
       }
-      category
+      createdAt
     }
   }
 `;
@@ -70,7 +76,13 @@ export const USER_COMICS = gql`
       category
       comic {
         id
+        title
+        coverImage
+        writer
+        inker
+        penciler
       }
+      createdAt
     }
   }
 `;

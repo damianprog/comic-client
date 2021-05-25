@@ -1,7 +1,7 @@
 import { USER_COMICS } from './graphql';
 
 export const addUserComicToCache = (cache, userComic) => {
-  const data = cache.readQuery({
+  const saveComicUserComics = cache.readQuery({
     query: USER_COMICS,
     variables: {
       comicId: userComic.comic.id,
@@ -9,17 +9,28 @@ export const addUserComicToCache = (cache, userComic) => {
     },
   });
 
-  cache.writeQuery({
+  const libraryUserComics = cache.readQuery({
     query: USER_COMICS,
-    variables: { comicId: userComic.comic.id, userId: userComic.userId },
-    data: { userComics: [...data.userComics, userComic] },
+    variables: {
+      userId: userComic.userId,
+    },
   });
 
-  cache.writeQuery({
-    query: USER_COMICS,
-    variables: { userId: userComic.userId },
-    data: { userComics: [...data.userComics, userComic] },
-  });
+  if (saveComicUserComics) {
+    cache.writeQuery({
+      query: USER_COMICS,
+      variables: { comicId: userComic.comic.id, userId: userComic.userId },
+      data: { userComics: [...saveComicUserComics.userComics, userComic] },
+    });
+  }
+
+  if (libraryUserComics) {
+    cache.writeQuery({
+      query: USER_COMICS,
+      variables: { userId: userComic.userId },
+      data: { userComics: [...libraryUserComics.userComics, userComic] },
+    });
+  }
 };
 export const deleteUserComicFromCache = (cache, userComic) => {
   cache.modify({

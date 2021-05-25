@@ -1,9 +1,14 @@
 .library {
+  display: flex;
+
+  padding-left: 30px;
+
   .page-header {
     margin: 20px 0;
+    display: inline-block;
   }
 
-  .content {
-    display: flex;
+  .library-list-column {
+    flex: 0 0 270px;
   }
 }

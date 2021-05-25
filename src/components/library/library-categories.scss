@@ -1,0 +1,10 @@
+.library-categories {
+  .header {
+    padding-left: 16px;
+  }
+
+  .list {
+    height: calc(100vh - 144px);
+    overflow-y: auto;
+  }
+}

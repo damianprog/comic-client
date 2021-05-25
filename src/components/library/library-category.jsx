@@ -22,34 +22,44 @@ const LibraryCategory = ({ category, userComics }) => {
     },
   });
 
+  const sortedUserComics = () => {
+    const userComicsCopy = [...userComics];
+
+    return userComicsCopy.sort(
+      (a, b) => parseInt(b.createdAt) - parseInt(a.createdAt)
+    );
+  };
+
   return (
     <div className="library-category">
-      <h3 className="library-category-header">{category}</h3>
-      <div className="items-container">
-        {userComics.map((userComic) => (
-          <ComicsPreviewItem
-            key={userComic.id}
-            comic={userComic.comic}
-            showControls
-            disableAnimation
-            controlDropdownContent={
-              <Card className="dropdown-card">
-                <CardContent className="dropdown-card-content">
-                  <List>
-                    <ListItem
-                      onClick={() =>
-                        deleteUserComic({ variables: { id: userComic.id } })
-                      }
-                      button
-                    >
-                      <ListItemText primary="Delete" />
-                    </ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            }
-          />
-        ))}
+      <div className="library-category-content">
+        <h3 className="header">{category}</h3>
+        <div className="items-container">
+          {sortedUserComics().map((userComic) => (
+            <ComicsPreviewItem
+              key={userComic.id}
+              comic={userComic.comic}
+              showControls
+              disableAnimation
+              controlDropdownContent={
+                <Card className="dropdown-card">
+                  <CardContent className="dropdown-card-content">
+                    <List>
+                      <ListItem
+                        onClick={() =>
+                          deleteUserComic({ variables: { id: userComic.id } })
+                        }
+                        button
+                      >
+                        <ListItemText primary="Delete" />
+                      </ListItem>
+                    </List>
+                  </CardContent>
+                </Card>
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

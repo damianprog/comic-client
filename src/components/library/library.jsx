@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
-import { USER_COMICS_CATEGORIES } from '../../graphql/graphql';
+import { useLazyQuery } from '@apollo/client';
+import { USER_COMICS, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './library.scss';
-import LibraryCategoriesList from './library-categories-list';
+import LibraryCategories from './library-categories';
 import LibraryCategory from './library-category';
 
 const Library = ({ signedUser }) => {
@@ -49,41 +49,25 @@ const Library = ({ signedUser }) => {
 
   return (
     <div className="library">
-      {signedUser ? (
-        <h2 className="page-header">{signedUser.nickname}'s Library</h2>
-      ) : null}
-      <div className="content">
+      <div className="library-list-column">
+        {signedUser ? (
+          <h2 className="page-header">{signedUser.nickname}'s Library</h2>
+        ) : null}
         {userComicsCategories ? (
-          <LibraryCategoriesList
+          <LibraryCategories
             categories={userComicsCategories}
             onClickCategory={filterUserComicsByCategory}
           />
         ) : null}
-        <LibraryCategory
-          category={selectedCategory}
-          userComics={userComicsFromCategory}
-        />
       </div>
+
+      <LibraryCategory
+        category={selectedCategory}
+        userComics={userComicsFromCategory}
+      />
     </div>
   );
 };
-
-export const USER_COMICS = gql`
-  query ($userId: ID, $comicId: ID) {
-    userComics(userId: $userId, comicId: $comicId) {
-      id
-      category
-      comic {
-        id
-        title
-        coverImage
-        writer
-        inker
-        penciler
-      }
-    }
-  }
-`;
 
 const mapStateToProps = (state) => ({
   signedUser: state.user.signedUser,

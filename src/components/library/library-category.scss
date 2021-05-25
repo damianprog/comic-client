@@ -1,8 +1,16 @@
 .library-category {
+  height: calc(100vh - 52px);
+  overflow-y: auto;
   padding-left: 50px;
+  width: 100%;
 
-  .library-category-header {
-    margin-bottom: 26px;
+  .header {
+    margin: 25px 0 26px 0;
+  }
+
+  .library-category-content {
+    max-width: 930px;
+    padding-right: 30px;
   }
 
   .items-container {
