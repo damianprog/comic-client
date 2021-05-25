@@ -1,6 +1,5 @@
-import { Card, CardContent } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Dropdown from '../dropdown/dropdown';
 

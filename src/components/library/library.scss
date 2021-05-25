@@ -3,12 +3,20 @@
 
   padding-left: 30px;
 
-  .page-header {
+  .library-header {
     margin: 20px 0;
     display: inline-block;
   }
 
-  .library-list-column {
+  .library-list {
     flex: 0 0 270px;
+  }
+
+  @media (max-width: 840px) {
+    flex-direction: column;
+
+    .library-list {
+      flex: 0 0 100%;
+    }
   }
 }

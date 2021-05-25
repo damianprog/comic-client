@@ -32,6 +32,7 @@ export const addUserComicToCache = (cache, userComic) => {
     });
   }
 };
+
 export const deleteUserComicFromCache = (cache, userComic) => {
   cache.modify({
     fields: {

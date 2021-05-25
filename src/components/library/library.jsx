@@ -7,7 +7,7 @@ import LibraryCategories from './library-categories';
 import LibraryCategory from './library-category';
 
 const Library = ({ signedUser }) => {
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [userComicsFromCategory, setUserComicsFromCategory] = useState([]);
 
   const [getUserComics, { data: { userComics } = {} }] = useLazyQuery(
@@ -23,6 +23,11 @@ const Library = ({ signedUser }) => {
     useLazyQuery(USER_COMICS_CATEGORIES, {
       variables: {
         userId: signedUser ? signedUser.id : '',
+      },
+      onCompleted({ userComicsCategories }) {
+        if (userComicsCategories && userComicsCategories[0]) {
+          handleSelectCategory(userComicsCategories[0]);
+        }
       },
     });
 
@@ -40,23 +45,27 @@ const Library = ({ signedUser }) => {
   }, [userComics]);
 
   const filterUserComicsByCategory = (category) => {
-    setSelectedCategory(category);
     const filteredUserComics = userComics.filter(
       (userComic) => userComic.category === category
     );
     setUserComicsFromCategory(filteredUserComics);
   };
 
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+    filterUserComicsByCategory(category);
+  };
+
   return (
     <div className="library">
-      <div className="library-list-column">
+      <div className="library-list">
         {signedUser ? (
-          <h2 className="page-header">{signedUser.nickname}'s Library</h2>
+          <h2 className="library-header">{signedUser.nickname}'s Library</h2>
         ) : null}
         {userComicsCategories ? (
           <LibraryCategories
             categories={userComicsCategories}
-            onClickCategory={filterUserComicsByCategory}
+            onSelectCategory={handleSelectCategory}
           />
         ) : null}
       </div>

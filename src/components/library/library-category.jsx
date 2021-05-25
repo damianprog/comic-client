@@ -34,7 +34,7 @@ const LibraryCategory = ({ category, userComics }) => {
     <div className="library-category">
       <div className="library-category-content">
         <h3 className="header">{category}</h3>
-        <div className="items-container">
+        <div className="items">
           {sortedUserComics().map((userComic) => (
             <ComicsPreviewItem
               key={userComic.id}
