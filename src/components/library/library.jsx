@@ -8,7 +8,6 @@ import LibraryCategory from './library-category';
 
 const Library = ({ signedUser }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [userComicsFromCategory, setUserComicsFromCategory] = useState([]);
 
   const [getUserComics, { data: { userComics } = {} }] = useLazyQuery(
     USER_COMICS,
@@ -24,11 +23,6 @@ const Library = ({ signedUser }) => {
       variables: {
         userId: signedUser ? signedUser.id : '',
       },
-      onCompleted({ userComicsCategories }) {
-        if (userComicsCategories && userComicsCategories[0]) {
-          handleSelectCategory(userComicsCategories[0]);
-        }
-      },
     });
 
   useEffect(() => {
@@ -39,41 +33,29 @@ const Library = ({ signedUser }) => {
   }, [signedUser]);
 
   useEffect(() => {
-    if (userComics) {
-      filterUserComicsByCategory(selectedCategory);
+    if (userComicsCategories) {
+      setSelectedCategory(userComicsCategories[0]);
     }
-  }, [userComics]);
-
-  const filterUserComicsByCategory = (category) => {
-    const filteredUserComics = userComics.filter(
-      (userComic) => userComic.category === category
-    );
-    setUserComicsFromCategory(filteredUserComics);
-  };
-
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category);
-    filterUserComicsByCategory(category);
-  };
+  }, [userComicsCategories]);
 
   return (
     <div className="library">
       <div className="library-list">
         {signedUser ? (
-          <h2 className="library-header">{signedUser.nickname}'s Library</h2>
+          <div>
+            <h2 className="library-header">{signedUser.nickname}'s Library</h2>
+          </div>
         ) : null}
         {userComicsCategories ? (
           <LibraryCategories
             categories={userComicsCategories}
-            onSelectCategory={handleSelectCategory}
+            onSelectCategory={setSelectedCategory}
           />
         ) : null}
       </div>
-
-      <LibraryCategory
-        category={selectedCategory}
-        userComics={userComicsFromCategory}
-      />
+      {userComics && (
+        <LibraryCategory category={selectedCategory} userComics={userComics} />
+      )}
     </div>
   );
 };

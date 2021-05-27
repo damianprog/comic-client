@@ -22,10 +22,12 @@ const LibraryCategory = ({ category, userComics }) => {
     },
   });
 
-  const sortedUserComics = () => {
-    const userComicsCopy = [...userComics];
+  const userComicsFromCategory = () => {
+    return userComics.filter((userComic) => userComic.category === category);
+  };
 
-    return userComicsCopy.sort(
+  const sortedUserComicsFromCategory = () => {
+    return userComicsFromCategory().sort(
       (a, b) => parseInt(b.createdAt) - parseInt(a.createdAt)
     );
   };
@@ -35,7 +37,7 @@ const LibraryCategory = ({ category, userComics }) => {
       <div className="library-category-content">
         <h3 className="header">{category}</h3>
         <div className="items">
-          {sortedUserComics().map((userComic) => (
+          {sortedUserComicsFromCategory().map((userComic) => (
             <ComicsPreviewItem
               key={userComic.id}
               comic={userComic.comic}
