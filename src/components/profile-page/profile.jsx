@@ -8,10 +8,11 @@ import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 
 import './profile.scss';
 import ProfileAvatarBackground from './profile-avatar-background';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-const Profile = ({ signedUser, match: { params } }) => {
+const Profile = ({ signedUser }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const { nickname } = useParams();
 
   const toggleEditDialog = () => {
     setOpenEditDialog(!openEditDialog);
@@ -19,7 +20,7 @@ const Profile = ({ signedUser, match: { params } }) => {
 
   const { data: { user: profileUser } = {} } = useQuery(USER, {
     variables: {
-      nickname: params.nickname,
+      nickname,
     },
   });
 
@@ -74,6 +75,12 @@ const Profile = ({ signedUser, match: { params } }) => {
                 <b>32</b> Read
               </span>
             </p>
+            <Link
+              to={`/profile/${profileUser.nickname}/library`}
+              className="library-link"
+            >
+              <b>{nickname}'s</b> Library
+            </Link>
             <div className="about">
               <p>
                 <b>Interests: </b>
@@ -84,12 +91,6 @@ const Profile = ({ signedUser, match: { params } }) => {
                 {about}
               </p>
             </div>
-            <Link
-              to={`/profile/${signedUser.nickname}/library`}
-              className="library-link"
-            >
-              <b>{nickname}'s</b> Library
-            </Link>
           </div>
         </header>
         <EditProfileDialog

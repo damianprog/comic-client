@@ -11,8 +11,12 @@ import {
 import { deleteUserComicFromCache } from '../../graphql/utils';
 import { useMutation } from '@apollo/client';
 import { DELETE_USER_COMIC } from '../../graphql/graphql';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router';
 
-const LibraryCategory = ({ category, userComics }) => {
+const LibraryCategory = ({ category, userComics, signedUser }) => {
+  const { nickname } = useParams();
+
   const [deleteUserComic] = useMutation(DELETE_USER_COMIC, {
     update(cache, { data: { deleteUserComic } }) {
       deleteUserComicFromCache(cache, deleteUserComic);
@@ -32,6 +36,8 @@ const LibraryCategory = ({ category, userComics }) => {
     );
   };
 
+  const isSignedUserLibrary = signedUser && signedUser.nickname === nickname;
+
   return (
     <div className="library-category">
       <div className="library-category-content">
@@ -41,7 +47,7 @@ const LibraryCategory = ({ category, userComics }) => {
             <ComicsPreviewItem
               key={userComic.id}
               comic={userComic.comic}
-              showControls
+              showControls={isSignedUserLibrary}
               disableAnimation
               controlDropdownContent={
                 <Card className="dropdown-card">
@@ -67,4 +73,8 @@ const LibraryCategory = ({ category, userComics }) => {
   );
 };
 
-export default LibraryCategory;
+const mapStateToProps = (state) => ({
+  signedUser: state.user.signedUser,
+});
+
+export default connect(mapStateToProps)(LibraryCategory);

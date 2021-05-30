@@ -23,10 +23,18 @@ const SaveComicCategoriesList = ({ comic, signedUser }) => {
     }
   );
 
-  const sortedUserComicsCategories = () => {
-    const sortedArray = userComicsCategories
-      ? [...userComicsCategories].sort()
+  const categoriesWithDefault = () => {
+    const categories = userComicsCategories
+      ? ['Favourites', ...userComicsCategories]
       : [];
+
+    const uniqueCategories = [...new Set(categories)];
+
+    return uniqueCategories;
+  };
+
+  const sortedUserComicsCategories = () => {
+    const sortedArray = categoriesWithDefault().sort();
 
     return sortedArray;
   };

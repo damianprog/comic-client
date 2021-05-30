@@ -1,25 +1,29 @@
 import { USER_COMICS } from './graphql';
 
 export const addUserComicToCache = (cache, userComic) => {
+  console.log('cache: ', cache);
+
   const saveComicUserComics = cache.readQuery({
     query: USER_COMICS,
     variables: {
       comicId: userComic.comic.id,
-      userId: userComic.userId,
+      userId: userComic.user.id,
     },
   });
+
+  console.log('saveComicUserComics: ', saveComicUserComics);
 
   const libraryUserComics = cache.readQuery({
     query: USER_COMICS,
     variables: {
-      userId: userComic.userId,
+      nickname: userComic.user.nickname,
     },
   });
 
   if (saveComicUserComics) {
     cache.writeQuery({
       query: USER_COMICS,
-      variables: { comicId: userComic.comic.id, userId: userComic.userId },
+      variables: { comicId: userComic.comic.id, userId: userComic.user.id },
       data: { userComics: [...saveComicUserComics.userComics, userComic] },
     });
   }
@@ -27,7 +31,7 @@ export const addUserComicToCache = (cache, userComic) => {
   if (libraryUserComics) {
     cache.writeQuery({
       query: USER_COMICS,
-      variables: { userId: userComic.userId },
+      variables: { nickname: userComic.user.nickname },
       data: { userComics: [...libraryUserComics.userComics, userComic] },
     });
   }

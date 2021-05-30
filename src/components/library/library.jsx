@@ -1,36 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { USER_COMICS, USER_COMICS_CATEGORIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './library.scss';
 import LibraryCategories from './library-categories';
 import LibraryCategory from './library-category';
+import { useParams } from 'react-router';
 
-const Library = ({ signedUser }) => {
+const Library = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
+  const { nickname } = useParams();
 
-  const [getUserComics, { data: { userComics } = {} }] = useLazyQuery(
-    USER_COMICS,
+  const { data: { userComics } = {} } = useQuery(USER_COMICS, {
+    variables: {
+      nickname,
+    },
+  });
+
+  const { data: { userComicsCategories } = {} } = useQuery(
+    USER_COMICS_CATEGORIES,
     {
       variables: {
-        userId: signedUser ? signedUser.id : '',
+        nickname,
       },
     }
   );
-
-  const [getUserComicsCategories, { data: { userComicsCategories } = {} }] =
-    useLazyQuery(USER_COMICS_CATEGORIES, {
-      variables: {
-        userId: signedUser ? signedUser.id : '',
-      },
-    });
-
-  useEffect(() => {
-    if (signedUser) {
-      getUserComics();
-      getUserComicsCategories();
-    }
-  }, [signedUser]);
 
   useEffect(() => {
     if (userComicsCategories) {
@@ -41,17 +35,15 @@ const Library = ({ signedUser }) => {
   return (
     <div className="library">
       <div className="library-list">
-        {signedUser ? (
-          <div>
-            <h2 className="library-header">{signedUser.nickname}'s Library</h2>
-          </div>
-        ) : null}
-        {userComicsCategories ? (
+        <div>
+          <h2 className="library-header">{nickname}'s Library</h2>
+        </div>
+        {userComicsCategories && (
           <LibraryCategories
             categories={userComicsCategories}
             onSelectCategory={setSelectedCategory}
           />
-        ) : null}
+        )}
       </div>
       {userComics && (
         <LibraryCategory category={selectedCategory} userComics={userComics} />

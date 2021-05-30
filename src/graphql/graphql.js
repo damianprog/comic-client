@@ -53,8 +53,11 @@ export const CREATE_USER_COMIC = gql`
       category: $category
     ) {
       id
-      userId
       category
+      user {
+        id
+        nickname
+      }
       comic {
         id
         title
@@ -69,11 +72,14 @@ export const CREATE_USER_COMIC = gql`
 `;
 
 export const USER_COMICS = gql`
-  query ($userId: ID, $comicId: ID) {
-    userComics(userId: $userId, comicId: $comicId) {
+  query ($userId: ID, $nickname: String, $comicId: ID) {
+    userComics(userId: $userId, nickname: $nickname, comicId: $comicId) {
       id
-      userId
       category
+      user {
+        id
+        nickname
+      }
       comic {
         id
         title
@@ -91,7 +97,10 @@ export const DELETE_USER_COMIC = gql`
   mutation deleteUserComic($id: ID) {
     deleteUserComic(id: $id) {
       id
-      userId
+      user {
+        id
+        nickname
+      }
       comic {
         id
       }
@@ -101,7 +110,7 @@ export const DELETE_USER_COMIC = gql`
 `;
 
 export const USER_COMICS_CATEGORIES = gql`
-  query ($userId: ID) {
-    userComicsCategories(userId: $userId)
+  query ($userId: ID, $nickname: String) {
+    userComicsCategories(userId: $userId, nickname: $nickname)
   }
 `;
