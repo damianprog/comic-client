@@ -19,12 +19,13 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
-  const { data: { currentUser } = {} } = useQuery(CURRENT_USER);
-  useEffect(() => {
-    if (currentUser) {
-      setSignedUser(currentUser);
-    }
-  }, [currentUser, setSignedUser]);
+  useQuery(CURRENT_USER, {
+    onCompleted({ currentUser }) {
+      if (currentUser) {
+        setSignedUser(currentUser);
+      }
+    },
+  });
 
   const theme = createMuiTheme({
     palette: {
@@ -60,8 +61,16 @@ const CURRENT_USER = gql`
     currentUser {
       id
       nickname
+      birthDate
       email
       createdAt
+      userDetails {
+        id
+        about
+        interests
+        profileImage
+        backgroundImage
+      }
     }
   }
 `;

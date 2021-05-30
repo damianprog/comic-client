@@ -98,8 +98,16 @@ const SIGNUP_USER = gql`
     ) {
       id
       nickname
+      birthDate
       email
       createdAt
+      userDetails {
+        id
+        about
+        interests
+        profileImage
+        backgroundImage
+      }
     }
   }
 `;

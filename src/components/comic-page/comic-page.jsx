@@ -8,6 +8,7 @@ import GetSeries from '../../api-utils/get-series';
 import GetComicsFromSeries from '../../api-utils/get-comics-from-series';
 
 import './comic-page.scss';
+import ComicPageReviews from '../comic-reviews/comic-reviews';
 
 class ComicPage extends React.Component {
   constructor(props) {
@@ -64,6 +65,7 @@ class ComicPage extends React.Component {
           comic={comic}
           comicSeries={comicSeries}
         ></ComicPageDetails>
+        <ComicPageReviews comic={comic} />
         <ComicsPreview
           comics={comicsFromSeries}
           title="More form this series"

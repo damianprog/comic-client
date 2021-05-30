@@ -81,8 +81,16 @@ const SIGNIN_USER = gql`
     signin(email: $email, password: $password) {
       id
       nickname
+      birthDate
       email
       createdAt
+      userDetails {
+        id
+        about
+        interests
+        profileImage
+        backgroundImage
+      }
     }
   }
 `;
