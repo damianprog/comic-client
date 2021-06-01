@@ -39,7 +39,7 @@ export const CREATE_USER_COMIC = gql`
     $category: String!
   ) {
     createUserComic(
-      input: {
+      newComicInput: {
         id: $id
         title: $title
         description: $description

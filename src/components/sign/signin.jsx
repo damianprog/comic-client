@@ -28,7 +28,6 @@ const Signin = ({ switchForm, setSignedUser, onSign }) => {
       onSign();
     },
     onError(err) {
-      console.log(err.graphQLErrors[0].extensions.exception.errors);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {

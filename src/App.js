@@ -16,6 +16,7 @@ import Profile from './components/profile-page/profile';
 import editProfilePage from './components/edit-profile/edit-profile-page';
 import Library from './components/library/library';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import ComicReviewsCreatePage from './components/comic-reviews/comic-reviews-create-page';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
@@ -45,7 +46,12 @@ function App({ setSignedUser }) {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/search" component={Search} />
-          <Route exact path="/comic/:id" component={ComicPage} />
+          <Route exact path="/comic/:comicId" component={ComicPage} />
+          <Route
+            exact
+            path="/comic/:comicId/reviews/create"
+            component={ComicReviewsCreatePage}
+          />
           <Route exact path="/sign/:form" component={SignPage} />
           <Route exact path="/profile/:nickname" component={Profile} />
           <Route exact path="/profile/:nickname/library" component={Library} />

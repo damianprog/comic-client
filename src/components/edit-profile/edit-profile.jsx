@@ -95,7 +95,7 @@ const UPDATE_USER = gql`
     $backgroundImageBase64: String
   ) {
     updateUser(
-      input: {
+      updateUserInput: {
         nickname: $nickname
         birthDate: $birthDate
         about: $about

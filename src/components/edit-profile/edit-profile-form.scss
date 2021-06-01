@@ -2,7 +2,7 @@
   padding: 15px;
 
   input,
-  textarea,
+  .about,
   select {
     padding: 0 16px;
     margin-bottom: 20px;
@@ -13,11 +13,6 @@
     &:focus {
       border: 1px solid #999;
     }
-  }
-
-  textarea {
-    width: 100%;
-    padding: 16px;
   }
 
   input {
@@ -32,6 +27,8 @@
   .about {
     height: 126px;
     resize: none;
+    width: 100%;
+    padding: 16px;
   }
 
   .date-selector {

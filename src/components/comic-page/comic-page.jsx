@@ -26,7 +26,7 @@ class ComicPage extends React.Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
+    if (prevProps.match.params.comicId !== this.props.match.params.comicId) {
       await this.updateState();
     }
   }
@@ -38,7 +38,7 @@ class ComicPage extends React.Component {
   }
 
   async setComic() {
-    const comic = await GetComic(this.props.match.params.id);
+    const comic = await GetComic(this.props.match.params.comicId);
     this.setState({ comic: comic });
   }
 
