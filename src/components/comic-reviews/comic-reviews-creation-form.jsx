@@ -1,11 +1,10 @@
 import { gql, useMutation } from '@apollo/client';
 import { Button, CircularProgress } from '@material-ui/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { withRouter } from 'react-router';
-import ComicReviewsCreateComic from './comic-reviews-create-comic';
-import './comic-reviews-create.scss';
+import './comic-reviews-creation-form.scss';
 
-const ComicReviewsCreate = ({ comic, history }) => {
+const ComicReviewsCreationForm = ({ comic, history }) => {
   const [errors, setErrors] = useState({});
   const [reviewText, setReviewText] = useState('');
 
@@ -33,34 +32,30 @@ const ComicReviewsCreate = ({ comic, history }) => {
   };
 
   return (
-    <div className="comic-reviews-create">
-      <h2>Create Review</h2>
-      <ComicReviewsCreateComic comic={comic} />
-      <form onSubmit={onSubmit}>
-        <label>
-          What did you think?
-          {errors.text && <p className="error-info">{errors.text}</p>}
-          <textarea
-            value={reviewText}
-            onInput={onReviewInputChange}
-            className={`${errors.text ? 'error' : ''}`}
-            required
-          ></textarea>
-        </label>
-        <Button
-          type="submit"
-          variant="outlined"
-          color="primary"
-          disabled={loading}
-        >
-          {loading ? (
-            <CircularProgress color="inherit" size={25} />
-          ) : (
-            <span>Post</span>
-          )}
-        </Button>
-      </form>
-    </div>
+    <form className="comic-reviews-creation-form" onSubmit={onSubmit}>
+      <label>
+        What did you think?
+        {errors.text && <p className="error-info">{errors.text}</p>}
+        <textarea
+          value={reviewText}
+          onInput={onReviewInputChange}
+          className={`${errors.text ? 'error' : ''}`}
+          required
+        ></textarea>
+      </label>
+      <Button
+        type="submit"
+        variant="outlined"
+        color="primary"
+        disabled={loading}
+      >
+        {loading ? (
+          <CircularProgress color="inherit" size={25} />
+        ) : (
+          <span>Post</span>
+        )}
+      </Button>
+    </form>
   );
 };
 
@@ -110,4 +105,4 @@ const CREATE_REVIEW = gql`
   }
 `;
 
-export default withRouter(ComicReviewsCreate);
+export default withRouter(ComicReviewsCreationForm);

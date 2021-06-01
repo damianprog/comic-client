@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import GetComic from '../../api-utils/get-comic';
-import ComicReviewsCreate from './comic-reviews-create';
-import './comic-reviews-create-page.scss';
+import ComicReviewsCreation from './comic-reviews-creation';
+import './comic-reviews-creation-page.scss';
 
-const ComicReviewsCreatePage = () => {
+const ComicReviewsCreationPage = () => {
   const { comicId } = useParams();
   const [comic, setComic] = useState();
 
@@ -13,12 +13,12 @@ const ComicReviewsCreatePage = () => {
   }, [comicId]);
 
   return (
-    <div className="comic-reviews-create-page">
+    <div className="comic-reviews-creation-page">
       <div className="wrapper">
-        {comic && <ComicReviewsCreate comic={comic} />}
+        {comic && <ComicReviewsCreation comic={comic} />}
       </div>
     </div>
   );
 };
 
-export default ComicReviewsCreatePage;
+export default ComicReviewsCreationPage;

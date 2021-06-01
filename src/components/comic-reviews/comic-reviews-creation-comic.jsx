@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './comic-reviews-create-comic.scss';
+import './comic-reviews-creation-comic.scss';
 
-const ComicReviewsCreateComic = ({ comic }) => {
+const ComicReviewsCreationComic = ({ comic }) => {
   const comicMainCreators = () => {
     const mainCreatorsNames = [];
     if (comic.writer) mainCreatorsNames.push(comic.writer);
@@ -15,7 +15,7 @@ const ComicReviewsCreateComic = ({ comic }) => {
   const creators = comicMainCreators(comic).join(', ');
 
   return (
-    <div className="comic-reviews-create-comic">
+    <div className="comic-reviews-creation-comic">
       <Link to={`/comic/${id}`}>
         <div className="img-container">
           <img alt="cover" src={coverImage} />
@@ -32,4 +32,4 @@ const ComicReviewsCreateComic = ({ comic }) => {
   );
 };
 
-export default ComicReviewsCreateComic;
+export default ComicReviewsCreationComic;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import Header from './components/header/header';
@@ -16,7 +16,7 @@ import Profile from './components/profile-page/profile';
 import editProfilePage from './components/edit-profile/edit-profile-page';
 import Library from './components/library/library';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import ComicReviewsCreatePage from './components/comic-reviews/comic-reviews-create-page';
+import ComicReviewsCreationPage from './components/comic-reviews/comic-reviews-creation-page';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
@@ -50,7 +50,7 @@ function App({ setSignedUser }) {
           <Route
             exact
             path="/comic/:comicId/reviews/create"
-            component={ComicReviewsCreatePage}
+            component={ComicReviewsCreationPage}
           />
           <Route exact path="/sign/:form" component={SignPage} />
           <Route exact path="/profile/:nickname" component={Profile} />
