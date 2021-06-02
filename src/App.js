@@ -17,6 +17,8 @@ import editProfilePage from './components/edit-profile/edit-profile-page';
 import Library from './components/library/library';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import ComicReviewsCreationPage from './components/comic-reviews/comic-reviews-creation-page';
+import SignoutPage from './components/signout-page/signout-page';
+import SignDependentRoute from './components/router/sign-dependent-route';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
@@ -47,15 +49,22 @@ function App({ setSignedUser }) {
           <Route exact path="/" component={Homepage} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/comic/:comicId" component={ComicPage} />
-          <Route
+          <SignDependentRoute
+            forSigned
             exact
             path="/comic/:comicId/reviews/create"
             component={ComicReviewsCreationPage}
           />
-          <Route exact path="/sign/:form" component={SignPage} />
+          <SignDependentRoute exact path="/sign/:form" component={SignPage} />
+          <SignDependentRoute exact path="/signout" component={SignoutPage} />
           <Route exact path="/profile/:nickname" component={Profile} />
           <Route exact path="/profile/:nickname/library" component={Library} />
-          <Route exact path="/edit-profile" component={editProfilePage} />
+          <SignDependentRoute
+            forSigned
+            exact
+            path="/edit-profile"
+            component={editProfilePage}
+          />
         </Switch>
       </ThemeProvider>
     </div>

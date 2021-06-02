@@ -13,17 +13,13 @@ const SignPage = (props) => {
     props.history.push(`/sign/${nextForm}`);
   };
 
-  const onSign = () => {
-    props.history.push('/');
-  };
-
   return (
     <div className="sign-page sign">
       <div className="content">
         {form === 'signin' ? (
-          <Signin switchForm={switchForm} onSign={onSign} />
+          <Signin switchForm={switchForm} />
         ) : (
-          <Signup switchForm={switchForm} onSign={onSign} />
+          <Signup switchForm={switchForm} />
         )}
       </div>
     </div>

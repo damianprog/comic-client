@@ -21,7 +21,9 @@ const SigninForm = ({ onSign, setSignedUser }) => {
   const [loginUser, { loading }] = useMutation(SIGNIN_USER, {
     update(_, result) {
       setSignedUser(result.data.signin);
-      onSign();
+      if (onSign) {
+        onSign();
+      }
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
