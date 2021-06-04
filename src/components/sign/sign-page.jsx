@@ -3,7 +3,7 @@ import Signin from './signin';
 import Signup from './signup';
 
 import './sign.scss';
-import { useParams } from 'react-router';
+import { useParams, withRouter } from 'react-router';
 
 const SignPage = (props) => {
   const { form } = useParams();
@@ -26,4 +26,4 @@ const SignPage = (props) => {
   );
 };
 
-export default SignPage;
+export default withRouter(SignPage);
