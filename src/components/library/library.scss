@@ -1,6 +1,4 @@
 .library {
-  display: flex;
-
   .loading {
     margin-top: 30px;
     text-align: center;
@@ -8,29 +6,13 @@
     height: 50px;
   }
 
-  .library-header {
-    margin: 20px 0;
-    display: inline-block;
-  }
-
-  .library-list {
-    padding-left: 30px;
-    flex: 0 0 270px;
-  }
-
   .library-empty-info {
     margin: 20px 0 20px 30px;
   }
 
   @media (max-width: 840px) {
-    flex-direction: column;
-
     .library-empty-info {
       margin: 20px;
-    }
-
-    .library-list {
-      flex: 0 0 100%;
     }
   }
 }

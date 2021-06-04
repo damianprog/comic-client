@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { USER_COMICS } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import './library.scss';
-import LibraryCategories from './library-categories';
-import LibraryCategory from './library-category';
 import { useParams } from 'react-router';
-import { Fragment } from 'react';
 import { CircularProgress } from '@material-ui/core';
+import LibraryContent from './library-content';
 
 const Library = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [categories, setCategories] = useState([]);
   const { nickname } = useParams();
 
   const { data: { userComics } = {}, loading } = useQuery(USER_COMICS, {
@@ -20,25 +16,6 @@ const Library = () => {
     },
   });
 
-  useEffect(() => {
-    if (userComics && categories.length === 0) {
-      const uniqueCategories = getUniqueCategories();
-
-      uniqueCategories.sort();
-      setSelectedCategory(uniqueCategories[0]);
-
-      setCategories(uniqueCategories);
-    }
-  }, [userComics]);
-
-  const getUniqueCategories = () => {
-    const userComicsCategories = userComics.map(
-      (userComic) => userComic.category
-    );
-    const uniqueCategories = [...new Set(userComicsCategories)];
-    return uniqueCategories;
-  };
-
   return (
     <div className="library">
       {loading ? (
@@ -46,20 +23,7 @@ const Library = () => {
           <CircularProgress />
         </div>
       ) : userComics.length > 0 ? (
-        <Fragment>
-          <div className="library-list">
-            <h3 className="library-header">{nickname}'s Library</h3>
-            <LibraryCategories
-              categories={categories}
-              onSelectCategory={setSelectedCategory}
-            />
-          </div>
-
-          <LibraryCategory
-            category={selectedCategory}
-            userComics={userComics}
-          />
-        </Fragment>
+        <LibraryContent userComics={userComics} />
       ) : (
         <h3 className="library-empty-info">
           {nickname}'s Library has no any saved comics yet!
