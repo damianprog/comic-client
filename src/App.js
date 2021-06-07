@@ -16,7 +16,7 @@ import Profile from './components/profile-page/profile';
 import editProfilePage from './components/edit-profile/edit-profile-page';
 import Library from './components/library/library';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import ComicReviewsCreationPage from './components/comic-reviews/comic-reviews-creation-page';
+import ComicReviewsCreationPage from './components/comic-reviews/creation/comic-reviews-creation-page';
 import SignoutPage from './components/signout-page/signout-page';
 import SignDependentRoute from './components/router/sign-dependent-route';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';

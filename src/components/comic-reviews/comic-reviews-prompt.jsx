@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import profilePlaceholder from '../../assets/placeholders/profile-placeholder.png';
 import './comic-reviews-prompt.scss';
 
-const ComicReviewsPrompt = ({ user, onButtonClick }) => {
+const ComicReviewsPrompt = ({ user, reviews }) => {
   const { comicId } = useParams();
 
   const profileImage = () => {
@@ -15,8 +15,12 @@ const ComicReviewsPrompt = ({ user, onButtonClick }) => {
     return profileImage ? profileImage : profilePlaceholder;
   };
 
+  const userReview = reviews.find(
+    (review) => review.user.id === user.id && review.comic.id === comicId
+  );
+
   return (
-    <div className="comic-reviews-propmpt">
+    <div className="comic-reviews-prompt">
       <Link to={`/profile/${user.nickname}`}>
         <Avatar
           className="avatar"
@@ -25,14 +29,20 @@ const ComicReviewsPrompt = ({ user, onButtonClick }) => {
         />
       </Link>
       <div className="info">
-        <p>
-          <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
-        </p>
-        <Link to={`/comic/${comicId}/reviews/create`}>
-          <Button onClick={onButtonClick} variant="outlined" color="primary">
-            Write a review
-          </Button>
-        </Link>
+        <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
+        {userReview ? (
+          <Link to={`/comic/${comicId}/reviews/create`}>
+            <Button variant="outlined" color="primary">
+              See your review
+            </Button>
+          </Link>
+        ) : (
+          <Link to={`/comic/${comicId}/reviews/create`}>
+            <Button variant="outlined" color="primary">
+              Write a review
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

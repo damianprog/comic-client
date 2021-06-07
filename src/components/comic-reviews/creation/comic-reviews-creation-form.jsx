@@ -18,6 +18,7 @@ const ComicReviewsCreationForm = ({ comic, history }) => {
       history.push(`/comic/${comic.id}`);
     },
     onError(err) {
+      console.log(err.graphQLErrors[0]);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {

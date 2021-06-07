@@ -1,5 +1,6 @@
-.comic-reviews-propmpt {
+.comic-reviews-prompt {
   display: flex;
+  margin: 35px 0;
 
   a {
     font-weight: bold;
@@ -29,6 +30,13 @@
   @media (max-width: 600px) {
     a {
       display: block;
+    }
+
+    @media (max-width: 600px) {
+      .avatar {
+        width: 70px;
+        height: 70px;
+      }
     }
   }
 }
