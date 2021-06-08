@@ -31,7 +31,7 @@ const ComicReviewsPrompt = ({ user, reviews }) => {
       <div className="info">
         <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
         {userReview ? (
-          <Link to={`/comic/${comicId}/reviews/create`}>
+          <Link to={`/reviews/${userReview.id}`}>
             <Button variant="outlined" color="primary">
               See your review
             </Button>

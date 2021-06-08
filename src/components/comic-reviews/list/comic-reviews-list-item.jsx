@@ -1,27 +1,19 @@
 import { Avatar } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profilePlaceholder from '../../../assets/placeholders/profile-placeholder.png';
+import GetFormattedDate from '../../../utils/get-formatted-date';
+import GetUserProfileImage from '../../../utils/get-user-profile-image';
 import './comic-reviews-list-item.scss';
 
 const ComicReviewsListItem = ({ review }) => {
   const [more, setMore] = useState(false);
   const { user, createdAt, text } = review;
 
-  const profileImage = () => {
-    const {
-      userDetails: { profileImage },
-    } = user;
-
-    return profileImage ? profileImage : profilePlaceholder;
-  };
-
   const publishedDate = () => {
     let formattedDate = '';
     if (createdAt) {
-      const parsedDate = new Date(+createdAt);
       const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
-      formattedDate = parsedDate.toLocaleDateString('en-US', dateOptions);
+      formattedDate = GetFormattedDate(+createdAt, dateOptions);
     }
 
     return formattedDate;
@@ -41,7 +33,7 @@ const ComicReviewsListItem = ({ review }) => {
         <Avatar
           className="avatar"
           alt="Signed User Image"
-          src={profileImage()}
+          src={GetUserProfileImage(user)}
         />
       </Link>
       <div className="content">

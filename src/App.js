@@ -19,6 +19,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import ComicReviewsCreationPage from './components/comic-reviews/creation/comic-reviews-creation-page';
 import SignoutPage from './components/signout-page/signout-page';
 import SignDependentRoute from './components/router/sign-dependent-route';
+import ComicReviewPage from './components/comic-review-page/comic-review-page';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App({ setSignedUser }) {
@@ -65,6 +66,7 @@ function App({ setSignedUser }) {
             path="/edit-profile"
             component={editProfilePage}
           />
+          <Route exact path="/reviews/:reviewId" component={ComicReviewPage} />
         </Switch>
       </ThemeProvider>
     </div>
