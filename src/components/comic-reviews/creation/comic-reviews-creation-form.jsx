@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { withRouter } from 'react-router';
 import './comic-reviews-creation-form.scss';
 
-const ComicReviewsCreationForm = ({ comic, history }) => {
+const ComicReviewsCreationForm = ({ comic, history, update, review }) => {
   const [errors, setErrors] = useState({});
   const [reviewText, setReviewText] = useState('');
 

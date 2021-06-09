@@ -6,12 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import ApolloProvider from './components/apollo/apollo-provider';
 import { Provider } from 'react-redux';
 
-import store from './components/redux/store';
+import { store, persistor } from './components/redux/store';
+import App from './App';
+import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ApolloProvider />
+      <ApolloProvider>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </ApolloProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

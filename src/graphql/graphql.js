@@ -114,3 +114,30 @@ export const USER_COMICS_CATEGORIES = gql`
     userComicsCategories(userId: $userId, nickname: $nickname)
   }
 `;
+
+export const REVIEW = gql`
+  query ($id: ID!) {
+    review(id: $id) {
+      id
+      user {
+        id
+        nickname
+        userDetails {
+          profileImage
+        }
+      }
+      comic {
+        id
+        title
+        coverImage
+        description
+        onsaleDate
+        writer
+        inker
+        penciler
+      }
+      text
+      createdAt
+    }
+  }
+`;

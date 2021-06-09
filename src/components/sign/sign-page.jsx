@@ -5,21 +5,25 @@ import Signup from './signup';
 import './sign.scss';
 import { useParams, withRouter } from 'react-router';
 
-const SignPage = (props) => {
+const SignPage = ({ history }) => {
   const { form } = useParams();
 
   const switchForm = () => {
     const nextForm = form === 'signin' ? 'signup' : 'signin';
-    props.history.push(`/sign/${nextForm}`);
+    history.push(`/sign/${nextForm}`);
+  };
+
+  const onSign = () => {
+    history.push('/');
   };
 
   return (
     <div className="sign-page sign">
       <div className="content">
         {form === 'signin' ? (
-          <Signin switchForm={switchForm} />
+          <Signin onSign={onSign} switchForm={switchForm} />
         ) : (
-          <Signup switchForm={switchForm} />
+          <Signup onSign={onSign} switchForm={switchForm} />
         )}
       </div>
     </div>

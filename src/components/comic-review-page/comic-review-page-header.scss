@@ -1,20 +1,37 @@
 .comic-review-page-header {
   display: flex;
+  max-width: 650px;
 
   .avatar {
     width: 60px;
     height: 60px;
   }
 
-  .info {
-    margin-left: 7px;
-    a {
-      font-weight: bold;
+  .review-details {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+
+    .info {
+      margin-left: 7px;
+      a {
+        font-weight: bold;
+      }
+      p {
+        margin-top: 3px;
+        color: #919191;
+        font-size: 13px;
+      }
     }
-    p {
-      margin-top: 3px;
+
+    .update {
       color: #919191;
-      font-size: 13px;
+      font-size: 14px;
+      align-self: flex-start;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

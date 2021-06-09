@@ -27,9 +27,14 @@ const ComicReviewPageHeader = ({ review }) => {
           src={GetUserProfileImage(user)}
         />
       </Link>
-      <div className="info">
-        <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
-        <p>{publishedDate()}</p>
+      <div className="review-details">
+        <div className="info">
+          <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
+          <p>{publishedDate()}</p>
+        </div>
+        <Link className="update" to={`/reviews/${review.id}/update`}>
+          Update Review
+        </Link>
       </div>
     </header>
   );

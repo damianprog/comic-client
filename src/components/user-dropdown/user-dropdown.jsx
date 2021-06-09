@@ -5,22 +5,11 @@ import { setSignedUser } from '../redux/user/user-actions';
 import { Link, withRouter } from 'react-router-dom';
 
 import './user-dropdown.scss';
-import { useMutation } from '@apollo/client';
 import Dropdown from '../dropdown/dropdown';
 
-const UserDropdown = ({ signedUser, setSignedUser, history }) => {
-  const [signoutUser] = useMutation(SIGNOUT, {
-    onError(err) {
-      console.log(err);
-    },
-    onCompleted() {
-      setSignedUser(null);
-      history.push('/signout');
-    },
-  });
-
+const UserDropdown = ({ signedUser, history }) => {
   const logout = () => {
-    signoutUser();
+    history.push('/signout');
   };
 
   return (
