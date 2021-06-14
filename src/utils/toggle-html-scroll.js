@@ -1,5 +1,5 @@
 const ToggleHtmlScroll = (open) => {
-  document.documentElement.style.overflow = open ? 'hidden' : 'auto';
+  document.body.style.overflow = open ? 'hidden' : 'auto';
 };
 
 export default ToggleHtmlScroll;

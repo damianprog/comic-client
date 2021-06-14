@@ -16,7 +16,6 @@ class ComicPage extends React.Component {
 
     this.state = {
       comic: {},
-      comicSeries: {},
       comicsFromSeries: [],
     };
   }
@@ -33,22 +32,12 @@ class ComicPage extends React.Component {
 
   async updateState() {
     await this.setComic();
-    await this.setComicSeries(this.state.comic);
     await this.setComicsFromSeries(this.state.comic.seriesId);
   }
 
   async setComic() {
     const comic = await GetComic(this.props.match.params.comicId);
-    this.setState({ comic: comic });
-  }
-
-  async setComicSeries(comic) {
-    if (comic.seriesId) {
-      const seriesDetails = await GetSeries(comic.seriesId);
-      if (seriesDetails) {
-        this.setState({ comicSeries: seriesDetails });
-      }
-    }
+    this.setState({ comic });
   }
 
   async setComicsFromSeries(seriesId) {
@@ -57,14 +46,11 @@ class ComicPage extends React.Component {
   }
 
   render() {
-    const { comic, comicSeries, comicsFromSeries } = this.state;
+    const { comic, comicsFromSeries } = this.state;
 
     return (
       <section className="comic">
-        <ComicPageDetails
-          comic={comic}
-          comicSeries={comicSeries}
-        ></ComicPageDetails>
+        <ComicPageDetails comic={comic}></ComicPageDetails>
         <ComicPageReviews comic={comic} />
         <ComicsPreview
           comics={comicsFromSeries}

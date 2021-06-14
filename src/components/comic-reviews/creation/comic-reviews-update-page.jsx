@@ -13,7 +13,8 @@ const ComicReviewsUpdatePage = ({ signedUser, history }) => {
   const isSignedUserReviewAuthor = (userReview) =>
     userReview.user.id === signedUser.id;
 
-  const { data: { review } = {}, loading } = useQuery(REVIEW, {
+  const { data: { review } = {} } = useQuery(REVIEW, {
+    fetchPolicy: 'no-cache',
     variables: {
       id: reviewId,
     },

@@ -6,9 +6,12 @@ import Signin from './signin';
 import Signup from './signup';
 import ToggleHtmlScroll from '../../utils/toggle-html-scroll';
 import { Close } from '@material-ui/icons';
+import { useEffect } from 'react';
 
 const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
-  ToggleHtmlScroll(open);
+  useEffect(() => {
+    ToggleHtmlScroll(open);
+  }, [open]);
 
   return (
     <Dialog
@@ -17,6 +20,7 @@ const SignDialog = ({ open, closeDialog, form = 'signin', switchForm }) => {
       aria-labelledby="form-dialog-title"
       className="sign"
       scroll="body"
+      disableScrollLock
       disableBackdropClick
     >
       <div className="close-container">

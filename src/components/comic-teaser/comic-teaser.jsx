@@ -3,9 +3,9 @@ import { LibraryAdd } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SaveComicDialog from '../save-comic/save-comic-dialog';
-import './comic-reviews-comic.scss';
+import './comic-teaser.scss';
 
-const ComicReviewsComic = ({ comic }) => {
+const ComicTeaser = ({ comic, showDescription }) => {
   const [openSaveComicDialog, setOpenSaveComicDialog] = useState(false);
 
   const toggleSaveDialog = () => {
@@ -20,11 +20,15 @@ const ComicReviewsComic = ({ comic }) => {
     return mainCreatorsNames;
   };
 
-  const { coverImage, title, id } = comic;
+  const { coverImage, title, id, description } = comic;
   const creators = comicMainCreators(comic).join(', ');
 
+  const descriptionText = () => {
+    return description.substring(0, 175);
+  };
+
   return (
-    <div className="comic-reviews-comic">
+    <div className="comic-teaser">
       <Link to={`/comic/${id}`}>
         <div className="img-container">
           <img alt="cover" src={coverImage} />
@@ -42,6 +46,16 @@ const ComicReviewsComic = ({ comic }) => {
             Save Comic
           </Button>
         </div>
+        {showDescription && (
+          <div className="description">
+            {descriptionText()}
+            {description.length > 175 && (
+              <span>
+                ...&nbsp;<Link to={`/comic/${comic.id}`}>Continue reading</Link>
+              </span>
+            )}
+          </div>
+        )}
       </div>
       <SaveComicDialog
         open={openSaveComicDialog}
@@ -52,4 +66,4 @@ const ComicReviewsComic = ({ comic }) => {
   );
 };
 
-export default ComicReviewsComic;
+export default ComicTeaser;

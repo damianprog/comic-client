@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ComicPageDetailsInfo from './comic-page-details-info';
 import ComicPageDetailsImage from './comic-page-details-image';
 
-const ComicPageDetails = ({ comic, comicSeries }) => {
+const ComicPageDetails = ({ comic }) => {
   const [openSaveComicDialog, setOpenSaveComicDialog] = useState(false);
 
   const toggleSaveDialog = () => {
@@ -26,7 +26,7 @@ const ComicPageDetails = ({ comic, comicSeries }) => {
           image={coverImage}
           onClickSaveComic={toggleSaveDialog}
         />
-        <ComicPageDetailsInfo comic={comic} comicSeries={comicSeries} />
+        <ComicPageDetailsInfo comic={comic} />
       </div>
 
       <SaveComicDialog

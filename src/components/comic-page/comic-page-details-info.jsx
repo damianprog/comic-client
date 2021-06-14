@@ -1,10 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './comic-page-details-info.scss';
 
-import he from 'he';
-
-const ComicPageDetailsInfo = ({ comic, comicSeries, signedUser }) => {
+const ComicPageDetailsInfo = ({ comic }) => {
   const publishedDate = () => {
     const { onsaleDate } = comic;
     let formattedDate = '';
@@ -17,27 +14,7 @@ const ComicPageDetailsInfo = ({ comic, comicSeries, signedUser }) => {
     return formattedDate;
   };
 
-  const stripHtmlTags = (string) => {
-    const stripedHtml = string.replace(/(<([^>]+)>)/gi, '');
-    const decodedStripedHtml = he.decode(stripedHtml);
-    return decodedStripedHtml;
-  };
-
-  const description = () => {
-    let description = '';
-
-    if (comic.description && comic.description !== '') {
-      description = comic.description;
-    } else if (comicSeries.description && comicSeries.description !== '') {
-      description = comicSeries.description;
-    }
-
-    description = stripHtmlTags(description);
-
-    return description;
-  };
-
-  const { title, writer, inker, penciler } = comic;
+  const { title, writer, inker, penciler, description } = comic;
 
   const published = publishedDate();
 
@@ -67,13 +44,9 @@ const ComicPageDetailsInfo = ({ comic, comicSeries, signedUser }) => {
         </div>
       ) : null}
 
-      <div className="info-description">{description()}</div>
+      <div className="info-description">{description}</div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  signedUser: state.user.signedUser,
-});
-
-export default connect(mapStateToProps)(ComicPageDetailsInfo);
+export default ComicPageDetailsInfo;

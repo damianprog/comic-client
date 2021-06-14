@@ -4,7 +4,7 @@ import React from 'react';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
-import ComicReviewsComic from '../comic-reviews/comic-reviews-comic';
+import ComicTeaser from '../comic-teaser/comic-teaser';
 import ComicReviewPageHeader from './comic-review-page-header';
 import { REVIEW } from '../../graphql/graphql';
 
@@ -29,7 +29,7 @@ const ComicReviewPage = ({ signedUser }) => {
         ) : (
           <Fragment>
             <ComicReviewPageHeader review={review} />
-            <ComicReviewsComic comic={review.comic} />
+            <ComicTeaser comic={review.comic} />
             <p className="review-text">{review.text}</p>
           </Fragment>
         )}

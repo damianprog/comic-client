@@ -1,19 +1,20 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Button, CircularProgress } from '@material-ui/core';
 import { useState } from 'react';
 import { withRouter } from 'react-router';
+import { CREATE_REVIEW, UPDATE_REVIEW } from '../../../graphql/graphql';
 import './comic-reviews-creation-form.scss';
 
 const ComicReviewsCreationForm = ({ comic, history, update, review }) => {
   const [errors, setErrors] = useState({});
-  const [reviewText, setReviewText] = useState('');
+  const [reviewText, setReviewText] = useState(review ? review.text : '');
 
   const onReviewInputChange = (event) => {
     setErrors({});
     setReviewText(event.target.value);
   };
 
-  const [createReview, { loading }] = useMutation(CREATE_REVIEW, {
+  const [createReview, { createLoading }] = useMutation(CREATE_REVIEW, {
     update() {
       history.push(`/comic/${comic.id}`);
     },
@@ -27,10 +28,26 @@ const ComicReviewsCreationForm = ({ comic, history, update, review }) => {
     },
   });
 
+  const [updateReview, { updateLoading }] = useMutation(UPDATE_REVIEW, {
+    update() {
+      history.push(`/comic/${comic.id}`);
+    },
+    onError(err) {
+      console.log(err.graphQLErrors[0]);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    },
+    variables: {
+      comicId: comic.id,
+      text: reviewText,
+    },
+  });
+
   const onSubmit = (event) => {
     event.preventDefault();
-    createReview();
+    update ? updateReview() : createReview();
   };
+
+  const isLoading = () => createLoading || updateLoading;
 
   return (
     <form className="comic-reviews-creation-form" onSubmit={onSubmit}>
@@ -48,9 +65,9 @@ const ComicReviewsCreationForm = ({ comic, history, update, review }) => {
         type="submit"
         variant="outlined"
         color="primary"
-        disabled={loading}
+        disabled={isLoading()}
       >
-        {loading ? (
+        {isLoading() ? (
           <CircularProgress color="inherit" size={25} />
         ) : (
           <span>Post</span>
@@ -59,51 +76,5 @@ const ComicReviewsCreationForm = ({ comic, history, update, review }) => {
     </form>
   );
 };
-
-const CREATE_REVIEW = gql`
-  mutation createReview(
-    $id: ID!
-    $title: String!
-    $description: String
-    $coverImage: String
-    $onsaleDate: String
-    $writer: String
-    $inker: String
-    $penciler: String
-    $seriesId: ID
-    $text: String!
-  ) {
-    createReview(
-      newComicInput: {
-        id: $id
-        title: $title
-        description: $description
-        coverImage: $coverImage
-        onsaleDate: $onsaleDate
-        writer: $writer
-        inker: $inker
-        penciler: $penciler
-        seriesId: $seriesId
-      }
-      text: $text
-    ) {
-      id
-      user {
-        id
-        nickname
-      }
-      comic {
-        id
-        title
-        coverImage
-        writer
-        inker
-        penciler
-      }
-      text
-      createdAt
-    }
-  }
-`;
 
 export default withRouter(ComicReviewsCreationForm);

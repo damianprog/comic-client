@@ -1,8 +1,6 @@
 import { USER_COMICS } from './graphql';
 
 export const addUserComicToCache = (cache, userComic) => {
-  console.log('cache: ', cache);
-
   const saveComicUserComics = cache.readQuery({
     query: USER_COMICS,
     variables: {
@@ -10,8 +8,6 @@ export const addUserComicToCache = (cache, userComic) => {
       userId: userComic.user.id,
     },
   });
-
-  console.log('saveComicUserComics: ', saveComicUserComics);
 
   const libraryUserComics = cache.readQuery({
     query: USER_COMICS,

@@ -25,13 +25,16 @@
       }
     }
 
-    .more-less {
-      cursor: pointer;
-      color: #e23636;
-    }
-
     p {
       margin: 5px 0;
+    }
+
+    .more {
+      color: #00635d;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 

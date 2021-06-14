@@ -13,9 +13,9 @@ const GetComic = (id) => {
         apikey: process.env.REACT_APP_MARVEL_API_KEY,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         const result = res.data.data.results[0];
-        const restructuredComic = restructureApiComic(result);
+        const restructuredComic = await restructureApiComic(result);
         window.localStorage.setItem(url, JSON.stringify(restructuredComic));
         return restructuredComic;
       })

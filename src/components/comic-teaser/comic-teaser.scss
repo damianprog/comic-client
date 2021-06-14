@@ -1,4 +1,4 @@
-.comic-reviews-comic {
+.comic-teaser {
   display: flex;
 
   .img-container {
@@ -33,6 +33,15 @@
 
         svg {
           margin-right: 8px;
+        }
+      }
+    }
+
+    .description {
+      a {
+        color: #00635d;
+        &:hover {
+          text-decoration: underline;
         }
       }
     }

@@ -7,12 +7,15 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import EditProfileForm from './edit-profile-form';
 import { withRouter } from 'react-router-dom';
+import { setSignedUser } from '../redux/user/user-actions';
+import { connect } from 'react-redux';
 
 const EditProfile = ({
   profileUser: { nickname, birthDate, userDetails },
   showClose,
   close,
   history,
+  setSignedUser,
 }) => {
   const [values, setValues] = useState({
     nickname,
@@ -27,6 +30,7 @@ const EditProfile = ({
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
     update(_, result) {
+      setSignedUser(result.data.updateUser);
       if (showClose) close();
       history.push(`/profile/${result.data.updateUser.nickname}`);
     },
@@ -107,6 +111,8 @@ const UPDATE_USER = gql`
       id
       nickname
       birthDate
+      email
+      createdAt
       userDetails {
         id
         about
@@ -118,4 +124,8 @@ const UPDATE_USER = gql`
   }
 `;
 
-export default withRouter(EditProfile);
+const mapDispatchToProps = (dispatch) => ({
+  setSignedUser: (user) => dispatch(setSignedUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(withRouter(EditProfile));

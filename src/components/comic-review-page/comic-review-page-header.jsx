@@ -5,8 +5,9 @@ import GetUserProfileImage from '../../utils/get-user-profile-image';
 import GetFormattedDate from '../../utils/get-formatted-date';
 
 import './comic-review-page-header.scss';
+import { connect } from 'react-redux';
 
-const ComicReviewPageHeader = ({ review }) => {
+const ComicReviewPageHeader = ({ review, signedUser }) => {
   const { user, createdAt } = review;
 
   const publishedDate = () => {
@@ -32,12 +33,18 @@ const ComicReviewPageHeader = ({ review }) => {
           <Link to={`/profile/${user.nickname}`}>{user.nickname}</Link>
           <p>{publishedDate()}</p>
         </div>
-        <Link className="update" to={`/reviews/${review.id}/update`}>
-          Update Review
-        </Link>
+        {signedUser && signedUser.id === user.id && (
+          <Link className="update" to={`/reviews/${review.id}/update`}>
+            Update Review
+          </Link>
+        )}
       </div>
     </header>
   );
 };
 
-export default ComicReviewPageHeader;
+const mapStateToProps = (state) => ({
+  signedUser: state.user.signedUser,
+});
+
+export default connect(mapStateToProps)(ComicReviewPageHeader);

@@ -21,7 +21,7 @@ const ComicsPreviewItem = ({
 
   const redirectToComicPage = () => {
     history.push(`/comic/${comic.id}`);
-    document.body.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   };
 
   const { title, coverImage } = comic;

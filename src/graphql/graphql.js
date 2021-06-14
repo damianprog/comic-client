@@ -141,3 +141,122 @@ export const REVIEW = gql`
     }
   }
 `;
+
+export const CREATE_REVIEW = gql`
+  mutation createReview(
+    $id: ID!
+    $title: String!
+    $description: String
+    $coverImage: String
+    $onsaleDate: String
+    $writer: String
+    $inker: String
+    $penciler: String
+    $seriesId: ID
+    $text: String!
+  ) {
+    createReview(
+      newComicInput: {
+        id: $id
+        title: $title
+        description: $description
+        coverImage: $coverImage
+        onsaleDate: $onsaleDate
+        writer: $writer
+        inker: $inker
+        penciler: $penciler
+        seriesId: $seriesId
+      }
+      text: $text
+    ) {
+      id
+      user {
+        id
+        nickname
+      }
+      comic {
+        id
+        title
+        coverImage
+        writer
+        inker
+        penciler
+      }
+      text
+      createdAt
+    }
+  }
+`;
+
+export const UPDATE_REVIEW = gql`
+  mutation updateReview($comicId: ID!, $text: String!) {
+    updateReview(comicId: $comicId, text: $text) {
+      id
+      user {
+        id
+        nickname
+      }
+      comic {
+        id
+        title
+        coverImage
+        writer
+        inker
+        penciler
+      }
+      text
+      createdAt
+    }
+  }
+`;
+
+export const USER_ACTIVITIES = gql`
+  query ($userId: ID!, $first: Int, $lastCreatedAt: String) {
+    userActivities(
+      userId: $userId
+      first: $first
+      lastCreatedAt: $lastCreatedAt
+    ) {
+      ... on UserComic {
+        id
+        user {
+          nickname
+          userDetails {
+            profileImage
+          }
+        }
+        comic {
+          id
+          title
+          description
+          coverImage
+          writer
+          inker
+          penciler
+        }
+        category
+        createdAt
+      }
+      ... on Review {
+        id
+        user {
+          nickname
+          userDetails {
+            profileImage
+          }
+        }
+        comic {
+          id
+          title
+          description
+          coverImage
+          writer
+          inker
+          penciler
+        }
+        text
+        createdAt
+      }
+    }
+  }
+`;

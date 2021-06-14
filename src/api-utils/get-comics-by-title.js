@@ -17,13 +17,15 @@ const GetComicsByTitle = (title, limit) => {
         apikey: process.env.REACT_APP_MARVEL_API_KEY,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         const results = res.data.data.results;
         const resultsWithImages = results.filter(
           (result) => result.images.length > 0
         );
-        const restructuredComics = resultsWithImages.map((comic) =>
-          restructureApiComic(comic)
+        const restructuredComics = await Promise.all(
+          resultsWithImages.map(
+            async (comic) => await restructureApiComic(comic)
+          )
         );
         window.localStorage.setItem(url, JSON.stringify(restructuredComics));
         return restructuredComics;

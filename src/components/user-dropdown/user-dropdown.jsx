@@ -1,5 +1,4 @@
 import React from 'react';
-import { SIGNOUT } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { setSignedUser } from '../redux/user/user-actions';
 import { Link, withRouter } from 'react-router-dom';

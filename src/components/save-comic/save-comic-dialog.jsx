@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import './save-comic-dialog.scss';
 import {
@@ -10,14 +10,21 @@ import {
 import { Close } from '@material-ui/icons';
 import SaveComicCategoriesList from './save-comic-categories-list';
 import SaveComicCreateCategory from './save-comic-create-category';
+import ToggleHtmlScroll from '../../utils/toggle-html-scroll';
 
 const SaveComicDialog = ({ comic, open, closeDialog }) => {
+  useEffect(() => {
+    ToggleHtmlScroll(open);
+  }, [open]);
+
   return (
     <Dialog
       open={open}
       onClose={closeDialog}
       aria-labelledby="form-dialog-title"
       className="save-comic-dialog"
+      scroll="body"
+      disableScrollLock
       disableBackdropClick
     >
       <DialogTitle className="dialog-title">

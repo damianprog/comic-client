@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
-import { USER } from '../../graphql/graphql';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { USER, USER_ACTIVITIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { DateRange } from '@material-ui/icons';
 import EditProfileDialog from '../edit-profile/edit-profile-dialog';
@@ -9,6 +9,7 @@ import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 import './profile.scss';
 import ProfileAvatarBackground from './profile-avatar-background';
 import { Link, useParams } from 'react-router-dom';
+import UserActivitiesList from '../user-activities/user-activities-list';
 
 const Profile = ({ signedUser }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -18,9 +19,15 @@ const Profile = ({ signedUser }) => {
     setOpenEditDialog(!openEditDialog);
   };
 
+  const [getUserActivities, { data: { userActivities } = {} }] =
+    useLazyQuery(USER_ACTIVITIES);
+
   const { data: { user: profileUser } = {} } = useQuery(USER, {
     variables: {
       nickname,
+    },
+    onCompleted({ user }) {
+      getUserActivities({ variables: { userId: user.id, first: 10 } });
     },
   });
 
@@ -93,6 +100,12 @@ const Profile = ({ signedUser }) => {
             </div>
           </div>
         </header>
+        <div className="profile-content">
+          {userActivities && (
+            <UserActivitiesList userActivities={userActivities} />
+          )}
+        </div>
+
         <EditProfileDialog
           open={openEditDialog}
           closeDialog={toggleEditDialog}
