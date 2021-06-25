@@ -13,4 +13,17 @@
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 4px;
   }
+
+  @media (max-width: 600px) {
+    .comic-teaser {
+      .description {
+        display: none;
+      }
+    }
+
+    .review-teaser {
+      padding: 0;
+      border: none;
+    }
+  }
 }

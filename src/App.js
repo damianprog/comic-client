@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
 
-import Homepage from './components/home-page/homepage';
+import HomePage from './components/home-page/home-page';
 import ComicPage from './components/comic-page/comic-page';
 import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
@@ -36,7 +36,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Header></Header>
         <Switch>
-          <Route exact path="/" component={Homepage} />
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/comic/:comicId" component={ComicPage} />
           <SignDependentRoute

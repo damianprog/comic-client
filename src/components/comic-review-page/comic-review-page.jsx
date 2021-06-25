@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { Fragment } from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import ComicTeaser from '../comic-teaser/comic-teaser';
 import ComicReviewPageHeader from './comic-review-page-header';
@@ -10,7 +9,7 @@ import { REVIEW } from '../../graphql/graphql';
 
 import './comic-review-page.scss';
 
-const ComicReviewPage = ({ signedUser }) => {
+const ComicReviewPage = () => {
   const { reviewId } = useParams();
 
   const { data: { review } = {}, loading } = useQuery(REVIEW, {
@@ -38,8 +37,4 @@ const ComicReviewPage = ({ signedUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  signedUser: state.user.signedUser,
-});
-
-export default connect(mapStateToProps)(ComicReviewPage);
+export default ComicReviewPage;

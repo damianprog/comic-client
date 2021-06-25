@@ -2,7 +2,7 @@ import MarvelApiBase from '../marvel-api-base/marvel-api-base';
 import restructureApiComic from './restructure-api-comic';
 
 const GetComicsByTitle = (title, limit) => {
-  const url = `https://gateway.marvel.com/v1/public/comics?format=comic&title=${title}&limit=${limit}noVariants=true&orderBy=-onsaleDate&apikey=2e000938355ab5a08959af26a65ae33f`;
+  const url = `https://gateway.marvel.com/v1/public/comics?format=comic&title=${title}&limit=${limit}noVariants=true&orderBy=-onsaleDate&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
   const cachedItems = window.localStorage.getItem(url);
   if (cachedItems) {
     return JSON.parse(cachedItems);

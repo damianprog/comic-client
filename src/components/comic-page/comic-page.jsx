@@ -4,61 +4,43 @@ import ComicPageDetails from './comic-page-details';
 import ComicsPreview from '../comics-preview/comics-preview';
 
 import GetComic from '../../api-utils/get-comic';
-import GetSeries from '../../api-utils/get-series';
 import GetComicsFromSeries from '../../api-utils/get-comics-from-series';
 
 import './comic-page.scss';
 import ComicPageReviews from '../comic-reviews/comic-reviews';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-class ComicPage extends React.Component {
-  constructor(props) {
-    super(props);
+const ComicPage = () => {
+  const [comic, setComic] = useState({});
+  const [comicsFromSeries, setComicsFromSeries] = useState([]);
+  const { comicId } = useParams();
 
-    this.state = {
-      comic: {},
-      comicsFromSeries: [],
+  useEffect(() => {
+    const fetchComicData = async () => {
+      const fetchedComic = await GetComic(comicId);
+      const fetchedComicsFromSeries = await GetComicsFromSeries(
+        fetchedComic.seriesId
+      );
+
+      setComic(fetchedComic);
+      setComicsFromSeries(fetchedComicsFromSeries);
     };
-  }
 
-  componentDidMount() {
-    this.updateState();
-  }
+    fetchComicData();
+  }, [comicId]);
 
-  async componentDidUpdate(prevProps) {
-    if (prevProps.match.params.comicId !== this.props.match.params.comicId) {
-      await this.updateState();
-    }
-  }
-
-  async updateState() {
-    await this.setComic();
-    await this.setComicsFromSeries(this.state.comic.seriesId);
-  }
-
-  async setComic() {
-    const comic = await GetComic(this.props.match.params.comicId);
-    this.setState({ comic });
-  }
-
-  async setComicsFromSeries(seriesId) {
-    const comicsFromSeries = await GetComicsFromSeries(seriesId);
-    this.setState({ comicsFromSeries });
-  }
-
-  render() {
-    const { comic, comicsFromSeries } = this.state;
-
-    return (
-      <section className="comic">
-        <ComicPageDetails comic={comic}></ComicPageDetails>
-        <ComicPageReviews comic={comic} />
-        <ComicsPreview
-          comics={comicsFromSeries}
-          title="More form this series"
-        ></ComicsPreview>
-      </section>
-    );
-  }
-}
+  return (
+    <section className="comic">
+      <ComicPageDetails comic={comic}></ComicPageDetails>
+      <ComicPageReviews comic={comic} />
+      <ComicsPreview
+        comics={comicsFromSeries}
+        title="More form this series"
+      ></ComicsPreview>
+    </section>
+  );
+};
 
 export default ComicPage;
