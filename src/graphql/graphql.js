@@ -211,11 +211,11 @@ export const UPDATE_REVIEW = gql`
 `;
 
 export const USER_ACTIVITIES = gql`
-  query ($userId: ID!, $first: Int, $lastCreatedAt: String) {
+  query ($userId: ID!, $quantity: Int, $lastActivityCreatedAt: String) {
     userActivities(
       userId: $userId
-      first: $first
-      lastCreatedAt: $lastCreatedAt
+      quantity: $quantity
+      lastActivityCreatedAt: $lastActivityCreatedAt
     ) {
       ... on UserComic {
         id

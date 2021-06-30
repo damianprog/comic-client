@@ -27,7 +27,7 @@ const Profile = ({ signedUser }) => {
       nickname,
     },
     onCompleted({ user }) {
-      getUserActivities({ variables: { userId: user.id, first: 6 } });
+      getUserActivities({ variables: { userId: user.id, quantity: 30 } });
     },
   });
 

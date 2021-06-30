@@ -5,35 +5,36 @@ import UserActivitiesListItem from './user-activities-list-item';
 
 import './user-activities-list.scss';
 const UserActivitiesList = ({ userActivities, fetchMore }) => {
+  const shouldRenderWaypoint = (lastRenderedActivityIndex) =>
+    lastRenderedActivityIndex === userActivities.length - 11;
+
+  const lastActivityCreatedAt = () =>
+    userActivities[userActivities.length - 1].createdAt;
+
+  const loadMoreActivities = () => {
+    fetchMore({
+      variables: {
+        quantity: 30,
+        lastActivityCreatedAt: lastActivityCreatedAt(),
+      },
+      updateQuery: (_, { fetchMoreResult }) => {
+        return {
+          userActivities: [
+            ...userActivities,
+            ...fetchMoreResult.userActivities,
+          ],
+        };
+      },
+    });
+  };
+
   return (
     <div className="user-activities-list">
       {userActivities.map((userActivity, index) => (
         <Fragment key={userActivity.id + userActivity.__typename}>
           <UserActivitiesListItem userActivity={userActivity} />
-          {index === userActivities.length - 4 && (
-            <Waypoint
-              onEnter={() => {
-                fetchMore({
-                  variables: {
-                    first: 6,
-                    lastCreatedAt:
-                      userActivities[userActivities.length - 1].createdAt,
-                  },
-                  updateQuery: (pv, { fetchMoreResult }) => {
-                    if (!fetchMoreResult) {
-                      return pv;
-                    }
-
-                    return {
-                      userActivities: [
-                        ...userActivities,
-                        ...fetchMoreResult.userActivities,
-                      ],
-                    };
-                  },
-                });
-              }}
-            />
+          {shouldRenderWaypoint(index) && (
+            <Waypoint onEnter={loadMoreActivities} />
           )}
         </Fragment>
       ))}
