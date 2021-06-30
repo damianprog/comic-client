@@ -19,7 +19,7 @@ const Profile = ({ signedUser }) => {
     setOpenEditDialog(!openEditDialog);
   };
 
-  const [getUserActivities, { data: { userActivities } = {} }] =
+  const [getUserActivities, { data: { userActivities } = {}, fetchMore }] =
     useLazyQuery(USER_ACTIVITIES);
 
   const { data: { user: profileUser } = {} } = useQuery(USER, {
@@ -27,7 +27,7 @@ const Profile = ({ signedUser }) => {
       nickname,
     },
     onCompleted({ user }) {
-      getUserActivities({ variables: { userId: user.id, first: 10 } });
+      getUserActivities({ variables: { userId: user.id, first: 6 } });
     },
   });
 
@@ -102,7 +102,10 @@ const Profile = ({ signedUser }) => {
         </header>
         <div className="profile-content">
           {userActivities && (
-            <UserActivitiesList userActivities={userActivities} />
+            <UserActivitiesList
+              userActivities={userActivities}
+              fetchMore={fetchMore}
+            />
           )}
         </div>
 

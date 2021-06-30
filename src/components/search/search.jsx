@@ -19,14 +19,16 @@ const SearchComics = () => {
 
   const getComics = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    setNoMatches(false);
+    if (title !== '') {
+      setLoading(true);
+      setNoMatches(false);
 
-    const foundComics = await GetComicsByTitle(title, 100);
+      const foundComics = await GetComicsByTitle(title, 100);
 
-    setComics(foundComics);
-    setLoading(false);
-    setNoMatches(foundComics.length === 0);
+      setComics(foundComics);
+      setLoading(false);
+      setNoMatches(foundComics.length === 0);
+    }
   };
 
   return (

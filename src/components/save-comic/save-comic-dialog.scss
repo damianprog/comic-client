@@ -31,16 +31,15 @@
   }
 
   @media (max-width: 600px) {
+    .MuiDialog-container {
+      display: flex;
+      align-items: flex-end;
+    }
+
     .MuiDialog-paper {
       margin: 0;
-    }
-
-    .MuiDialog-paperWidthSm {
       width: 100%;
-    }
-
-    .MuiDialog-scrollPaper {
-      align-items: flex-end;
+      max-width: 100%;
     }
   }
 }
