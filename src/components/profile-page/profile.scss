@@ -81,35 +81,15 @@
     }
   }
 
-  .edit-profile-buttons {
-    button {
-      position: absolute;
-      right: 28px;
-      top: -53px;
-      border: 1px solid #5c5c5c;
-      border-radius: 20px;
-      height: 38px;
-
-      @media (max-width: 600px) {
-        top: -33px;
-      }
-    }
-
-    .edit-profile-link {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .edit-dialog-btn {
-        display: none;
-      }
-      .edit-profile-link {
-        display: block;
-      }
-    }
+  .edit-profile-activator {
+    position: absolute;
+    right: 28px;
+    top: -53px;
   }
 
-  .edit-profile-btn:hover {
-    background-color: #fff;
+  @media (max-width: 600px) {
+    .edit-profile-activator {
+      top: -33px;
+    }
   }
 }

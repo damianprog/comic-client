@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
-import { Button, CircularProgress } from '@material-ui/core';
+import React from 'react';
+import { CircularProgress } from '@material-ui/core';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { USER, USER_ACTIVITIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { DateRange } from '@material-ui/icons';
-import EditProfileDialog from '../edit-profile/edit-profile-dialog';
 
 import './profile.scss';
 import ProfileAvatarBackground from './profile-avatar-background';
 import { Link, useParams } from 'react-router-dom';
 import UserActivitiesList from '../user-activities/user-activities-list';
+import EditProfileActivator from '../edit-profile/edit-profile-activator';
 
 const Profile = ({ signedUser }) => {
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const { nickname } = useParams();
 
-  const toggleEditDialog = () => {
-    setOpenEditDialog(!openEditDialog);
-  };
-
   const [getUserActivities, { data: { userActivities } = {}, fetchMore }] =
-    useLazyQuery(USER_ACTIVITIES);
+    useLazyQuery(USER_ACTIVITIES, { fetchPolicy: 'network-only' });
 
   const { data: { user: profileUser } = {} } = useQuery(USER, {
+    fetchPolicy: 'network-only',
     variables: {
       nickname,
     },
@@ -53,20 +49,9 @@ const Profile = ({ signedUser }) => {
             backgroundImage={backgroundImage}
           />
           <div className="header-details">
-            {signedUser && signedUser.id === profileUser.id ? (
-              <div className="edit-profile-buttons">
-                <Button
-                  className="edit-dialog-btn"
-                  variant="outlined"
-                  onClick={toggleEditDialog}
-                >
-                  Edit Profile
-                </Button>
-                <Link className="edit-profile-link" to="/edit-profile">
-                  <Button variant="outlined">Edit Profile</Button>
-                </Link>
-              </div>
-            ) : null}
+            {signedUser && signedUser.id === profileUser.id && (
+              <EditProfileActivator profileUser={profileUser} />
+            )}
             <h2>{nickname}</h2>
             <p className="joined">
               <DateRange /> <span>Joined {joinedDate()}</span>
@@ -108,12 +93,6 @@ const Profile = ({ signedUser }) => {
             />
           )}
         </div>
-
-        <EditProfileDialog
-          open={openEditDialog}
-          closeDialog={toggleEditDialog}
-          profileUser={profileUser}
-        ></EditProfileDialog>
       </section>
     );
   } else {
