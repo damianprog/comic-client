@@ -23,7 +23,6 @@ const SaveComicDialog = ({ comic, open, closeDialog }) => {
       onClose={closeDialog}
       aria-labelledby="form-dialog-title"
       className="save-comic-dialog"
-      scroll="body"
       disableScrollLock
       disableBackdropClick
       maxWidth={false}

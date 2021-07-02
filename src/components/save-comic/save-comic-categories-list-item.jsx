@@ -45,6 +45,8 @@ const SaveComicCategoriesListItem = ({ comic, category, userComics = [] }) => {
       (userComic) => userComic.category === category
     );
 
+    console.log('toggleComicCategory');
+
     if (userComic) {
       deleteUserComic({ variables: { id: userComic.id } });
     } else {

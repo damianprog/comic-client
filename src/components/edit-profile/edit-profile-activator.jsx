@@ -6,12 +6,11 @@ import EditProfileDialog from './edit-profile-dialog';
 
 const EditProfileActivator = ({ profileUser }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const history = useHistory();
 
   const toggleEditDialog = () => {
     setOpenEditDialog(!openEditDialog);
   };
-
-  const history = useHistory();
 
   const showEditProfile = () => {
     window.innerWidth > 600
