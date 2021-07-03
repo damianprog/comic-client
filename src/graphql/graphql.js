@@ -260,3 +260,23 @@ export const USER_ACTIVITIES = gql`
     }
   }
 `;
+
+export const REVIEWS = gql`
+  query ($comicId: ID, $userId: ID) {
+    reviews(comicId: $comicId, userId: $userId) {
+      id
+      user {
+        id
+        nickname
+        userDetails {
+          profileImage
+        }
+      }
+      comic {
+        id
+      }
+      text
+      createdAt
+    }
+  }
+`;

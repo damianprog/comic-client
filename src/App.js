@@ -4,19 +4,19 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
 
-import HomePage from './components/home-page/home-page';
-import ComicPage from './components/comic-page/comic-page';
+import Homepage from './components/homepage/homepage';
+import ComicIssuePage from './components/comic-issue/comic-issue-page';
 import Search from './components/search/search';
 import SignPage from './components/sign/sign-page';
-import Profile from './components/profile-page/profile';
+import ProfilePage from './components/profile/profile-page';
 import EditProfilePage from './components/edit-profile/edit-profile-page';
 import Library from './components/library/library';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import ComicReviewsCreationPage from './components/comic-reviews/creation/comic-reviews-creation-page';
-import SignoutPage from './components/signout-page/signout-page';
+import ComicReviewCreationPage from './components/comic-review-creation/comic-review-creation-page';
+import SignoutPage from './components/signout/signout-page';
 import SignDependentRoute from './components/router/sign-dependent-route';
-import ComicReviewPage from './components/comic-review-page/comic-review-page';
-import ComicReviewsUpdatePage from './components/comic-reviews/creation/comic-reviews-update-page';
+import ComicReviewPage from './components/comic-review/comic-review-page';
+import ComicReviewUpdatePage from './components/comic-review-creation/comic-review-update-page';
 // import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 function App() {
@@ -36,14 +36,14 @@ function App() {
       <ThemeProvider theme={theme}>
         <Header></Header>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={Homepage} />
           <Route exact path="/search" component={Search} />
-          <Route exact path="/comic/:comicId" component={ComicPage} />
+          <Route exact path="/comic/:comicId" component={ComicIssuePage} />
           <SignDependentRoute
             forSigned
             exact
             path="/comic/:comicId/reviews/create"
-            component={ComicReviewsCreationPage}
+            component={ComicReviewCreationPage}
           />
           <SignDependentRoute exact path="/sign/:form" component={SignPage} />
           <SignDependentRoute
@@ -52,7 +52,7 @@ function App() {
             path="/signout"
             component={SignoutPage}
           />
-          <Route exact path="/profile/:nickname" component={Profile} />
+          <Route exact path="/profile/:nickname" component={ProfilePage} />
           <Route exact path="/profile/:nickname/library" component={Library} />
           <SignDependentRoute
             forSigned
@@ -65,7 +65,7 @@ function App() {
             forSigned
             exact
             path="/reviews/:reviewId/update"
-            component={ComicReviewsUpdatePage}
+            component={ComicReviewUpdatePage}
           />
         </Switch>
       </ThemeProvider>

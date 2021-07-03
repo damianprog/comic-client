@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, CircularProgress, IconButton } from '@material-ui/core';
 import './edit-profile.scss';
 import { Close } from '@material-ui/icons';
-import ProfileAvatarBackground from '../profile-page/profile-avatar-background';
+import ProfileAvatarBackground from '../profile/profile-avatar-background';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import EditProfileForm from './edit-profile-form';

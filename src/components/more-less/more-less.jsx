@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Fragment } from 'react';
 import './more-less.scss';
 
 const MoreLess = ({ text, length }) => {
@@ -15,11 +16,14 @@ const MoreLess = ({ text, length }) => {
   return (
     <p className="more-less">
       {currentText()}
-      {!expand && '...'}
+
       {text.length > length && (
-        <span className="toggle" onClick={toggleExpand}>
-          {expand ? ' less' : ' more'}
-        </span>
+        <Fragment>
+          {!expand && '...'}
+          <span className="toggle" onClick={toggleExpand}>
+            {expand ? ' less' : ' more'}
+          </span>
+        </Fragment>
       )}
     </p>
   );
