@@ -6,21 +6,22 @@ const GetSeries = (id) => {
   if (cachedItem) {
     return JSON.parse(cachedItem);
   } else {
-    return MarvelApiBase.get('v1/public/series', {
-      params: {
-        id: id,
-        apikey: process.env.REACT_APP_MARVEL_API_KEY,
-      },
-    })
-      .then((res) => {
-        const result = res.data.data.results[0];
-        window.localStorage.setItem(url, JSON.stringify(result));
-        return result;
-      })
-      .catch((rejectedValue) => {
-        console.log('Fetching series data failed... ', rejectedValue);
-        return {};
+    try {
+      const fetchSeriesResponse = MarvelApiBase.get('v1/public/series', {
+        params: {
+          id: id,
+          apikey: process.env.REACT_APP_MARVEL_API_KEY,
+        },
       });
+
+      const fetchedSeries = fetchSeriesResponse.data.data.results[0];
+
+      window.localStorage.setItem(url, JSON.stringify(fetchedSeries));
+
+      return fetchedSeries;
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

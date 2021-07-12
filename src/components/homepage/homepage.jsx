@@ -11,9 +11,19 @@ const Homepage = () => {
   const [thirdPreviewComics, setThirdPreviewComics] = useState([]);
 
   useEffect(() => {
-    setFirstPreviewComics(GetComicsByTitle('Iron Man', 10));
-    setSecondPreviewComics(GetComicsByTitle('Black Widow', 10));
-    setThirdPreviewComics(GetComicsByTitle('Guardians of the Galaxy', 10));
+    const setPreviews = async () => {
+      let firstPreviewSet = await GetComicsByTitle('Iron Man', 10);
+      let secondPreviewSet = await GetComicsByTitle('Black Widow', 10);
+      let thirdPreviewSet = await GetComicsByTitle(
+        'Guardians of the Galaxy',
+        10
+      );
+
+      firstPreviewSet && setFirstPreviewComics(firstPreviewSet);
+      secondPreviewSet && setSecondPreviewComics(secondPreviewSet);
+      thirdPreviewSet && setThirdPreviewComics(thirdPreviewSet);
+    };
+    setPreviews();
   }, []);
 
   return (

@@ -47,10 +47,6 @@ const EditProfile = ({
     },
   });
 
-  const onSave = async () => {
-    updateUser();
-  };
-
   return (
     <div className="edit-profile">
       <div className="header">
@@ -63,7 +59,7 @@ const EditProfile = ({
           <h2>Edit Profile</h2>
         </div>
         <Button
-          onClick={onSave}
+          onClick={updateUser}
           disabled={loading}
           disableElevation
           variant="contained"

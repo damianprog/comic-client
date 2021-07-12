@@ -36,7 +36,7 @@ const SigninForm = ({ onSign, setSignedUser }) => {
     },
   });
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
     loginUser();
   };

@@ -3,16 +3,16 @@ import { Fragment } from 'react';
 import { REVIEWS, USER_COMICS } from '../../graphql/graphql';
 import './profile-details-statistics.scss';
 
-const ProfileDetailsStatistics = ({ profileUser }) => {
+const ProfileDetailsStatistics = ({ userId }) => {
   const { data: { reviews } = {} } = useQuery(REVIEWS, {
     variables: {
-      userId: profileUser.id,
+      userId,
     },
   });
 
   const { data: { userComics } = {} } = useQuery(USER_COMICS, {
     variables: {
-      userId: profileUser.id,
+      userId,
     },
   });
 

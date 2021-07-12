@@ -46,7 +46,7 @@ const SignupForm = ({ setSignedUser, onSign }) => {
     return match;
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (passwordsMatch()) registerUser();

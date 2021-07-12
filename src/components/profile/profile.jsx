@@ -1,105 +1,76 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import { USER, USER_ACTIVITIES } from '../../graphql/graphql';
+import { useLazyQuery } from '@apollo/client';
+import { USER_ACTIVITIES } from '../../graphql/graphql';
 import { connect } from 'react-redux';
 import { DateRange } from '@material-ui/icons';
 
 import './profile.scss';
 import ProfileAvatarBackground from './profile-avatar-background';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserActivitiesList from '../user-activities/user-activities-list';
 import EditProfileActivator from '../edit-profile/edit-profile-activator';
 import ProfilePageDetailsStatistics from './profile-details-statistics';
+import ProfileDetailsAbout from './profile-details-about';
+import { useEffect } from 'react';
 
-const Profile = ({ signedUser }) => {
-  const { nickname } = useParams();
-
+const Profile = ({ user, signedUser }) => {
   const [getUserActivities, { data: { userActivities } = {}, fetchMore }] =
     useLazyQuery(USER_ACTIVITIES, { fetchPolicy: 'network-only' });
 
-  const { data: { user: profileUser } = {} } = useQuery(USER, {
-    fetchPolicy: 'network-only',
-    variables: {
-      nickname,
-    },
-    onCompleted({ user }) {
+  useEffect(() => {
+    if (user) {
       getUserActivities({ variables: { userId: user.id, quantity: 30 } });
-    },
-  });
+    }
+  }, [user]);
 
-  const isSignedUserProfileUser = () =>
-    signedUser && profileUser && signedUser.id === profileUser.id;
+  const isSignedUseruser = () =>
+    signedUser && user && signedUser.id === user.id;
 
   const joinedDate = () => {
-    const parsedDate = new Date(parseInt(profileUser.createdAt));
+    const parsedDate = new Date(parseInt(user.createdAt));
     const dateOptions = { month: 'long', year: 'numeric' };
     return parsedDate.toLocaleDateString('en-US', dateOptions);
   };
 
-  let profileMarkup;
+  const {
+    id,
+    nickname,
+    userDetails: { interests, about, profileImage, backgroundImage },
+  } = user;
 
-  if (profileUser) {
-    const {
-      nickname,
-      userDetails: { about, interests, profileImage, backgroundImage },
-    } = profileUser;
-
-    profileMarkup = (
-      <section className="profile">
-        <header>
-          <ProfileAvatarBackground
-            profileImage={profileImage}
-            backgroundImage={backgroundImage}
+  return (
+    <div className="profile">
+      <header>
+        <ProfileAvatarBackground
+          profileImage={profileImage}
+          backgroundImage={backgroundImage}
+        />
+        <div className="header-details">
+          {isSignedUseruser() && <EditProfileActivator user={user} />}
+          <h2>{nickname}</h2>
+          <p className="joined">
+            <DateRange /> <span>Joined {joinedDate()}</span>
+          </p>
+          <ProfilePageDetailsStatistics userId={id} />
+          <Link
+            to={`/profile/${user.nickname}/library`}
+            className="library-link"
+          >
+            <b>{nickname}'s</b> Library
+          </Link>
+          <ProfileDetailsAbout interests={interests} about={about} />
+        </div>
+      </header>
+      <div className="profile-content">
+        {userActivities && (
+          <UserActivitiesList
+            userActivities={userActivities}
+            fetchMore={fetchMore}
           />
-          <div className="header-details">
-            {isSignedUserProfileUser() && (
-              <EditProfileActivator profileUser={profileUser} />
-            )}
-            <h2>{nickname}</h2>
-            <p className="joined">
-              <DateRange /> <span>Joined {joinedDate()}</span>
-            </p>
-            <ProfilePageDetailsStatistics profileUser={profileUser} />
-            <Link
-              to={`/profile/${profileUser.nickname}/library`}
-              className="library-link"
-            >
-              <b>{nickname}'s</b> Library
-            </Link>
-            <div className="about">
-              <p>
-                <b>Interests: </b>
-                {interests}
-              </p>
-              <p>
-                <b>About Me: </b>
-                {about}
-              </p>
-            </div>
-          </div>
-        </header>
-        <div className="profile-content">
-          {userActivities && (
-            <UserActivitiesList
-              userActivities={userActivities}
-              fetchMore={fetchMore}
-            />
-          )}
-        </div>
-      </section>
-    );
-  } else {
-    profileMarkup = (
-      <section className="profile">
-        <div className="loading">
-          <CircularProgress />
-        </div>
-      </section>
-    );
-  }
-
-  return profileMarkup;
+        )}
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({

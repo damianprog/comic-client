@@ -23,7 +23,8 @@ const SearchComics = () => {
       setLoading(true);
       setNoMatches(false);
 
-      const foundComics = await GetComicsByTitle(title, 100);
+      let foundComics = await GetComicsByTitle(title, 100);
+      foundComics = foundComics ? foundComics : [];
 
       setComics(foundComics);
       setLoading(false);

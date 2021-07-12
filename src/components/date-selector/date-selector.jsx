@@ -38,7 +38,7 @@ const DateSelector = ({ onChange, error, defaultDate }) => {
     return years;
   };
 
-  const onDateInputChange = async (event) => {
+  const onDateInputChange = (event) => {
     setDateValues({
       ...dateValues,
       [event.target.name]: event.target.value,

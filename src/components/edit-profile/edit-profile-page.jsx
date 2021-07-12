@@ -21,7 +21,7 @@ const EditProfilePage = ({ signedUser }) => {
   return (
     <div className="edit-profile-page">
       <div className="wrapper">
-        {profileUser ? <EditProfile profileUser={profileUser} /> : null}
+        {profileUser && <EditProfile profileUser={profileUser} />}
       </div>
     </div>
   );

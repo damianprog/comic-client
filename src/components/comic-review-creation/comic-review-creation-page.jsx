@@ -9,7 +9,12 @@ const ComicReviewCreationPage = () => {
   const [comic, setComic] = useState();
 
   useEffect(() => {
-    setComic(GetComic(comicId));
+    const fetchComic = async () => {
+      const fetchedComic = await GetComic(comicId);
+      fetchedComic && setComic(fetchedComic);
+    };
+
+    fetchComic();
   }, [comicId]);
 
   return (

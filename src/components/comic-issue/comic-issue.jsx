@@ -3,32 +3,27 @@ import React from 'react';
 import ComicIssueDetails from './comic-issue-details';
 import ComicsPreview from '../comics-preview/comics-preview';
 
-import GetComic from '../../api-utils/get-comic';
 import GetComicsFromSeries from '../../api-utils/get-comics-from-series';
 
 import ComicIssueReviews from './reviews/comic-issue-reviews';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
-const ComicIssue = () => {
-  const [comic, setComic] = useState({});
+const ComicIssue = ({ comic }) => {
   const [comicsFromSeries, setComicsFromSeries] = useState([]);
-  const { comicId } = useParams();
 
   useEffect(() => {
     const fetchComicData = async () => {
-      const fetchedComic = await GetComic(comicId);
-      const fetchedComicsFromSeries = await GetComicsFromSeries(
-        fetchedComic.seriesId
-      );
+      let fetchedComicsFromSeries = await GetComicsFromSeries(comic.seriesId);
+      fetchedComicsFromSeries = fetchedComicsFromSeries
+        ? fetchedComicsFromSeries
+        : [];
 
-      setComic(fetchedComic);
       setComicsFromSeries(fetchedComicsFromSeries);
     };
 
     fetchComicData();
-  }, [comicId]);
+  }, [comic]);
 
   return (
     <div className="comic-issue">
