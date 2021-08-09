@@ -46,7 +46,7 @@ const Profile = ({ user, signedUser }) => {
           backgroundImage={backgroundImage}
         />
         <div className="header-details">
-          {isSignedUseruser() && <EditProfileActivator user={user} />}
+          {isSignedUseruser() && <EditProfileActivator profileUser={user} />}
           <h2>{nickname}</h2>
           <p className="joined">
             <DateRange /> <span>Joined {joinedDate()}</span>

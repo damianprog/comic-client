@@ -1,11 +1,12 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
 import restructureApiComic from './restructure-api-comic';
+import { isCachedDataValid } from './utils';
 
 const GetComicsFromSeries = async (seriesId) => {
   const url = `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?limit=10&noVariants=true&orderBy=issueNumber&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
-  const cachedItems = window.localStorage.getItem(url);
-  if (cachedItems) {
-    return JSON.parse(cachedItems);
+  const cachedData = JSON.parse(window.localStorage.getItem(url));
+  if (isCachedDataValid(cachedData)) {
+    return cachedData.result;
   } else {
     try {
       const fetchComicsResponse = await MarvelApiBase.get(
@@ -29,7 +30,12 @@ const GetComicsFromSeries = async (seriesId) => {
         fetchedComicsWithImages.map((comic) => restructureApiComic(comic))
       );
 
-      window.localStorage.setItem(url, JSON.stringify(restructuredComics));
+      const newCachedData = {
+        result: restructuredComics,
+        expirationDate: Date.now() + 3600 * 24 * 1000,
+      };
+
+      window.localStorage.setItem(url, JSON.stringify(newCachedData));
       return restructuredComics;
     } catch (error) {
       console.log(error);

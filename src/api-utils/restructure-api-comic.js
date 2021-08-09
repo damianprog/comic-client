@@ -43,10 +43,10 @@ const getComicDescription = async (comic) => {
   } else {
     const seriesId = getSeriesId(comic);
     if (seriesId) {
-      const series = await GetSeries(seriesId);
-      if (series) {
-        description = series.description ? series.description : '';
-      }
+      // const series = await GetSeries(seriesId);
+      // if (series) {
+      //   description = series.description ? series.description : '';
+      // }
     }
   }
 

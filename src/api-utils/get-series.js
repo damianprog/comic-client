@@ -1,10 +1,11 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
+import { isCachedDataValid } from './utils';
 
 const GetSeries = (id) => {
   const url = `https://gateway.marvel.com/v1/public/series?id=${id}&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
-  const cachedItem = window.localStorage.getItem(url);
-  if (cachedItem) {
-    return JSON.parse(cachedItem);
+  const cachedData = JSON.parse(window.localStorage.getItem(url));
+  if (isCachedDataValid(cachedData)) {
+    return cachedData.result;
   } else {
     try {
       const fetchSeriesResponse = MarvelApiBase.get('v1/public/series', {
@@ -16,7 +17,12 @@ const GetSeries = (id) => {
 
       const fetchedSeries = fetchSeriesResponse.data.data.results[0];
 
-      window.localStorage.setItem(url, JSON.stringify(fetchedSeries));
+      const newCachedData = {
+        result: fetchedSeries,
+        expirationDate: Date.now() + 3600 * 24 * 1000,
+      };
+
+      window.localStorage.setItem(url, JSON.stringify(newCachedData));
 
       return fetchedSeries;
     } catch (error) {
