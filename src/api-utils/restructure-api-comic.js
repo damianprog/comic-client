@@ -1,5 +1,4 @@
-import GetSeries from './get-series';
-import he from 'he';
+import StripHtmlTags from '../utils/strip-html-tags';
 
 const getCoverImage = (comic) => {
   const { images } = comic;
@@ -29,30 +28,8 @@ const getSeriesId = (comic) => {
   return comic.series ? comic.series.resourceURI.split('/').pop() : '';
 };
 
-const stripHtmlTags = (string) => {
-  const stripedHtml = string.replace(/(<([^>]+)>)/gi, '');
-  const decodedStripedHtml = he.decode(stripedHtml);
-  return decodedStripedHtml;
-};
-
-const getComicDescription = async (comic) => {
-  let description = '';
-
-  if (comic.description && comic.description !== '') {
-    description = comic.description;
-  } else {
-    const seriesId = getSeriesId(comic);
-    if (seriesId) {
-      // const series = await GetSeries(seriesId);
-      // if (series) {
-      //   description = series.description ? series.description : '';
-      // }
-    }
-  }
-
-  description = stripHtmlTags(description);
-
-  return description;
+const getComicDescription = (comic) => {
+  return comic.description ? StripHtmlTags(comic.description) : '';
 };
 
 const restructureApiComic = async (comic) => {
@@ -61,7 +38,7 @@ const restructureApiComic = async (comic) => {
     title: comic.title,
   };
 
-  restructuredComic.description = await getComicDescription(comic);
+  restructuredComic.description = getComicDescription(comic);
   restructuredComic.coverImage = getCoverImage(comic);
   restructuredComic.onsaleDate = getOnsaleDate(comic);
   restructuredComic.writer = getCreatorByRole(comic, 'writer');

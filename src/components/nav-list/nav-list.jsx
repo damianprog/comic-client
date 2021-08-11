@@ -1,23 +1,15 @@
 import React from 'react';
-import { SIGNOUT } from '../../graphql/graphql';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setSignedUser } from '../redux/user/user-actions';
-import { useMutation } from '@apollo/client';
 
 import './nav-list.scss';
 
-const NavList = ({ signedUser, setSignedUser, close }) => {
-  const [signoutUser] = useMutation(SIGNOUT, {
-    onError(err) {
-      console.log(err);
-    },
-  });
+const NavList = ({ signedUser, close }) => {
+  const history = useHistory();
 
   const logout = () => {
     close();
-    setSignedUser(null);
-    signoutUser();
+    history.push('/signout');
   };
 
   return (
@@ -47,8 +39,4 @@ const mapStateToProps = (state) => ({
   signedUser: state.user.signedUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setSignedUser: (user) => dispatch(setSignedUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavList);
+export default connect(mapStateToProps)(NavList);

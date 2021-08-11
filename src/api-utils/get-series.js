@@ -1,14 +1,14 @@
 import MarvelApiBase from '../marvel-api-base/marvel-api-base';
 import { isCachedDataValid } from './utils';
 
-const GetSeries = (id) => {
+const GetSeries = async (id) => {
   const url = `https://gateway.marvel.com/v1/public/series?id=${id}&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
   const cachedData = JSON.parse(window.localStorage.getItem(url));
   if (isCachedDataValid(cachedData)) {
     return cachedData.result;
   } else {
     try {
-      const fetchSeriesResponse = MarvelApiBase.get('v1/public/series', {
+      const fetchSeriesResponse = await MarvelApiBase.get('v1/public/series', {
         params: {
           id: id,
           apikey: process.env.REACT_APP_MARVEL_API_KEY,
