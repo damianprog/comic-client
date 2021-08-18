@@ -17,6 +17,7 @@ const EditProfile = ({
   history,
   setSignedUser,
 }) => {
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     nickname,
     birthDate,
@@ -26,6 +27,8 @@ const EditProfile = ({
 
   const onChange = (keyValue) => {
     setValues({ ...values, ...keyValue });
+    const key = Object.keys(keyValue)[0];
+    setErrors({ ...errors, [key]: null });
   };
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER, {
@@ -35,7 +38,7 @@ const EditProfile = ({
       history.push(`/profile/${result.data.updateUser.nickname}`);
     },
     onError(err) {
-      console.log(err);
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
     variables: {
       nickname: values.nickname,
@@ -79,7 +82,7 @@ const EditProfile = ({
           backgroundImage={userDetails.backgroundImage}
           showControlIcons
         />
-        <EditProfileForm onChange={onChange} values={values} />
+        <EditProfileForm onChange={onChange} values={values} errors={errors} />
       </div>
     </div>
   );

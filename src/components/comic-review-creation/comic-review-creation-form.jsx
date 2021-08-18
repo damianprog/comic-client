@@ -20,7 +20,7 @@ const ComicReviewCreationForm = ({ comic, history, update, review }) => {
     },
     onError(err) {
       console.log(err.graphQLErrors[0]);
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
     variables: {
       ...comic,
@@ -34,7 +34,7 @@ const ComicReviewCreationForm = ({ comic, history, update, review }) => {
     },
     onError(err) {
       console.log(err.graphQLErrors[0]);
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
     variables: {
       comicId: comic.id,
@@ -57,6 +57,7 @@ const ComicReviewCreationForm = ({ comic, history, update, review }) => {
         <textarea
           value={reviewText}
           onInput={onReviewInputChange}
+          maxLength="5000"
           className={`${errors.text ? 'error' : ''}`}
           required
         ></textarea>

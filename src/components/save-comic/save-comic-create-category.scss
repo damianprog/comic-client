@@ -19,9 +19,13 @@
       margin-top: 16px;
     }
 
-    .name-input {
-      .MuiInput-underline:after {
-        border-bottom: #202020;
+    p {
+      font-size: 12px;
+    }
+
+    .error {
+      .MuiInput-underline::after {
+        border-bottom: 2px solid #e62429;
       }
     }
   }

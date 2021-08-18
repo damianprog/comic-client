@@ -10,6 +10,7 @@ import { addUserComicToCache } from '../../graphql/utils';
 const SaveComicCreateCategory = ({ comic, onCreate }) => {
   const [showForm, setShowForm] = useState(false);
   const [category, setCategory] = useState('');
+  const [errors, setErrors] = useState({});
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -26,7 +27,9 @@ const SaveComicCreateCategory = ({ comic, onCreate }) => {
   };
 
   const onChangeCategory = (event) => {
-    setCategory(event.target.value);
+    const categoryName = event.target.value;
+    setCategory(categoryName);
+    setErrors({ ...errors, category: null });
   };
 
   const [createUserComic] = useMutation(CREATE_USER_COMIC, {
@@ -50,7 +53,7 @@ const SaveComicCreateCategory = ({ comic, onCreate }) => {
       onCreate();
     },
     onError(err) {
-      onCreate();
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
   });
 
@@ -58,10 +61,14 @@ const SaveComicCreateCategory = ({ comic, onCreate }) => {
     <div className="save-comic-create-category">
       {showForm ? (
         <form onSubmit={createCategory}>
+          {errors.category && <p>{errors.category}</p>}
           <TextField
             focused
             placeholder="Enter category name..."
             onChange={onChangeCategory}
+            name="category"
+            className={errors.category ? 'error' : ''}
+            inputProps={{ maxLength: 20 }}
             label="Name"
           />
           <Button type="submit" className="create-btn" disableRipple>

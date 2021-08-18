@@ -3,7 +3,7 @@ import restructureApiComic from './restructure-api-comic';
 import { isCachedDataValid } from './utils';
 
 const GetComicsFromSeries = async (seriesId) => {
-  const url = `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?limit=10&noVariants=true&orderBy=issueNumber&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
+  const url = `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?noVariants=true&orderBy=issueNumber&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
   const cachedData = JSON.parse(window.localStorage.getItem(url));
   if (isCachedDataValid(cachedData)) {
     return cachedData.result;
@@ -13,7 +13,6 @@ const GetComicsFromSeries = async (seriesId) => {
         `v1/public/series/${seriesId}/comics`,
         {
           params: {
-            limit: 10,
             noVariants: true,
             orderBy: 'issueNumber',
             apikey: process.env.REACT_APP_MARVEL_API_KEY,
@@ -26,8 +25,8 @@ const GetComicsFromSeries = async (seriesId) => {
         (comic) => comic.images.length > 0
       );
 
-      const restructuredComics = await Promise.all(
-        fetchedComicsWithImages.map((comic) => restructureApiComic(comic))
+      const restructuredComics = fetchedComicsWithImages.map((comic) =>
+        restructureApiComic(comic)
       );
 
       const newCachedData = {

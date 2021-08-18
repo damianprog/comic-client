@@ -26,8 +26,8 @@ const GetComicsByTitle = async (title, limit) => {
         (comic) => comic.images.length > 0
       );
 
-      const restructuredComics = await Promise.all(
-        fetchedComicsWithImages.map((comic) => restructureApiComic(comic))
+      const restructuredComics = fetchedComicsWithImages.map((comic) =>
+        restructureApiComic(comic)
       );
 
       const newCachedData = {

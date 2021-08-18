@@ -9,7 +9,7 @@
 
   .content {
     padding: 3px 10px;
-    flex: 100%;
+    width: calc(100% - 60px);
 
     .header {
       display: flex;
@@ -27,6 +27,7 @@
 
     p {
       margin: 5px 0;
+      word-wrap: break-word;
     }
 
     .more {

@@ -24,9 +24,6 @@ const ProfileDetailsStatistics = ({ userId }) => {
             <b>{reviews.length}</b> Reviews
           </span>
           <span>
-            <b>28</b> Ratings
-          </span>
-          <span>
             <b>{userComics.length}</b> Library Comics
           </span>
         </Fragment>

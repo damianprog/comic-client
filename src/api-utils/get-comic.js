@@ -5,7 +5,6 @@ import { isCachedDataValid } from './utils';
 const GetComic = async (id) => {
   const url = `https://gateway.marvel.com/v1/public/comics?id=${id}&apikey=${process.env.REACT_APP_MARVEL_API_KEY}`;
   const cachedData = JSON.parse(window.localStorage.getItem(url));
-
   if (isCachedDataValid(cachedData)) {
     return cachedData.result;
   } else {
@@ -19,7 +18,7 @@ const GetComic = async (id) => {
 
       const fetchedComic = fetchComicResponse.data.data.results[0];
 
-      const restructuredComic = await restructureApiComic(fetchedComic);
+      const restructuredComic = restructureApiComic(fetchedComic);
 
       const newCachedData = {
         result: restructuredComic,

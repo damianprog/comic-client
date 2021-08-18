@@ -26,8 +26,7 @@ const SignupForm = ({ setSignedUser, onSign }) => {
       onSign();
     },
     onError(err) {
-      console.log(err);
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
     variables: {
       nickname: values.nickname,

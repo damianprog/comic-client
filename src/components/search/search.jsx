@@ -23,7 +23,7 @@ const SearchComics = () => {
       setLoading(true);
       setNoMatches(false);
 
-      let foundComics = await GetComicsByTitle(title, 100);
+      let foundComics = await GetComicsByTitle(title, 50);
       foundComics = foundComics ? foundComics : [];
 
       setComics(foundComics);
@@ -37,7 +37,7 @@ const SearchComics = () => {
       <div className="search-input-container">
         <Search />
         <form onSubmit={getComics}>
-          <input onChange={updateTitle} placeholder="search" />
+          <input onChange={updateTitle} placeholder="search" maxLength="70" />
         </form>
       </div>
       {noMatches && <p className="no-matches-info">No matches found!</p>}

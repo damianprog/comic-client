@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import GetComic from '../../api-utils/get-comic';
+import SetDescriptionInComic from '../../api-utils/set-description-in-comic';
 import ComicReviewCreation from './comic-review-creation';
 import './comic-review-creation-page.scss';
 
@@ -10,8 +11,11 @@ const ComicReviewCreationPage = () => {
 
   useEffect(() => {
     const fetchComic = async () => {
-      const fetchedComic = await GetComic(comicId);
-      fetchedComic && setComic(fetchedComic);
+      let fetchedComic = await GetComic(comicId);
+      if (fetchedComic) {
+        fetchedComic = await SetDescriptionInComic(fetchedComic);
+        setComic(fetchedComic);
+      }
     };
 
     fetchComic();

@@ -32,7 +32,7 @@ const getComicDescription = (comic) => {
   return comic.description ? StripHtmlTags(comic.description) : '';
 };
 
-const restructureApiComic = async (comic) => {
+const restructureApiComic = (comic) => {
   const restructuredComic = {
     id: String(comic.id),
     title: comic.title,

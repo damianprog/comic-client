@@ -26,7 +26,7 @@ const SigninForm = ({ onSign, setSignedUser }) => {
       }
     },
     onError(err) {
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception);
     },
     variables: {
       nickname: values.nickname,
@@ -59,6 +59,7 @@ const SigninForm = ({ onSign, setSignedUser }) => {
         placeholder="Email"
         name="email"
         type="email"
+        maxLength="60"
         className={errors.email ? 'error' : ''}
         onChange={onInputChange}
         required
@@ -68,6 +69,7 @@ const SigninForm = ({ onSign, setSignedUser }) => {
         placeholder="Password"
         name="password"
         type="password"
+        maxLength="25"
         className={errors.password ? 'error' : ''}
         onChange={onInputChange}
         required

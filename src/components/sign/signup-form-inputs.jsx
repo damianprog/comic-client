@@ -19,6 +19,7 @@ const SignupFormInputs = ({ onInputChange, errors }) => {
         placeholder="Nickname"
         name="nickname"
         type="text"
+        maxLength="20"
         className={errors.nickname ? 'error' : ''}
         onChange={onChange}
         required
@@ -28,6 +29,7 @@ const SignupFormInputs = ({ onInputChange, errors }) => {
         placeholder="Email"
         name="email"
         type="email"
+        maxLength="60"
         className={errors.email ? 'error' : ''}
         onChange={onChange}
         required
@@ -37,6 +39,7 @@ const SignupFormInputs = ({ onInputChange, errors }) => {
         type="password"
         placeholder="Password"
         name="password"
+        maxLength="25"
         className={errors.password ? 'error' : ''}
         onChange={onChange}
         required
@@ -45,6 +48,7 @@ const SignupFormInputs = ({ onInputChange, errors }) => {
         type="password"
         placeholder="Confirm Password"
         name="confirmPassword"
+        maxLength="25"
         className={errors.password ? 'error' : ''}
         onChange={onChange}
         required
